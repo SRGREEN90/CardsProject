@@ -18,7 +18,7 @@ export const RoutesComponent = () => {
     return (
         <>
             <Routes>
-                <Route path={"/"} element={<Profile/>}/>
+                <Route path={"/"} element={<Error404/>}/>
                 <Route path={PATH.LOGIN} element={<Login/>}/>
                 <Route path={PATH.REGISTRATION} element={<Registration/>}/>
                 <Route path={PATH.PROFILE} element={<Profile/>}/>
