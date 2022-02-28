@@ -10,9 +10,11 @@
 
 .superInput:focus {
     outline: none;
+    border: 1px solid #003465;
 }
 
 .errorInput {
+    outline: none;
     border-right: 5px solid #b60004;
 }
 
