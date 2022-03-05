@@ -1,12 +1,12 @@
-import {combineReducers, createStore} from "redux";
-import {ThunkAction} from "redux-thunk";
+import {applyMiddleware, combineReducers, createStore} from "redux";
+import thunk, {ThunkAction} from "redux-thunk";
 import {authReducer} from "./authReducer";
 
 const rootReducer = combineReducers({
     auth: authReducer,
 })
 
-export const store = createStore(rootReducer);
+export const store = createStore(rootReducer, applyMiddleware(thunk));
 
 export type AppRootStateType = ReturnType<typeof rootReducer>
 
