@@ -10,6 +10,7 @@ const Header = () => {
                 <NavLink to={PATH.PROFILE}>PROFILE</NavLink>
                 <NavLink to={PATH.LOGIN}>LOGIN</NavLink>
                 <NavLink to={PATH.REGISTRATION}>REGISTRATION</NavLink>
+                <NavLink to={PATH.PASSWORD_RECOVERY}>PASSWORD_RECOVERY</NavLink>
             </nav>
         </header>
     )
