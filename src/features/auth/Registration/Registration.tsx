@@ -1,14 +1,23 @@
 import React, {useState} from 'react';
 import SuperButton from "../../../main/ui/common/SuperButton/SuperButton";
 import SuperInputText from "../../../main/ui/common/SuperInputText/SuperInputText";
-import {registrationAPI} from "../../../API/api-registration";
+import {useDispatch, useSelector} from "react-redux";
+import {registerTC} from "../../../main/bll/registerReducer";
+import {AppRootStateType} from "../../../main/bll/store";
+import {Navigate} from "react-router-dom";
 
 export const Registration = () => {
+  const dispatch = useDispatch();
+  const isRegistered = useSelector<AppRootStateType, boolean>(state => state.register.isRegistered)
   const [email, setEmail] = useState<string>('');
   const [password, setPassword] = useState<string>('');
 
   const onClickHandler = () => {
-    registrationAPI.register(email, password).then(res => console.log(res))
+    dispatch(registerTC(email, password))
+  }
+
+  if (isRegistered) {
+    return <Navigate to={"/login"}/>
   }
   return (
     <div>
