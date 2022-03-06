@@ -2,18 +2,24 @@ import React, {useState} from 'react';
 import SuperButton from "../../../main/ui/common/SuperButton/SuperButton";
 import SuperInputText from "../../../main/ui/common/SuperInputText/SuperInputText";
 import {useDispatch, useSelector} from "react-redux";
-import {registerTC} from "../../../main/bll/registerReducer";
+import {registerTC, setRegisterError} from "../../../main/bll/registerReducer";
 import {AppRootStateType} from "../../../main/bll/store";
 import {Navigate} from "react-router-dom";
 
 export const Registration = () => {
   const dispatch = useDispatch();
   const isRegistered = useSelector<AppRootStateType, boolean>(state => state.register.isRegistered)
+  const error = useSelector<AppRootStateType, string>(state => state.register.errorRegister)
   const [email, setEmail] = useState<string>('');
   const [password, setPassword] = useState<string>('');
+  const [confirmPassword, setConfirmPassword] = useState<string>('');
 
   const onClickHandler = () => {
-    dispatch(registerTC(email, password))
+    if (password !== confirmPassword) {
+      dispatch(setRegisterError('Password and confirmation password do not match'))
+    } else {
+      dispatch(registerTC(email, password))
+    }
   }
 
   if (isRegistered) {
@@ -31,9 +37,14 @@ export const Registration = () => {
           Password
         </label>
         <SuperInputText value={password} onChangeText={setPassword} />
+        <label>
+          Confirm password
+        </label>
+        <SuperInputText value={confirmPassword} onChangeText={setConfirmPassword} />
       </div>
 
       <SuperButton onClick={onClickHandler}>Register</SuperButton>
+      {error && <div style={{color:'red'}}>{error}</div>}
     </div>
   );
 };
