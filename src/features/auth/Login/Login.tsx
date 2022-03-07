@@ -30,7 +30,6 @@ export const Login = () => {
     return (
         <div className={styles.containerLogin}>
             {loginStatus.loading && <SuperLoading/>}
-            <SuperLoading/>
             <form>
                 <p>Email</p>
                 <SuperInputText
