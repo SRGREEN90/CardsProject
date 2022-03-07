@@ -8,7 +8,7 @@ import {AppRootStateType} from "../../../main/bll/store";
 import {loginTC, StateLoginType} from "../../../main/bll/loginReducer";
 import {Navigate, NavLink} from "react-router-dom"
 import {PATH} from "../../../main/ui/routes/Routes";
-import {SuperLoading} from "./SuperLoading";
+import {SuperLoading} from "../../../main/ui/common/SuperLoading/SuperLoading";
 
 export const Login = () => {
     const [email, setEmail] = useState<string>('');
