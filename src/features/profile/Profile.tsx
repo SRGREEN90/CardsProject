@@ -6,7 +6,7 @@ import {useDispatch, useSelector} from "react-redux";
 import {AppRootStateType} from "../../main/bll/store";
 import noAvatar from './noAvatar.png'
 import {updateProfile} from "../../main/bll/profileReducer";
-import {Frame} from "./Frame";
+import {Frame} from "../../main/ui/common/Frame/Frame";
 
 export const Profile = () => {
   const dispatch = useDispatch();
