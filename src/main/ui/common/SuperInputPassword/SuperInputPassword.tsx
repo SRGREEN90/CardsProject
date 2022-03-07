@@ -24,11 +24,11 @@ const SuperInputPassword: React.FC<SuperInputPasswordPropsType> = (
         ...restProps// все остальные пропсы попадут в объект restProps
     }
 ) => {
-    const [isShow, setIsShow] = useState<boolean>(false);
+    const [isShown, setIsShow] = useState<boolean>(false);
 
-    const typeInput = isShow ? 'text' : 'password';
+    const typeInput = isShown ? 'text' : 'password';
 
-    const togglePassword = () => setIsShow(!isShow);
+    const togglePassword = () => setIsShow(!isShown);
 
     const onChangeCallback = (e: ChangeEvent<HTMLInputElement>) => {
         onChange // если есть пропс onChange
@@ -58,7 +58,7 @@ const SuperInputPassword: React.FC<SuperInputPasswordPropsType> = (
 
                     {...restProps} // отдаём инпуту остальные пропсы если они есть (value например там внутри)
                 />
-                <button onClick={togglePassword} className={`${s.eye} ${isShow && s.eyeShow}`}></button>
+                <button onClick={togglePassword} className={`${s.eye} ${isShown && s.eyeShow}`}></button>
                 {error && <span className={finalSpanClassName}>{error}</span>}
             </div>
         </>

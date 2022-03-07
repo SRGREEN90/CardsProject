@@ -41,7 +41,7 @@ type setErrorType = ReturnType<typeof setRegisterError>
 export const registerTC = (email: string, password: string): AppThunkType => {
   return (dispatch: Dispatch) => {
     registrationAPI.register(email, password)
-      .then(res => {
+      .then(() => {
         dispatch(setRegister(true))
       })
       .catch(e => {

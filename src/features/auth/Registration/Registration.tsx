@@ -51,7 +51,6 @@ export const Registration = () => {
           </label>
           <SuperInputPassword value={confirmPassword} onChangeText={setConfirmPassword}/>
         </div>
-
         <SuperButton onClick={onClickHandler}>Register</SuperButton>
       </div>
 
