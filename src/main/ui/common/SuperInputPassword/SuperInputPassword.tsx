@@ -44,7 +44,7 @@ const SuperInputPassword: React.FC<SuperInputPasswordPropsType> = (
         && onEnter() // то вызвать его
     }
 
-    const finalSpanClassName = `${s.error} ${spanClassName ? spanClassName : ''}`
+    // const finalSpanClassName = `${s.error} ${spanClassName ? spanClassName : ''}`
     const finalInputClassName = `${s.superInput} ${error && s.errorInput} ${className}`  // need to fix with (?:) and s.superInput
 
     return (
@@ -59,7 +59,7 @@ const SuperInputPassword: React.FC<SuperInputPasswordPropsType> = (
                     {...restProps} // отдаём инпуту остальные пропсы если они есть (value например там внутри)
                 />
                 <button onClick={togglePassword} className={`${s.eye} ${isShown && s.eyeShow}`}></button>
-                {error && <span className={finalSpanClassName}>{error}</span>}
+                {/*{error && <span className={finalSpanClassName}>{error}</span>}*/}
             </div>
         </>
     )
