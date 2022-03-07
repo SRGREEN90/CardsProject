@@ -3,13 +3,13 @@ import {AppThunkType} from "./store";
 import {loginApi} from "../../API/loginAPI";
 
 export type StateLoginType = {
-    statusLoading: boolean
+    status: boolean
     loading: boolean
     error: string
 }
 
 export const initialStateLogin: StateLoginType = {
-    statusLoading: false,
+    status: false, // успешен ли запрос или нет
     loading: false,
     error: '',
 };
@@ -26,10 +26,10 @@ export const loginReducer = (state: StateLoginType = initialStateLogin, action: 
                 ...state,
                 loading: action.payload.loading,
             }
-        case "login/SET_SUCCESS":
+        case "login/SET_STATUS":
             return {
                 ...state,
-                statusLoading: action.payload.statusLoading,
+                status: action.payload.status,
             }
         default: {
             return state
@@ -53,11 +53,11 @@ export const setLoadingAC = (loading: boolean) => {
     } as const
 };
 
-export const setSuccessAC = (statusLoading: boolean) => {
+export const setSuccessAC = (status: boolean) => {
     return {
-        type: 'login/SET_SUCCESS',
+        type: 'login/SET_STATUS',
         payload: {
-            statusLoading: statusLoading,
+            status: status,
         },
     } as const
 };

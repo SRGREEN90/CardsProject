@@ -8,6 +8,7 @@ import {AppRootStateType} from "../../../main/bll/store";
 import {loginTC, StateLoginType} from "../../../main/bll/loginReducer";
 import {Navigate, NavLink} from "react-router-dom"
 import {PATH} from "../../../main/ui/routes/Routes";
+import {SuperLoading} from "./SuperLoading";
 
 export const Login = () => {
     const [email, setEmail] = useState<string>('');
@@ -22,12 +23,14 @@ export const Login = () => {
         dispatch(loginTC(email, password, rememberMe));
     };
 
-    if (loginStatus.statusLoading) {
+    if (loginStatus.status) {
         return <Navigate to={PATH.PROFILE}/>
     }
 
     return (
         <div className={styles.containerLogin}>
+            {loginStatus.loading && <SuperLoading/>}
+            <SuperLoading/>
             <form>
                 <p>Email</p>
                 <SuperInputText
