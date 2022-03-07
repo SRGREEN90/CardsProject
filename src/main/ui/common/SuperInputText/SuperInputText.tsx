@@ -45,6 +45,7 @@ const SuperInputText: React.FC<SuperInputTextPropsType> = (
         <>
             <div className={s.inputContainer}>
                 <input
+
                     type={'text'}
                     onChange={onChangeCallback}
                     onKeyPress={onKeyPressCallback}

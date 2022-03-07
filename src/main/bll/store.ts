@@ -4,12 +4,14 @@ import {authReducer} from "./authReducer";
 import {AuthActionsType, loginReducer} from "./loginReducer";
 import {registerReducer} from "./registerReducer";
 import {profileReducer} from "./profileReducer";
+import {passwordReducer} from "./passwordReducer";
 
 const rootReducer = combineReducers({
     auth: authReducer,
     login: loginReducer,
     register: registerReducer,
-    profilePage: profileReducer
+    profilePage: profileReducer,
+    recovery: passwordReducer,
 })
 
 export const store = createStore(rootReducer, applyMiddleware(thunk));
