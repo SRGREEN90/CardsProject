@@ -1,0 +1,13 @@
+.wrapper {
+    display: flex;
+    min-height: 100vh;
+    align-items: center;
+    background-color: lightgrey;
+
+}
+.frame {
+    background-color: white;
+    border: 9px solid #56a1be;
+    margin: 0 auto;
+    padding: 15px;
+}

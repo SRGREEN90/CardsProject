@@ -1,9 +1,11 @@
 import {applyMiddleware, combineReducers, createStore} from "redux";
 import thunk, {ThunkAction} from "redux-thunk";
 import {authReducer} from "./authReducer";
+import {profileReducer} from "./profileReducer";
 
 const rootReducer = combineReducers({
     auth: authReducer,
+    profilePage: profileReducer
 })
 
 export const store = createStore(rootReducer, applyMiddleware(thunk));
