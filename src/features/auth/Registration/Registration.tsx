@@ -7,14 +7,17 @@ import {Navigate} from "react-router-dom";
 import s from './Registration.module.css';
 import SuperInputText from "../../../main/ui/common/SuperInputText/SuperInputText";
 import SuperInputPassword from "../../../main/ui/common/SuperInputPassword/SuperInputPassword";
+import {PATH} from "../../../main/ui/routes/Routes";
 
 export const Registration = () => {
-  const dispatch = useDispatch();
-  const isRegistered = useSelector<AppRootStateType, boolean>(state => state.register.isRegistered)
-  const error = useSelector<AppRootStateType, string>(state => state.register.errorRegister)
   const [email, setEmail] = useState<string>('');
   const [password, setPassword] = useState<string>('');
   const [confirmPassword, setConfirmPassword] = useState<string>('');
+
+  const isRegistered = useSelector<AppRootStateType, boolean>(state => state.register.isRegistered)
+  const error = useSelector<AppRootStateType, string>(state => state.register.errorRegister)
+  const dispatch = useDispatch();
+
 
   const onClickHandler = () => {
     if (password !== confirmPassword) {
@@ -25,8 +28,9 @@ export const Registration = () => {
   }
 
   if (isRegistered) {
-    return <Navigate to={"/login"}/>
+    return <Navigate to={PATH.LOGIN}/>
   }
+
   return (
     <div className={s.page}>
       <div className={s.container}>
