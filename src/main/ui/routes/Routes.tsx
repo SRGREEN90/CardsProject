@@ -1,11 +1,12 @@
 import React from 'react';
-import {Routes, Route} from "react-router-dom";
+import {Routes, Route, useParams} from "react-router-dom";
 import {Login} from '../../../features/auth/Login/Login';
 import {Registration} from "../../../features/auth/Registration/Registration";
 import {Error404} from "../common/Error/Error404";
 import {Profile} from "../../../features/profile/Profile";
 import {Test} from "../../../features/Test";
 import PasswordRecovery from "../../../features/auth/PasswordRecovery/PasswordRecovery";
+import ForgotYourPassword from '../../../features/auth/PasswordRecovery/PassworForgot';
 
 export const PATH = {
     LOGIN: '/login',
@@ -16,9 +17,14 @@ export const PATH = {
     SET_NEW_PASSWORD:'/set-new-password',
     PASSWORD_RECOVERY: '/password-recovery',
     CARDS: '/cards',
+    FORGOT_YOUR_PASSWORD: '/forgot',
 }
 
 export const RoutesComponent = () => {
+
+    // const params = useParams<'password' | '*'>()
+    // const res = params
+
     return (
         <>
             <Routes>
@@ -29,6 +35,7 @@ export const RoutesComponent = () => {
                 <Route path={PATH.NEW_PASSWORD} element={<div>NEW_PASSWORD</div>}/>
                 <Route path={PATH.SET_NEW_PASSWORD} element={<div>SET_NEW_PASSWORD</div>}/>
                 <Route path={PATH.PASSWORD_RECOVERY} element={<PasswordRecovery/>}/>
+                <Route path={PATH.FORGOT_YOUR_PASSWORD} element={<ForgotYourPassword/>}/>
                 <Route path={PATH.TEST} element={<Test/>}/>
                 <Route path={"/*"} element={<Error404/>}/>
             </Routes>
