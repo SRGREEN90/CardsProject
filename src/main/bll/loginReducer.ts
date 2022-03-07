@@ -1,6 +1,7 @@
 import {Dispatch} from "redux";
 import {AppThunkType} from "./store";
 import {loginApi} from "../../API/loginAPI";
+import {setProfileData} from "./profileReducer";
 
 export type StateLoginType = {
     status: boolean
@@ -78,7 +79,7 @@ export const loginTC = (email: string, password: string, remember: boolean): App
         loginApi.login(email, password, remember)
             .then((res) => {
                 if (res.status === 200) {
-                    console.log(res) // здесь должен быть экшн для передачи данный  из респонса при переходе на профайл
+                    // dispatch(setProfileData(res.data))
                     dispatch(setSuccessAC(true))
                 }
             })
