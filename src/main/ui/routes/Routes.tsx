@@ -6,7 +6,7 @@ import {Error404} from "../common/Error/Error404";
 import {Profile} from "../../../features/profile/Profile";
 import {Test} from "../../../features/Test";
 import PasswordRecovery from "../../../features/auth/PasswordRecovery/PasswordRecovery";
-import ForgotYourPassword from '../../../features/auth/PasswordRecovery/PassworForgot';
+import ForgotYourPassword from '../../../features/auth/PasswordRecovery/ForgotYourPassword';
 
 export const PATH = {
     LOGIN: '/login',
@@ -22,8 +22,7 @@ export const PATH = {
 
 export const RoutesComponent = () => {
 
-    // const params = useParams<'password' | '*'>()
-    // const res = params
+
 
     return (
         <>
