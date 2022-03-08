@@ -1,4 +1,4 @@
-import React, {ChangeEvent} from 'react';
+import React, {ChangeEvent, useState} from 'react';
 import SuperButton from "../../../main/ui/common/SuperButton/SuperButton";
 import SuperInputText from "../../../main/ui/common/SuperInputText/SuperInputText";
 import {passwordRecoveryTC} from "../../../main/bll/passwordReducer";
@@ -6,11 +6,14 @@ import { useParams } from 'react-router-dom';
 
 const PasswordRecovery = () => {
 
+    const [password, setPassword] = useState<string>('');
+
+
     const params = useParams<'password-recovery' | '*'>()
     const res = params["password-recovery"]
 
     let onChangeText = (value: string) => {
-        return value
+        return setPassword(value)
     }
 
     // let submitHandler = (newPassword: string) => {

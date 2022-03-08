@@ -1,15 +1,17 @@
 import React, {ChangeEvent, useEffect, useState} from 'react';
 import SuperButton from "../../../main/ui/common/SuperButton/SuperButton";
-import SuperInputText from "../../../main/ui/common/SuperInputText/SuperInputText";
 import {passwordForgotTC} from "../../../main/bll/passwordReducer";
 import {useDispatch, useSelector} from "react-redux";
 import {Navigate} from "react-router-dom";
 import {AppRootStateType} from "../../../main/bll/store";
+import s from "./ForgotYourPassword.module.css";
+import SuperInputPassword from "../../../main/ui/common/SuperInputPassword/SuperInputPassword";
 
 
 const ForgotYourPassword = () => {
 
     const isSend = useSelector<AppRootStateType, boolean>(state => state.recovery.isSend);
+    const isError = useSelector<AppRootStateType, string>(state => state.recovery.error);
 
     const [email, setEmail] = useState('')
 
@@ -21,26 +23,54 @@ const ForgotYourPassword = () => {
 
     if (isSend) {
         return <Navigate to={'/check-email'}/>
-
     }
-    console.log(isSend)
 
     return (
-        <div>
-            <h1>Forgot your password?</h1>
+        <div className={s.page}>
+            <div className={s.container}>
+                <span><strong>It-incubator</strong></span>
+                <h2>Forgot your password?</h2>
+                {isError && <div className={s.error}>{isError}</div>}
+                <div className={s.input}>
+                    <label>
+                        Email
+                    </label>
+                    <SuperInputPassword error={isError}
+                                    value={email}
+                                    onChangeText={setEmail}
+                    />
+                </div>
 
-            <SuperInputText value={email} onChangeText={setEmail}/>
+                <label>Enter your email address and we will send you further instructions</label>
 
-            <h5>Enter your email address and we will send you further instructions</h5>
-
-            <div>
                 <SuperButton onClick={onClickHandler}>Send instructions</SuperButton>
+
+                <h5>Did you remember your password?</h5>
+                <a>Try logging in</a>
             </div>
 
-            <h5>Did you remember your password?</h5>
-            <a>Try logging in</a>
-
         </div>
-    );
-};
+
+
+    )
+}
 export default ForgotYourPassword
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

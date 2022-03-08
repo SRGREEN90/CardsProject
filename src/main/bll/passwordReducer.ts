@@ -14,6 +14,7 @@ type  InitialStateType = {
 const initialState = {
     password: '',
     resetPasswordToken: '',
+
     isSend: false,
     email: '',
     error: ''
