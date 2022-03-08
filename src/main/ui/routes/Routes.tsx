@@ -34,9 +34,9 @@ export const RoutesComponent = () => {
                 <Route path={PATH.LOGIN} element={<Login/>}/>
                 <Route path={PATH.REGISTRATION} element={<Registration/>}/>
                 <Route path={PATH.PROFILE} element={<Profile/>}/>
-                <Route path={PATH.NEW_PASSWORD} element={<div>NEW_PASSWORD</div>}/>
-                <Route path={PATH.SET_NEW_PASSWORD} element={<div>SET_NEW_PASSWORD</div>}/>
-                <Route path={PATH.PASSWORD_RECOVERY} element={<PasswordRecovery1/>}/>
+                {/*<Route path={PATH.NEW_PASSWORD} element={<div>NEW_PASSWORD</div>}/>*/}
+                {/*<Route path={PATH.SET_NEW_PASSWORD} element={<div>SET_NEW_PASSWORD</div>}/>*/}
+                <Route path={PATH.SET_NEW_PASSWORD + `/:token`} element={<PasswordRecovery1/>}/>
                 <Route path={PATH.FORGOT_YOUR_PASSWORD} element={<ForgotYourPassword/>}/>
 
                 <Route path={PATH.CHECK_EMAIL} element={<CheckEmail/>}/>
