@@ -1,0 +1,11 @@
+.wrap {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color: #00488B;
+}
+
+.wrap img {
+    padding-top: 20px;
+}

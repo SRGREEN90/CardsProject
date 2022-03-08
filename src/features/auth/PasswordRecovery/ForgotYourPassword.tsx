@@ -2,26 +2,28 @@ import React, {ChangeEvent, useEffect, useState} from 'react';
 import SuperButton from "../../../main/ui/common/SuperButton/SuperButton";
 import SuperInputText from "../../../main/ui/common/SuperInputText/SuperInputText";
 import {passwordForgotTC} from "../../../main/bll/passwordReducer";
-import {useDispatch} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
+import {Navigate} from "react-router-dom";
+import {AppRootStateType} from "../../../main/bll/store";
 
 
 const ForgotYourPassword = () => {
 
-const [email, setEmail] = useState('')
+    const isSend = useSelector<AppRootStateType, boolean>(state => state.recovery.isSend);
+
+    const [email, setEmail] = useState('')
 
     const dispatch = useDispatch()
 
-
     let onClickHandler = () => {
-        passwordForgotTC(email)
-        console.log(email)
+        dispatch(passwordForgotTC(email))
     }
 
-    // useEffect(() => {
-    //     // const thunk = passwordForgotTC()
-    //     // dispatch(thunk)
-    // }, [])
+    if (isSend) {
+        return <Navigate to={'/check-email'}/>
 
+    }
+    console.log(isSend)
 
     return (
         <div>

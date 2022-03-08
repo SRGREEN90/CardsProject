@@ -13,13 +13,13 @@ const PasswordRecovery = () => {
         return value
     }
 
-    let submitHandler = (newPassword: string) => {
-
-    }
-
-    // useEffect(() => {
-    //     dispatch(passwordRecoveryTC())
-    // }, [])
+    // let submitHandler = (newPassword: string) => {
+    //
+    // }
+    //
+    // // useEffect(() => {
+    // //     dispatch(passwordRecoveryTC())
+    // // }, [])
 
     return (
         <div>

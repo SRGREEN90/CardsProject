@@ -17,9 +17,6 @@ export const authAPI = {
     },
 
     recoveryPassword(password: string, resetPasswordToken: string){
-            return instance.post(`auth/password-recovery`,{password, resetPasswordToken})
-
+            return instance.post(`auth/set-new-password`,{password, resetPasswordToken})
         }
-
-
 }
