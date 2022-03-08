@@ -7,6 +7,7 @@ import {Profile} from "../../../features/profile/Profile";
 import {Test} from "../../../features/Test";
 import PasswordRecovery from "../../../features/auth/PasswordRecovery/PasswordRecovery";
 import ForgotYourPassword from '../../../features/auth/PasswordRecovery/ForgotYourPassword';
+import {PasswordRecovery1} from "../../../features/auth/PasswordRecovery/PasswordRecovery/PasswordRecovery1";
 
 export const PATH = {
     LOGIN: '/login',
@@ -33,7 +34,7 @@ export const RoutesComponent = () => {
                 <Route path={PATH.PROFILE} element={<Profile/>}/>
                 <Route path={PATH.NEW_PASSWORD} element={<div>NEW_PASSWORD</div>}/>
                 <Route path={PATH.SET_NEW_PASSWORD} element={<div>SET_NEW_PASSWORD</div>}/>
-                <Route path={PATH.PASSWORD_RECOVERY} element={<PasswordRecovery/>}/>
+                <Route path={PATH.PASSWORD_RECOVERY} element={<PasswordRecovery1/>}/>
                 <Route path={PATH.FORGOT_YOUR_PASSWORD} element={<ForgotYourPassword/>}/>
                 <Route path={PATH.TEST} element={<Test/>}/>
                 <Route path={"/*"} element={<Error404/>}/>

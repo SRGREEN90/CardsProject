@@ -4,6 +4,10 @@ export const loginApi = {
     login(email: string, password: string, rememberMe: boolean = false) {
         return instance.post<LoginResponseType>('/auth/login', {email, password, rememberMe})
     },
+    // new password
+    newPassword(password: string, resetPasswordToken: string | undefined) {
+        return instance.post<any>('/auth/set-new-password', {password, resetPasswordToken})
+    },
 }
 
 export type LoginResponseType = {
