@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import styles from './login.module.css';
 import SuperButton from "../../../main/ui/common/SuperButton/SuperButton";
 import SuperInputText from "../../../main/ui/common/SuperInputText/SuperInputText";
@@ -8,10 +8,10 @@ import {AppRootStateType} from "../../../main/bll/store";
 import {loginTC} from "../../../main/bll/loginReducer";
 import {Navigate, NavLink} from "react-router-dom"
 import {PATH} from "../../../main/ui/routes/Routes";
-// import {SuperLoading} from "../../../main/ui/common/SuperLoading/SuperLoading";
 import {Frame} from "../../../main/ui/common/Frame/Frame";
 import SuperInputPassword from "../../../main/ui/common/SuperInputPassword/SuperInputPassword";
 import Preloader from "../../../main/ui/common/Preloader/Preloader";
+import {setRegister} from "../../../main/bll/registerReducer";
 
 export const Login = () => {
     const [email, setEmail] = useState<string>('');
@@ -26,6 +26,10 @@ export const Login = () => {
     const loginHandler = () => {
         dispatch(loginTC(email, password, rememberMe));
     };
+
+    useEffect(() => {
+        dispatch(setRegister(false));
+    }, [])
 
     if (loginStatus) {
         return <Navigate to={PATH.PROFILE}/>
@@ -65,8 +69,9 @@ export const Login = () => {
                     className={styles.forgotText}>Forgot Password</p></NavLink>
                 <SuperButton onClick={loginHandler}>Login</SuperButton>
                 <p>Don’t have an account?</p>
-                <NavLink to={PATH.REGISTRATION} className={styles.linkLogin}><p className={styles.signUpText}>Sign
-                    Up</p></NavLink>
+                <NavLink to={PATH.REGISTRATION} className={styles.linkLogin}>
+                    <p className={styles.signUpText}>Sign Up</p>
+                </NavLink>
             </Frame>
         </>
     );

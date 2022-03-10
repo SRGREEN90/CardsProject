@@ -1,13 +1,14 @@
 import React, {useState} from 'react';
 import SuperButton from "../../../main/ui/common/SuperButton/SuperButton";
 import {useDispatch, useSelector} from "react-redux";
-import {registerTC, setRegisterError} from "../../../main/bll/registerReducer";
+import {registerTC} from "../../../main/bll/registerReducer";
 import {AppRootStateType} from "../../../main/bll/store";
 import {Navigate} from "react-router-dom";
 import s from './Registration.module.css';
 import SuperInputText from "../../../main/ui/common/SuperInputText/SuperInputText";
 import SuperInputPassword from "../../../main/ui/common/SuperInputPassword/SuperInputPassword";
 import {PATH} from "../../../main/ui/routes/Routes";
+import {setErrorAC} from "../../../main/bll/appReducer";
 
 export const Registration = () => {
   const [email, setEmail] = useState<string>('');
@@ -15,13 +16,13 @@ export const Registration = () => {
   const [confirmPassword, setConfirmPassword] = useState<string>('');
 
   const isRegistered = useSelector<AppRootStateType, boolean>(state => state.register.isRegistered)
-  const error = useSelector<AppRootStateType, string>(state => state.register.errorRegister)
+  const error = useSelector<AppRootStateType, string>(state => state.app.error)
   const dispatch = useDispatch();
 
 
   const onClickHandler = () => {
     if (password !== confirmPassword) {
-      dispatch(setRegisterError('Password and confirmation password do not match'))
+      dispatch(setErrorAC('Password and confirmation password do not match'))
     } else {
       dispatch(registerTC(email, password))
     }

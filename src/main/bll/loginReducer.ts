@@ -47,6 +47,7 @@ export const loginTC = (email: string, password: string, remember: boolean): App
                 if (res.status === 200) {
                     dispatch(setProfileData(res.data))
                     dispatch(setIsLoggedInAC(true))
+                    dispatch(setErrorAC(''))
                 }
             })
             .catch(e => {
@@ -66,6 +67,7 @@ export const logoutTC = (): AppThunkType => {
               if (res.status === 200) {
                   dispatch(setProfileData(profileInitialState))
                   dispatch(setIsLoggedInAC(false))
+                  dispatch(setErrorAC(''))
               }
           })
           .catch(e => {
