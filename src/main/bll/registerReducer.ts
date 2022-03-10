@@ -1,6 +1,7 @@
 import {Dispatch} from "redux";
 import {AppThunkType} from "./store";
-import {registrationAPI} from "../../API/api-registration";
+// import {registrationAPI} from "../../API/api-registration";
+import {cardsAPI} from "../../API/api";
 
 const initialState = {
   isRegistered: false,
@@ -40,7 +41,7 @@ type setErrorType = ReturnType<typeof setRegisterError>
 // thunk
 export const registerTC = (email: string, password: string): AppThunkType => {
   return (dispatch: Dispatch) => {
-    registrationAPI.register(email, password)
+    cardsAPI.register(email, password)
       .then(() => {
         dispatch(setRegister(true))
       })

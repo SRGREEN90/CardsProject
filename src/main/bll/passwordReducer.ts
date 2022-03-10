@@ -1,7 +1,7 @@
 import {Dispatch} from "redux";
 import {AppThunkType} from "./store";
-import {authAPI} from "../../API/api";
-import {setErrorAC} from "./loginReducer";
+import {cardsAPI} from "../../API/api";
+// import {setErrorAC} from "./loginReducer";
 
 type  InitialStateType = {
     password: string
@@ -86,24 +86,24 @@ type passwordForgotACType = ReturnType<typeof passwordForgotAC>
 type setErrorPasswordACType = ReturnType<typeof setErrorPasswordAC>
 
 
-// thunk
-export const passwordRecoveryTC = (password: string, resetPasswordToken: string): AppThunkType => {
-    return (dispatch: Dispatch) => {
-        authAPI.recoveryPassword(password, resetPasswordToken)
-            .then(res => {
-                if (res.status === 200) {
-                    const newPassword = res.data.newPassword
-                    const newToken = res.data.token
-                    const action = passwordRecoveryAC(newPassword, newToken)
-                    dispatch(action)
-                }
-            })
-    }
-};
+// // thunk
+// export const passwordRecoveryTC = (password: string, resetPasswordToken: string): AppThunkType => {
+//     return (dispatch: Dispatch) => {
+//         cardsAPI.recoveryPassword(password, resetPasswordToken)
+//             .then(res => {
+//                 if (res.status === 200) {
+//                     const newPassword = res.data.newPassword
+//                     const newToken = res.data.token
+//                     const action = passwordRecoveryAC(newPassword, newToken)
+//                     dispatch(action)
+//                 }
+//             })
+//     }
+// };
 
 export const passwordForgotTC = (email: string): AppThunkType => {
     return (dispatch: Dispatch) => {
-        authAPI.sendMail(email)
+        cardsAPI.sendMail(email)
             .then(res => {
                 if (res.status === 200) {
                     dispatch(passwordForgotAC(true, email))

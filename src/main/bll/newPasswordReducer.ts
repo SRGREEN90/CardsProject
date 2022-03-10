@@ -1,7 +1,7 @@
 import {Dispatch} from "redux";
 import {AppThunkType} from "./store";
-import {loginApi} from "../../API/loginAPI";
 import {setErrorAC, setLoadingAC} from "./loginReducer";
+import {cardsAPI} from "../../API/api";
 
 export type InitialStateType = {
     error: null | string
@@ -43,7 +43,7 @@ type setIsChangedPassType = ReturnType<typeof setIsChangedPassAC>
 export const changePassTC = (newPassword: string, token: string | undefined): AppThunkType => {
     return (dispatch: Dispatch) => {
         dispatch(setLoadingAC(true));
-        loginApi.newPassword(newPassword, token)
+        cardsAPI.newPassword(newPassword, token)
             .then((res) => {
                 if (res.status === 200) {
                     dispatch(setIsChangedPassAC(true))

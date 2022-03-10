@@ -1,6 +1,6 @@
 import {Dispatch} from "redux";
 import {AppThunkType} from "./store";
-import {appAPI} from "../../API/appAPI";
+import {cardsAPI} from "../../API/api";
 
 const initialState = {
   isInitialized: false,
@@ -47,7 +47,7 @@ type setErrorType = ReturnType<typeof setErrorAC>
 // thunk
 export const initializeAppTC = (): AppThunkType => {
   return (dispatch: Dispatch) => {
-    appAPI.me()
+    cardsAPI.me()
       .then((res) => {
         if (res.status === 200) {
           dispatch(setIsLoggedInAC(true));
