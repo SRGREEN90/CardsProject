@@ -8,19 +8,27 @@ export const loginApi = {
     newPassword(password: string, resetPasswordToken: string | undefined) {
         return instance.post<any>('/auth/set-new-password', {password, resetPasswordToken})
     },
+    logout() {
+        return instance.delete<LogoutResponseType>('/auth/me')
+    },
 }
 
 export type LoginResponseType = {
     _id: string;
     email: string;
     name: string;
-    avatar?: string;
+    avatar: string;
     publicCardPacksCount: number;
 // количество колод
-    created: Date;
-    updated: Date;
+    created: Date | null;
+    updated: Date | null;
     isAdmin: boolean;
     verified: boolean; // подтвердил ли почту
     rememberMe: boolean;
     error?: string;
+}
+
+export type LogoutResponseType = {
+    info: string
+    error: string
 }

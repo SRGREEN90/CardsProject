@@ -1,7 +1,7 @@
 import {Dispatch} from "redux";
 import {AppThunkType} from "./store";
 import {loginApi} from "../../API/loginAPI";
-import {setProfileData} from "./profileReducer";
+import { profileInitialState, setProfileData} from "./profileReducer";
 
 export type StateLoginType = {
     status: boolean
@@ -79,7 +79,7 @@ export const loginTC = (email: string, password: string, remember: boolean): App
         loginApi.login(email, password, remember)
             .then((res) => {
                 if (res.status === 200) {
-                    // dispatch(setProfileData(res.data))
+                    dispatch(setProfileData(res.data))
                     dispatch(setSuccessAC(true))
                 }
             })
@@ -89,5 +89,24 @@ export const loginTC = (email: string, password: string, remember: boolean): App
             .finally(() => {
             dispatch(setLoadingAC(false));
         })
+    }
+};
+
+export const logoutTC = (): AppThunkType => {
+    return (dispatch: Dispatch) => {
+        dispatch(setLoadingAC(true));
+        loginApi.logout()
+          .then((res) => {
+              if (res.status === 200) {
+                  dispatch(setProfileData(profileInitialState))
+                  dispatch(setSuccessAC(false))
+              }
+          })
+          .catch(e => {
+              dispatch(setErrorAC(e.response ? e.response.data.error : e.message))
+          })
+          .finally(() => {
+              dispatch(setLoadingAC(false));
+          })
     }
 };
