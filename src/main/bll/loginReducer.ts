@@ -51,11 +51,11 @@ export const loginTC = (email: string, password: string, remember: boolean): App
                 }
             })
             .catch(e => {
-            dispatch(setErrorAC(e.response ? e.response.data.error : e.message))
-        })
+                dispatch(setErrorAC(e.response ? e.response.data.error : e.message))
+            })
             .finally(() => {
-            dispatch(setLoadingAC(false));
-        })
+                dispatch(setLoadingAC(false));
+            })
     }
 };
 
@@ -63,18 +63,18 @@ export const logoutTC = (): AppThunkType => {
     return (dispatch: Dispatch) => {
         dispatch(setLoadingAC(true));
         cardsAPI.logout()
-          .then((res) => {
-              if (res.status === 200) {
-                  dispatch(setProfileData(profileInitialState))
-                  dispatch(setIsLoggedInAC(false))
-                  dispatch(setErrorAC(''))
-              }
-          })
-          .catch(e => {
-              dispatch(setErrorAC(e.response ? e.response.data.error : e.message))
-          })
-          .finally(() => {
-              dispatch(setLoadingAC(false));
-          })
+            .then((res) => {
+                if (res.status === 200) {
+                    dispatch(setProfileData(profileInitialState))
+                    dispatch(setIsLoggedInAC(false))
+                    dispatch(setErrorAC(''))
+                }
+            })
+            .catch(e => {
+                dispatch(setErrorAC(e.response ? e.response.data.error : e.message))
+            })
+            .finally(() => {
+                dispatch(setLoadingAC(false));
+            })
     }
 };
