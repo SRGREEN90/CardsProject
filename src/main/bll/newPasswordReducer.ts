@@ -1,7 +1,8 @@
 import {Dispatch} from "redux";
 import {AppThunkType} from "./store";
-import {setErrorAC, setLoadingAC} from "./loginReducer";
+// import {setErrorAC, setLoadingAC} from "./loginReducer";
 import {cardsAPI} from "../../API/api";
+import {setErrorAC, setLoadingAC} from "./appReducer";
 
 export type InitialStateType = {
     error: null | string

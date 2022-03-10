@@ -1,20 +1,24 @@
 import {Dispatch} from "redux";
 import {AppThunkType} from "./store";
 import {cardsAPI} from "../../API/api";
+import {setIsLoggedInAC} from "./loginReducer";
 
 const initialState = {
   isInitialized: false,
+  errorAPP: '',
   error: '',
-  isLoggedIn: false
+  isLoading: false,
 }
 
 export const appReducer = (state: InitialStateType = initialState, action: AuthActionsType): InitialStateType => {
   switch (action.type) {
-    case 'APP/SET-IS-LOGGED-IN':
-      return {...state, isLoggedIn: action.value}
-    case 'APP/SET-ERROR':
+    case 'APP/SET_LOADING':
+      return {...state, isLoading: action.value}
+    case 'APP/SET_ERROR_APP':
+      return {...state, errorAPP: action.errorAPP}
+    case 'APP/SET_ERROR':
       return {...state, error: action.error}
-    case 'APP/SET-INITIALIZED':
+    case 'APP/SET_INITIALIZED':
       return {...state, isInitialized: action.isInitialized}
     default:
       return state
@@ -24,25 +28,32 @@ export const appReducer = (state: InitialStateType = initialState, action: AuthA
 // type
 type InitialStateType = {
   isInitialized: boolean
+  errorAPP: string
   error: string
-  isLoggedIn: boolean
+  isLoading: boolean
 }
 
-export type AuthActionsType = setIsInitializedType | setErrorType | setIsLoggedInACType
+export type AuthActionsType = setIsInitializedType | setErrorType | setIsLoggedInACType | setErrorAPPType
 
-type setIsLoggedInACType = ReturnType<typeof setIsLoggedInAC>
+type setIsLoggedInACType = ReturnType<typeof setLoadingAC>
 
-export const setIsLoggedInAC = (value: boolean) =>
-  ({type: 'APP/SET-IS-LOGGED-IN', value} as const)
+export const setLoadingAC = (value: boolean) =>
+  ({type: 'APP/SET_LOADING', value} as const)
 // actions
-export const setIsInitializedAC  = (isInitialized: boolean) => ({type: 'APP/SET-INITIALIZED',isInitialized} as const)
+export const setIsInitializedAC  = (isInitialized: boolean) => ({type: 'APP/SET_INITIALIZED',isInitialized} as const)
 
 type setIsInitializedType = ReturnType<typeof setIsInitializedAC>
 
 export const setErrorAC = (error: string) =>
-  ({type: 'APP/SET-ERROR', error} as const)
+  ({type: 'APP/SET_ERROR', error} as const)
 
 type setErrorType = ReturnType<typeof setErrorAC>
+
+
+export const setErrorAPPAC = (errorAPP: string) =>
+    ({type: 'APP/SET_ERROR_APP', errorAPP} as const)
+
+type setErrorAPPType = ReturnType<typeof setErrorAPPAC>
 
 // thunk
 export const initializeAppTC = (): AppThunkType => {
@@ -55,7 +66,7 @@ export const initializeAppTC = (): AppThunkType => {
       })
       .catch(e => {
         const error = e.response ? e.response.data.error : (e.message + ', more details in the console');
-        dispatch(setErrorAC(error))
+        dispatch(setErrorAPPAC(error))
       })
       .finally(() => {
         dispatch(setIsInitializedAC(true));

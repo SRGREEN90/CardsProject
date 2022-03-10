@@ -5,41 +5,44 @@ import SuperInputText from "../../../main/ui/common/SuperInputText/SuperInputTex
 import SuperCheckbox from "../../../main/ui/common/SuperCheckbox/SuperCheckbox";
 import {useDispatch, useSelector} from "react-redux";
 import {AppRootStateType} from "../../../main/bll/store";
-import {loginTC, StateLoginType} from "../../../main/bll/loginReducer";
+import {loginTC} from "../../../main/bll/loginReducer";
 import {Navigate, NavLink} from "react-router-dom"
 import {PATH} from "../../../main/ui/routes/Routes";
-import {SuperLoading} from "../../../main/ui/common/SuperLoading/SuperLoading";
+// import {SuperLoading} from "../../../main/ui/common/SuperLoading/SuperLoading";
 import {Frame} from "../../../main/ui/common/Frame/Frame";
 import SuperInputPassword from "../../../main/ui/common/SuperInputPassword/SuperInputPassword";
+import Preloader from "../../../main/ui/common/Preloader/Preloader";
 
 export const Login = () => {
     const [email, setEmail] = useState<string>('');
     const [password, setPassword] = useState<string>('');
     const [rememberMe, setRememberMe] = useState<boolean>(false);
 
-    const loginStatus = useSelector<AppRootStateType, StateLoginType>(state => state.login);
+    const loginStatus = useSelector<AppRootStateType, boolean>(state => state.login.status);
+    const loading = useSelector<AppRootStateType, boolean>(state => state.app.isLoading);
+    const error = useSelector<AppRootStateType, string>(state => state.app.error);
     const dispatch = useDispatch();
 
     const loginHandler = () => {
         dispatch(loginTC(email, password, rememberMe));
     };
 
-    if (loginStatus.status) {
+    if (loginStatus) {
         return <Navigate to={PATH.PROFILE}/>
     }
 
     return (
         <>
-            {loginStatus.loading && <SuperLoading/>}
+            {loading && <Preloader/>}
             <Frame>
                 <span><strong>It-incubator</strong></span>
                 <h2>Sign In</h2>
-                {loginStatus.error && <div className={styles.error}>{loginStatus.error}</div>}
+                {error && <div className={styles.error}>{error}</div>}
                 <div className={styles.input}>
                     <label>
                         Email
                     </label>
-                    <SuperInputText error={loginStatus.error}
+                    <SuperInputText error={error}
                                     value={email}
                                     onChange={e => setEmail(e.currentTarget.value)}
                     />
@@ -48,7 +51,7 @@ export const Login = () => {
                     <label>
                         Password
                     </label>
-                    <SuperInputPassword error={loginStatus.error}
+                    <SuperInputPassword error={error}
                                         value={password}
                                         onChange={e => setPassword(e.currentTarget.value)}
                     />

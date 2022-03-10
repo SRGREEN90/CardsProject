@@ -1,8 +1,9 @@
 // import {UserResponseType, MePutRequestType} from "../../API/profileApi";
 import {Dispatch} from "redux";
 import axios from "axios";
-import {setLoadingAC} from "./loginReducer";
+// import {setLoadingAC} from "./loginReducer";
 import {cardsAPI, updateProfileRequestType, UserResponseType} from "../../API/api";
+import {setLoadingAC} from "./appReducer";
 
 export const profileInitialState: UserResponseType = {
     _id: '',

@@ -18,7 +18,7 @@ export const Profile = () => {
   const profileEmail = useSelector<AppRootStateType, string>(state => state.profilePage.email);
   const error = useSelector<AppRootStateType, string | undefined>(state => state.profilePage.error);
   const isLoggedIn = useSelector<AppRootStateType, boolean>(state => state.login.status);
-  const loading = useSelector<AppRootStateType, boolean>(state => state.login.loading);
+  const loading = useSelector<AppRootStateType, boolean>(state => state.app.isLoading);
 
   const [name, setName] = useState(profileName);
   //const [editName, setEditName] = useState(false);
