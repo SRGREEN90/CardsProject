@@ -9,6 +9,7 @@ import SuperInputText from "../../../main/ui/common/SuperInputText/SuperInputTex
 import SuperInputPassword from "../../../main/ui/common/SuperInputPassword/SuperInputPassword";
 import {PATH} from "../../../main/ui/routes/Routes";
 import {setErrorAC} from "../../../main/bll/appReducer";
+import {Frame} from "../../../main/ui/common/Frame/Frame";
 
 export const Registration = () => {
   const [email, setEmail] = useState<string>('');
@@ -33,8 +34,9 @@ export const Registration = () => {
   }
 
   return (
-    <div className={s.page}>
-      <div className={s.container}>
+    // <div className={s.page}>
+    //   <div className={s.container}>
+      <Frame>
         <span><strong>It-incubator</strong></span>
         <h2>Sign up</h2>
         {error && <div className={s.error}>{error}</div>}
@@ -57,8 +59,9 @@ export const Registration = () => {
           <SuperInputPassword value={confirmPassword} onChangeText={setConfirmPassword}/>
         </div>
         <SuperButton onClick={onClickHandler}>Register</SuperButton>
-      </div>
-
-    </div>
+      </Frame>
+    //   </div>
+    //
+    // </div>
   );
 };

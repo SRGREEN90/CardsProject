@@ -64,8 +64,7 @@ export const Profile = () => {
                  alt="avatar"/>
           </div>
           <div className={styles.info}>
-            <span>
-              Name: &#160;
+              <span>Name: &#160;</span>
               {
                 <SuperEditableSpan value={name} type="text"
                                    style={{height: "27px", width: "150px"}}
@@ -75,7 +74,6 @@ export const Profile = () => {
                                    autoFocus
                 />
               }
-            </span>
             {
               // editName ?
               //   <SuperEditableSpan value={name} type="text"

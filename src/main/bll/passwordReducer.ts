@@ -1,44 +1,44 @@
 import {Dispatch} from "redux";
 import {AppThunkType} from "./store";
 import {cardsAPI} from "../../API/api";
+import {setErrorAC, setLoadingAC} from "./appReducer";
 // import {setErrorAC} from "./loginReducer";
 
 type  InitialStateType = {
-    password: string
-    resetPasswordToken: string
+    // password: string
+    // resetPasswordToken: string
     isSend: boolean
     email: string
-    error: string
+    // error: string
 }
 
 const initialState = {
-    password: '',
-    resetPasswordToken: '',
-
+    // password: '',
+    // resetPasswordToken: '',
     isSend: false,
     email: '',
-    error: ''
+    // error: ''
 }
 
 export const passwordReducer = (state: InitialStateType = initialState, action: AuthActionsType): InitialStateType => {
     switch (action.type) {
-        case "SET_NEW_PASSWORD":
-            return {
-                ...state,
-                password: action.payload.newPassword,
-                resetPasswordToken: action.payload.resetPasswordToken,
-            }
+        // case "SET_NEW_PASSWORD":
+        //     return {
+        //         ...state,
+        //         password: action.payload.newPassword,
+        //         resetPasswordToken: action.payload.resetPasswordToken,
+        //     }
         case "SEND_EMAIL":
             return {
                 ...state,
                 isSend: action.payload.isSend,
                 email: action.payload.email
             }
-        case "SET_PASSWORD_ERROR":
-            return {
-                ...state,
-                error: action.payload.error,
-            }
+        // case "SET_PASSWORD_ERROR":
+        //     return {
+        //         ...state,
+        //         error: action.payload.error,
+        //     }
 
 
         default:
@@ -49,7 +49,7 @@ export const passwordReducer = (state: InitialStateType = initialState, action: 
 // type
 
 
-export type AuthActionsType = passwordRecoveryACType | passwordForgotACType | setErrorPasswordACType
+export type AuthActionsType =  passwordForgotACType
 
 // actions
 
@@ -62,28 +62,28 @@ export const passwordForgotAC = (isSend: boolean, email: string) =>
         }
     } as const)
 
+//
+// export const passwordRecoveryAC = (newPassword: any, resetPasswordToken: any) =>
+//     ({
+//         type: 'SET_NEW_PASSWORD',
+//         payload: {
+//             newPassword,
+//             resetPasswordToken
+//         }
+//     } as const)
+// export const setErrorPasswordAC = (error: string) => {
+//     return {
+//         type: 'SET_PASSWORD_ERROR',
+//         payload: {
+//             error: error
+//         },
+//     } as const
+// };
 
-export const passwordRecoveryAC = (newPassword: any, resetPasswordToken: any) =>
-    ({
-        type: 'SET_NEW_PASSWORD',
-        payload: {
-            newPassword,
-            resetPasswordToken
-        }
-    } as const)
-export const setErrorPasswordAC = (error: string) => {
-    return {
-        type: 'SET_PASSWORD_ERROR',
-        payload: {
-            error: error
-        },
-    } as const
-};
 
-
-type passwordRecoveryACType = ReturnType<typeof passwordRecoveryAC>
+// type passwordRecoveryACType = ReturnType<typeof passwordRecoveryAC>
 type passwordForgotACType = ReturnType<typeof passwordForgotAC>
-type setErrorPasswordACType = ReturnType<typeof setErrorPasswordAC>
+// type setErrorPasswordACType = ReturnType<typeof setErrorPasswordAC>
 
 
 // // thunk
@@ -103,14 +103,19 @@ type setErrorPasswordACType = ReturnType<typeof setErrorPasswordAC>
 
 export const passwordForgotTC = (email: string): AppThunkType => {
     return (dispatch: Dispatch) => {
+        dispatch(setLoadingAC(true));
         cardsAPI.sendMail(email)
             .then(res => {
                 if (res.status === 200) {
                     dispatch(passwordForgotAC(true, email))
+                    dispatch(setErrorAC(''))
                 }
             })
             .catch(e => {
-                dispatch(setErrorPasswordAC(e.response ? e.response.data.error : e.message))
+                dispatch(setErrorAC(e.response ? e.response.data.error : e.message))
+            })
+            .finally(() => {
+                dispatch(setLoadingAC(false));
             })
     }
 };
