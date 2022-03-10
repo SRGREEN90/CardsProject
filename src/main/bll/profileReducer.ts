@@ -1,11 +1,12 @@
 import {profileApi, UserResponseType, MePutRequestType} from "../../API/profileApi";
 import {Dispatch} from "redux";
 import axios from "axios";
+import {setLoadingAC} from "./loginReducer";
 
-const initialState: ProfileInitialStateType = {
+export const profileInitialState: ProfileInitialStateType = {
     _id: '',
-    email: 'fakeEmail',
-    name: 'fakeName',
+    email: '',
+    name: '',
     avatar: '',
     publicCardPacksCount: 0,
     isAdmin: false,
@@ -16,7 +17,7 @@ const initialState: ProfileInitialStateType = {
     created: null,
     updated: null,
 }
-export const profileReducer = (state = initialState, action: ProfileActionsType): ProfileInitialStateType => {
+export const profileReducer = (state = profileInitialState, action: ProfileActionsType): ProfileInitialStateType => {
     switch (action.type) {
         case "PROFILE/SET-PROFILE-DATA":
             return {...state, ...action.data}
@@ -25,7 +26,7 @@ export const profileReducer = (state = initialState, action: ProfileActionsType)
         case "PROFILE/SET-PROFILE-ERROR":
             return {...state, error: action.error}
         case "PROFILE/SET-PROFILE-DELETE-DATA":
-            return initialState;
+            return profileInitialState;
         default:
             return state;
     }
@@ -46,7 +47,7 @@ export const setProfileDeleteData = () => {
 
 // thunks
 export const updateProfile = (data: MePutRequestType) =>  (dispatch: Dispatch) => {
-    //dispatch(setAppLoading(true));
+    dispatch(setLoadingAC(true));
     profileApi.mePut(data)
       .then(res => {
           dispatch(updateProfileData(res.data.updatedUser));
@@ -57,7 +58,7 @@ export const updateProfile = (data: MePutRequestType) =>  (dispatch: Dispatch) =
           }
       })
       .finally(()=>{
-          //dispatch(setAppLoading(false));
+          dispatch(setLoadingAC(false));
       })
 }
 
@@ -81,5 +82,5 @@ export type ProfileInitialStateType = {
     isAdmin: boolean
     verified: boolean
     rememberMe: boolean
-    error: string
+    error?: string
 }
