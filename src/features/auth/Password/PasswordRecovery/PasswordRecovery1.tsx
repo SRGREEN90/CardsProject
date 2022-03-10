@@ -3,17 +3,20 @@ import {Frame} from "../../../../main/ui/common/Frame/Frame";
 import SuperInputPassword from "../../../../main/ui/common/SuperInputPassword/SuperInputPassword";
 import SuperButton from "../../../../main/ui/common/SuperButton/SuperButton";
 import {useDispatch, useSelector} from "react-redux";
-import {changePassTC} from "../../../../main/bll/newPasswordReducer";
+// import {changePassTC} from "../../../../main/bll/newPasswordReducer";
 import {Navigate, NavLink, useParams} from "react-router-dom";
 import {AppRootStateType} from "../../../../main/bll/store";
 import {PATH} from "../../../../main/ui/routes/Routes";
 import styles from "./passwordRecovery1.module.css";
+import {changePassTC} from "../../../../main/bll/passwordReducer";
+import Preloader from "../../../../main/ui/common/Preloader/Preloader";
 
 
 export const PasswordRecovery1 = () => {
     const [password, setPassword] = useState<string>('');
-    const isChangedPass = useSelector<AppRootStateType, boolean>(state => state.newPassword.isChangedPass);
-    const error = useSelector<AppRootStateType, string | null>(state => state.newPassword.error);
+    const isChangedPass = useSelector<AppRootStateType, boolean>(state => state.recovery.isChangedPass);
+    const error = useSelector<AppRootStateType, string | null>(state => state.app.error);
+    const loading = useSelector<AppRootStateType, boolean>(state => state.app.isLoading);
     const dispatch = useDispatch()
     const {token} = useParams<{ token: string }>();
 
@@ -27,6 +30,7 @@ export const PasswordRecovery1 = () => {
 
     return (
         <>
+            {loading && <Preloader/>}
             <Frame>
                 <span><strong>It-incubator</strong></span>
                 <h2>Create new password</h2>

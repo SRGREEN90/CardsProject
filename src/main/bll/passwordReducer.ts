@@ -2,104 +2,63 @@ import {Dispatch} from "redux";
 import {AppThunkType} from "./store";
 import {cardsAPI} from "../../API/api";
 import {setErrorAC, setLoadingAC} from "./appReducer";
-// import {setErrorAC} from "./loginReducer";
 
 type  InitialStateType = {
-    // password: string
-    // resetPasswordToken: string
     isSend: boolean
     email: string
-    // error: string
+    isChangedPass: boolean
 }
 
 const initialState = {
-    // password: '',
-    // resetPasswordToken: '',
     isSend: false,
     email: '',
-    // error: ''
+    isChangedPass: false
 }
 
 export const passwordReducer = (state: InitialStateType = initialState, action: AuthActionsType): InitialStateType => {
     switch (action.type) {
-        // case "SET_NEW_PASSWORD":
-        //     return {
-        //         ...state,
-        //         password: action.payload.newPassword,
-        //         resetPasswordToken: action.payload.resetPasswordToken,
-        //     }
-        case "SEND_EMAIL":
+        case "NEW_PASSWORD/SEND_EMAIL":
             return {
                 ...state,
                 isSend: action.payload.isSend,
                 email: action.payload.email
             }
-        // case "SET_PASSWORD_ERROR":
-        //     return {
-        //         ...state,
-        //         error: action.payload.error,
-        //     }
-
-
+        case 'NEW_PASSWORD/SET_IS_CHANGED_PASSWORD':
+            return {
+                ...state,
+                ...action.payload,
+            }
         default:
             return state
     }
 };
 
 // type
-
-
-export type AuthActionsType =  passwordForgotACType
+// types
+export type AuthActionsType =  passwordForgotACType | setIsChangedPassType
+type passwordForgotACType = ReturnType<typeof passwordForgotAC>
+type setIsChangedPassType = ReturnType<typeof setIsChangedPassAC>
 
 // actions
 
 export const passwordForgotAC = (isSend: boolean, email: string) =>
     ({
-        type: 'SEND_EMAIL',
+        type: 'NEW_PASSWORD/SEND_EMAIL',
         payload: {
             isSend,
             email
         }
     } as const)
 
-//
-// export const passwordRecoveryAC = (newPassword: any, resetPasswordToken: any) =>
-//     ({
-//         type: 'SET_NEW_PASSWORD',
-//         payload: {
-//             newPassword,
-//             resetPasswordToken
-//         }
-//     } as const)
-// export const setErrorPasswordAC = (error: string) => {
-//     return {
-//         type: 'SET_PASSWORD_ERROR',
-//         payload: {
-//             error: error
-//         },
-//     } as const
-// };
+const setIsChangedPassAC = (isChangedPass: boolean) => {
+    return {
+        type: 'NEW_PASSWORD/SET_IS_CHANGED_PASSWORD',
+        payload: {
+            isChangedPass: isChangedPass
+        }
+    } as const
+};
 
-
-// type passwordRecoveryACType = ReturnType<typeof passwordRecoveryAC>
-type passwordForgotACType = ReturnType<typeof passwordForgotAC>
-// type setErrorPasswordACType = ReturnType<typeof setErrorPasswordAC>
-
-
-// // thunk
-// export const passwordRecoveryTC = (password: string, resetPasswordToken: string): AppThunkType => {
-//     return (dispatch: Dispatch) => {
-//         cardsAPI.recoveryPassword(password, resetPasswordToken)
-//             .then(res => {
-//                 if (res.status === 200) {
-//                     const newPassword = res.data.newPassword
-//                     const newToken = res.data.token
-//                     const action = passwordRecoveryAC(newPassword, newToken)
-//                     dispatch(action)
-//                 }
-//             })
-//     }
-// };
 
 export const passwordForgotTC = (email: string): AppThunkType => {
     return (dispatch: Dispatch) => {
@@ -108,6 +67,25 @@ export const passwordForgotTC = (email: string): AppThunkType => {
             .then(res => {
                 if (res.status === 200) {
                     dispatch(passwordForgotAC(true, email))
+                    dispatch(setErrorAC(''))
+                }
+            })
+            .catch(e => {
+                dispatch(setErrorAC(e.response ? e.response.data.error : e.message))
+            })
+            .finally(() => {
+                dispatch(setLoadingAC(false));
+            })
+    }
+};
+
+export const changePassTC = (newPassword: string, token: string | undefined): AppThunkType => {
+    return (dispatch: Dispatch) => {
+        dispatch(setLoadingAC(true));
+        cardsAPI.newPassword(newPassword, token)
+            .then((res) => {
+                if (res.status === 200) {
+                    dispatch(setIsChangedPassAC(true))
                     dispatch(setErrorAC(''))
                 }
             })

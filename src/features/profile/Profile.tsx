@@ -1,4 +1,4 @@
-import React, {ChangeEvent, useState, KeyboardEvent} from 'react';
+import React, {ChangeEvent, useState} from 'react';
 import {Navigate} from 'react-router-dom';
 import SuperButton from "../../main/ui/common/SuperButton/SuperButton";
 import styles from "./Profile.module.css";
@@ -8,8 +8,9 @@ import noAvatar from './noAvatar.png'
 import {updateProfile} from "../../main/bll/profileReducer";
 import {Frame} from "../../main/ui/common/Frame/Frame";
 import {logoutTC} from "../../main/bll/loginReducer";
-import {SuperLoading} from "../../main/ui/common/SuperLoading/SuperLoading";
 import SuperEditableSpan from "../../main/ui/common/SuperEditableSpan/SuperEditableSpan";
+import {PATH} from "../../main/ui/routes/Routes";
+import Preloader from "../../main/ui/common/Preloader/Preloader";
 
 export const Profile = () => {
   const dispatch = useDispatch();
@@ -21,11 +22,7 @@ export const Profile = () => {
   const loading = useSelector<AppRootStateType, boolean>(state => state.app.isLoading);
 
   const [name, setName] = useState(profileName);
-  //const [editName, setEditName] = useState(false);
-
-  //const onDoubleClickNameHandler = () => setEditName(true);
   const onBlurNameHandler = () => {
-    //setEditName(false);
     onSubmitName();
   }
   const changeNameHandler = (e: ChangeEvent<HTMLInputElement>) => {
@@ -50,11 +47,11 @@ export const Profile = () => {
   }
 
   if (!isLoggedIn) {
-    return <Navigate to={'/login'}/>
+    return <Navigate to={PATH.LOGIN}/>
   }
   return (
     <>
-      {loading && <SuperLoading/>}
+      {loading && <Preloader/>}
       <Frame>
         <span><strong>It-incubator</strong></span>
         <h3>Your profile</h3>
@@ -74,20 +71,6 @@ export const Profile = () => {
                                    autoFocus
                 />
               }
-            {
-              // editName ?
-              //   <SuperEditableSpan value={name} type="text"
-              //          onChange={changeNameHandler}
-              //          onBlur={onBlurNameHandler}
-              //          onFocus={selectAllHandler}
-              //          onKeyPress={onEnterHandler}
-              //          autoFocus
-              //   />
-              //   :
-              //   <span onDoubleClick={onDoubleClickNameHandler}>
-              //                       Name: {profileName}
-              //                   </span>
-            }
           </div>
           <div className={styles.info}>Email: {profileEmail}</div>
         </div>
