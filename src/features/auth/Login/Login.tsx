@@ -65,8 +65,9 @@ export const Login = () => {
                                    onChange={() => setRememberMe(!rememberMe)}/>
                     <p>Remember me</p>
                 </div>
-                <NavLink to={PATH.FORGOT_YOUR_PASSWORD} className={styles.linkLogin}><p
-                    className={styles.forgotText}>Forgot Password</p></NavLink>
+                <p className={styles.forgotText}>
+                <NavLink to={PATH.FORGOT_YOUR_PASSWORD} className={styles.linkLogin}>Forgot Password</NavLink>
+                </p>
                 <SuperButton onClick={loginHandler}>Login</SuperButton>
                 <p>Don’t have an account?</p>
                 <NavLink to={PATH.REGISTRATION} className={styles.linkLogin}>
