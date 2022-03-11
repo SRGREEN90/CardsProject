@@ -12,6 +12,7 @@ import {Frame} from "../../../main/ui/common/Frame/Frame";
 import SuperInputPassword from "../../../main/ui/common/SuperInputPassword/SuperInputPassword";
 import Preloader from "../../../main/ui/common/Preloader/Preloader";
 import {setRegister} from "../../../main/bll/registerReducer";
+import {setErrorAC} from "../../../main/bll/appReducer";
 
 export const Login = () => {
     const [email, setEmail] = useState<string>('');
@@ -29,6 +30,7 @@ export const Login = () => {
 
     useEffect(() => {
         dispatch(setRegister(false));
+        dispatch(setErrorAC(''))
     }, [])
 
     if (loginStatus) {

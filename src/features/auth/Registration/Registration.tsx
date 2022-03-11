@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import SuperButton from "../../../main/ui/common/SuperButton/SuperButton";
 import {useDispatch, useSelector} from "react-redux";
 import {registerTC} from "../../../main/bll/registerReducer";
@@ -22,6 +22,10 @@ export const Registration = () => {
     const loading = useSelector<AppRootStateType, boolean>(state => state.app.isLoading);
     const dispatch = useDispatch();
 
+    // ????? НУЖНО РАЗДЕЛЕНИЕ ОШИБОК ?????
+    useEffect(() => {
+        dispatch(setErrorAC(''))
+    }, [])
 
     const onClickHandler = () => {
         if (password !== confirmPassword) {
