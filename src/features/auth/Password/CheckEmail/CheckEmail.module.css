@@ -1,26 +1,7 @@
-* {
-    box-sizing: border-box;
+.text {
+    font-style: normal;
+    font-weight: 400;
+    line-height: 24px;
+    text-align: center;
+    color: #2D2E46;
 }
-
-.wrap {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    height: 100vh;
-}
-
-.container{
-    width: 300px;
-    min-height: 450px;
-    background: #F9F9FE;
-    border-radius: 8px;
-    padding: 25px 33px;
-
-}
-
-.wrap img {
-    padding-top: 20px;
-}
-
-
-
