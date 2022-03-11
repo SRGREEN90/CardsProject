@@ -36,8 +36,6 @@ export const PasswordRecovery1 = () => {
                 <h2>Create new password</h2>
                 {error && <div className={styles.error}>
                     <p>{error}</p>
-                    <NavLink to={PATH.FORGOT_YOUR_PASSWORD} className={styles.linkBack}>
-                        <p className={styles.forgotText}>Back to reset pass</p></NavLink>
                 </div>}
                 <div className={styles.input}>
                     <label>
