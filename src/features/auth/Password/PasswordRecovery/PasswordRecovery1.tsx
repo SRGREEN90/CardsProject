@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import {Frame} from "../../../../main/ui/common/Frame/Frame";
 import SuperInputPassword from "../../../../main/ui/common/SuperInputPassword/SuperInputPassword";
 import SuperButton from "../../../../main/ui/common/SuperButton/SuperButton";
@@ -10,6 +10,7 @@ import {PATH} from "../../../../main/ui/routes/Routes";
 import styles from "./passwordRecovery1.module.css";
 import {changePassTC} from "../../../../main/bll/passwordReducer";
 import Preloader from "../../../../main/ui/common/Preloader/Preloader";
+import {setErrorAC} from "../../../../main/bll/appReducer";
 
 
 export const PasswordRecovery1 = () => {
@@ -19,6 +20,11 @@ export const PasswordRecovery1 = () => {
     const loading = useSelector<AppRootStateType, boolean>(state => state.app.isLoading);
     const dispatch = useDispatch()
     const {token} = useParams<{ token: string }>();
+
+    // ????? НУЖНО РАЗДЕЛЕНИЕ ОШИБОК ?????
+    useEffect(() => {
+        dispatch(setErrorAC(''))
+    }, [])
 
     const newPasswordHandler = () => {
         dispatch(changePassTC(password, token))

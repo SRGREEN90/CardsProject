@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import SuperButton from "../../../../main/ui/common/SuperButton/SuperButton";
 import {passwordForgotTC} from "../../../../main/bll/passwordReducer";
 import {useDispatch, useSelector} from "react-redux";
@@ -10,6 +10,7 @@ import {PATH} from "../../../../main/ui/routes/Routes";
 import {Frame} from "../../../../main/ui/common/Frame/Frame";
 import styles from "../../Login/login.module.css";
 import Preloader from "../../../../main/ui/common/Preloader/Preloader";
+import {setErrorAC} from "../../../../main/bll/appReducer";
 
 
 const ForgotYourPassword = () => {
@@ -18,6 +19,10 @@ const ForgotYourPassword = () => {
     const isError = useSelector<AppRootStateType, string>(state => state.app.error);
     const loading = useSelector<AppRootStateType, boolean>(state => state.app.isLoading);
 
+    // ????? НУЖНО РАЗДЕЛЕНИЕ ОШИБОК ?????
+    useEffect(() => {
+        dispatch(setErrorAC(''))
+    }, [])
 
     const [email, setEmail] = useState('')
 
