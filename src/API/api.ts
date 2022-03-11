@@ -28,7 +28,7 @@ export const cardsAPI = {
             </div>
             <p style="font-size: 17px; color: #2D2E46">We heard you need a password reset. Click the link below, and you'll be redirected to a site from which you can set a new password.</p>
             <a style="text-decoration: none; color: white; background-color: #21268F; outline: none; border: none; padding: 15px 20px;border-radius: 7px;"
-            href='https://nastassiamikhalenka.github.io/#/set-new-password/$token$'>Reset password</a>
+            href='https://nastassiamikhalenka.github.io/projectcards/#/set-new-password/$token$'>Reset password</a>
         </div>`
         })
     },
