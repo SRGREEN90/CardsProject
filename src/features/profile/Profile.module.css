@@ -1,5 +1,8 @@
 .error {
-    bottom: 130px;
+    min-height: 20px;
+    font-size: 15px;
+    color: red;
+    margin-bottom: 5px;
 }
 
 .avatar {

@@ -1,4 +1,4 @@
-import React, {ChangeEvent, useState} from 'react';
+import React, {ChangeEvent, useEffect, useState} from 'react';
 import {Navigate} from 'react-router-dom';
 import SuperButton from "../../main/ui/common/SuperButton/SuperButton";
 import styles from "./Profile.module.css";
@@ -22,10 +22,17 @@ export const Profile = () => {
   const loading = useSelector<AppRootStateType, boolean>(state => state.app.isLoading);
 
   const [name, setName] = useState(profileName);
+  const [localErr, setLocalErr] = useState<string>('')
+
+  useEffect(()=>{
+    setName(profileName)
+  }, [profileName])
+
   const onBlurNameHandler = () => {
     onSubmitName();
   }
   const changeNameHandler = (e: ChangeEvent<HTMLInputElement>) => {
+    if (localErr) setLocalErr('')
     setName(e.currentTarget.value.trim())
   };
 
@@ -34,6 +41,11 @@ export const Profile = () => {
   }
 
   const onSubmitName = () => {
+    if (name.length > 10) {
+      setLocalErr('Name should be less then 11 symbols!')
+      setName(profileName)
+      return
+    }
     if (name && (name !== profileName)) {
       dispatch(updateProfile({name}));
     }
@@ -61,7 +73,7 @@ export const Profile = () => {
                  alt="avatar"/>
           </div>
           <div className={styles.info}>
-              <span>Name: &#160;</span>
+            <span>Name: &#160;</span>
               {
                 <SuperEditableSpan value={name} type="text"
                                    style={{height: "27px", width: "150px"}}
@@ -74,7 +86,10 @@ export const Profile = () => {
           </div>
           <div className={styles.info}>Email: {profileEmail}</div>
         </div>
-        {error && <div>error: {error}</div>}
+        <div className={styles.error}>
+          {error && <span>error: {error}</span>}
+          {localErr && <span>Note: {localErr}</span>}
+        </div>
         <div>
           <SuperButton onClick={logOutHandler}>Log Out</SuperButton>
         </div>
