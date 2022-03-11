@@ -3,7 +3,7 @@ import SuperButton from "../../../main/ui/common/SuperButton/SuperButton";
 import {useDispatch, useSelector} from "react-redux";
 import {registerTC} from "../../../main/bll/registerReducer";
 import {AppRootStateType} from "../../../main/bll/store";
-import {Navigate} from "react-router-dom";
+import {Navigate, NavLink} from "react-router-dom";
 import s from './Registration.module.css';
 import SuperInputText from "../../../main/ui/common/SuperInputText/SuperInputText";
 import SuperInputPassword from "../../../main/ui/common/SuperInputPassword/SuperInputPassword";
@@ -61,6 +61,11 @@ export const Registration = () => {
                     <SuperInputPassword value={confirmPassword} onChangeText={setConfirmPassword}/>
                 </div>
                 <SuperButton onClick={onClickHandler}>Register</SuperButton>
+                <p>
+                    <NavLink to={PATH.LOGIN} className={s.linkLogin}>
+                     <p className={s.signUpText}>To login</p>
+                    </NavLink>
+                </p>
             </Frame>
         </>
     );

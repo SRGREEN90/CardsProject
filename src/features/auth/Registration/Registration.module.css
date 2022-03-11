@@ -11,3 +11,18 @@
     margin-bottom: 20px;
     /*max-width: 300px;*/
 }
+.linkLogin {
+    text-decoration: none;
+}
+.signUpText {
+    display: inline;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 16px;
+    line-height: 24px;
+    color: #21268F;
+    border: 2px solid #F9F9FE;
+}
+.signUpText:hover {
+    border-bottom: 2px solid #21268F;
+}
