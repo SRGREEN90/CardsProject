@@ -1,0 +1,64 @@
+.packFrame {
+    max-width: 1200px;
+    background: #F9F9FE;
+    border-radius: 8px;
+    width: 96%;
+    margin: 24px auto;
+    display: flex;
+    overflow: hidden;
+    min-height: 80vh;
+    text-align: left;
+}
+.sidebar {
+    background: #ECECF9;
+    padding: 24px;
+    max-width: 243px;
+}
+.main {
+    padding: 24px 33px;
+}
+.table {
+    filter: drop-shadow(0px 4px 14px rgba(45, 46, 70, 0.15));
+    width: 100%;
+    background: #fff;
+    text-align: left;
+    color: #000;
+    font-size: 14px;
+    line-height: 16px;
+    margin: 24px 0;
+}
+.item {
+    display: grid;
+    grid-template-columns: 2fr 50px 120px minmax(220px, 1fr) 180px;
+    align-items: center;
+    grid-gap: 0 30px;
+    padding: 16px 24px;
+}
+.item:nth-child(odd) {
+    background: #F8F7FD;
+}
+.item.header {
+    background: #ECECF9;
+    font-weight: 700;
+}
+.item a {
+    color: inherit;
+    font-weight: 700;
+    text-decoration: none;
+}
+.button, a.button {
+    font-weight: 600;
+    color: #21268F;
+    padding: 6px;
+    border: none;
+    background: #D7D8EF;
+    border-radius: 2px;
+    cursor: pointer;
+    display: inline-block;
+    margin-right: 6px;
+}
+.delete {
+    background: #F1453D;
+    color: #fff;
+}
+
