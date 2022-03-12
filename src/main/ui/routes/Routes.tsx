@@ -10,6 +10,7 @@ import ForgotYourPassword from '../../../features/auth/Password/ForgotYourPasswo
 import {PasswordRecovery1} from "../../../features/auth/Password/PasswordRecovery/PasswordRecovery1";
 import CheckEmail from "../../../features/auth/Password/CheckEmail/CheckEmail";
 import PacksList from "../../../features/packsList/PacksList";
+import Cards from "../../../features/cards/Cards";
 
 export const PATH = {
     LOGIN: '/login',
@@ -41,6 +42,7 @@ export const RoutesComponent = () => {
                 <Route path={PATH.CHECK_EMAIL} element={<CheckEmail/>}/>
                 {/*<Route path={PATH.TEST} element={<Test/>}/>*/}
                 <Route path={PATH.PACKS} element={<PacksList/>}/>
+                <Route path={PATH.CARDS} element={<Cards/>}/>
                 <Route path={"/*"} element={<Error404/>}/>
             </Routes>
         </>

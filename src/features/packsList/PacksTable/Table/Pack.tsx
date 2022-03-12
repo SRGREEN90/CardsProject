@@ -10,7 +10,10 @@ type PackPropsType = {
 const Pack: React.FC<PackPropsType> = ({pack}) => {
     return (
         <div className={`${styles.pack} ${styles.item}`}>
-            <NavLink to={`/cards-list/${pack._id}`}>
+            {/*<NavLink to={`/cards/${pack._id}`}>*/}
+            {/*    {pack.name}*/}
+            {/*</NavLink>   */}
+            <NavLink to={`/cards/`}>
                 {pack.name}
             </NavLink>
             <div>{pack.cardsCount}</div>
