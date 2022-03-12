@@ -4,6 +4,7 @@ import Header from "../../main/ui/header/Header";
 import SuperButton from "../../main/ui/common/SuperButton/SuperButton";
 import PacksTable from "./PacksTable/Table/PacksTable";
 import {PackFrame} from "../../main/ui/common/PackFrame/PackFrame";
+import Sidebar from "../../main/ui/Sidebar/Sidebar";
 
 const PacksList = () => {
 
@@ -11,11 +12,7 @@ const PacksList = () => {
         <>
             <Header/>
             <PackFrame>
-                <div className={styles.sidebar}>
-                    Show packs cards
-                    Checkbox
-                    Двойной ползунок
-                </div>
+                <Sidebar/>
                 <div className={styles.main}>
                     <h2>Packs list</h2>
                     Поиск
