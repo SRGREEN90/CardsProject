@@ -3,13 +3,14 @@ import styles from './PacksList.module.css'
 import Header from "../../main/ui/header/Header";
 import SuperButton from "../../main/ui/common/SuperButton/SuperButton";
 import PacksTable from "./PacksTable/Table/PacksTable";
+import {PackFrame} from "../../main/ui/common/PackFrame/PackFrame";
 
 const PacksList = () => {
 
     return (
         <>
             <Header/>
-            <div className={styles.packFrame}>
+            <PackFrame>
                 <div className={styles.sidebar}>
                     Show packs cards
                     Checkbox
@@ -22,7 +23,7 @@ const PacksList = () => {
                     <PacksTable/>
                     Пагинация
                 </div>
-            </div>
+            </PackFrame>
         </>
 
 
