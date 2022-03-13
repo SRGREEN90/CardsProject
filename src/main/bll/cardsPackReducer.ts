@@ -17,7 +17,7 @@ const initialState = {
     sortPacks: "0updated",
     min: 0,
     max: 1000,
-    packName: 'new pack 2.0',
+    packName: '',
     user_id: '',
 }
 
