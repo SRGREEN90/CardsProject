@@ -1,5 +1,7 @@
 import React, {ChangeEvent, useEffect, useState} from "react";
 import s from './Search.module.css'
+import {useSelector} from "react-redux";
+import {AppRootStateType} from "../../../bll/store";
 
 const packName = [
     "React",
@@ -12,7 +14,9 @@ const packName = [
     "Linkedin",
 ];
 
-function Search() {
+export const Search = () => {
+   //const packName = useSelector<AppRootStateType, boolean>(state => state.cardsPack.);
+
     const [searchTerm, setSearchTerm] = useState<string>("");
     const [searchResults, setSearchResults] = useState<Array<string>>([]);
     const handleChange = (e:  ChangeEvent<HTMLInputElement>) => {
