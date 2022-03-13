@@ -14,10 +14,11 @@ const initialState = {
     minCardsRange: 0,
     maxCardsRange: 10,
     myPacks: false,
-    sortPacks: "1updated",
+    sortPacks: "0updated",
     min: 0,
-    max: 100,
-    packName: '',
+    max: 1000,
+    packName: 'new pack 2.0',
+    user_id: '',
 }
 
 export const cardsPackReducer = (state: InitialStateType = initialState, action: CardsPackActionsType): InitialStateType => {
@@ -44,6 +45,7 @@ type InitialStateType = {
     min: number
     max: number
     packName: string
+    user_id :string
 }
 
 export type CardsPackActionsType = setPacksListsAC
@@ -56,8 +58,14 @@ type setPacksListsAC = ReturnType<typeof setPacksListsAC>
 export const fetchPacksListsTC = () => {
     return (dispatch: Dispatch, getState: () => AppRootStateType) => {
         dispatch(setLoadingAC(true))
-        let {packName, min, max, sortPacks, page, pageCount} = getState().cardsPack;
-        const payload = {packName, min, max, sortPacks, page, pageCount,};
+
+        let {packName, min, max, sortPacks, page, pageCount, myPacks, user_id} = getState().cardsPack;
+        let myUserId = getState().profilePage._id;
+
+        user_id = myPacks ? myUserId : user_id
+
+        const payload = {packName, min, max, sortPacks, page, pageCount, user_id};
+
         cardsPackApi.getPacks(payload)
             .then((res) => {
                 dispatch(setPacksListsAC(res.data))

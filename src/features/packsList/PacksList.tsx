@@ -20,10 +20,11 @@ const PacksList = () => {
     const max = useSelector<AppRootStateType, number>(state => state.cardsPack.max)
     const page = useSelector<AppRootStateType, number>(state => state.cardsPack.page)
     const pageCount = useSelector<AppRootStateType, number>(state => state.cardsPack.pageCount)
+    const myPacks = useSelector<AppRootStateType, boolean>(state => state.cardsPack.myPacks)
 
     useEffect(() => {
         dispatch(fetchPacksListsTC())
-    }, [min, max, page, pageCount])
+    }, [min, max, page, pageCount, myPacks])
 
     if (!isLoggedIn) {
         return <Navigate to={PATH.LOGIN}/>
