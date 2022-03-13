@@ -42,7 +42,7 @@ export const RoutesComponent = () => {
                 <Route path={PATH.CHECK_EMAIL} element={<CheckEmail/>}/>
                 {/*<Route path={PATH.TEST} element={<Test/>}/>*/}
                 <Route path={PATH.PACKS} element={<PacksList/>}/>
-                <Route path={PATH.CARDS} element={<Cards/>}/>
+                <Route path={PATH.CARDS + '/:packId'} element={<Cards/>}/>
                 <Route path={PATH.TEST} element={<Test/>}/>
                 <Route path={"/*"} element={<Error404/>}/>
             </Routes>

@@ -1,7 +1,7 @@
 import React from 'react';
 import styles from "./PacksTable.module.css";
 import {NavLink} from "react-router-dom";
-import {PackType} from "./PacksTable";
+import {PackType} from "../../../../API/cardsPackApi";
 
 type PackPropsType = {
     pack: PackType
@@ -10,15 +10,12 @@ type PackPropsType = {
 const Pack: React.FC<PackPropsType> = ({pack}) => {
     return (
         <div className={`${styles.pack} ${styles.item}`}>
-            {/*<NavLink to={`/cards/${pack._id}`}>*/}
-            {/*    {pack.name}*/}
-            {/*</NavLink>   */}
-            <NavLink to={`/cards/`}>
+            <NavLink to={`/cards/${pack._id}`}>
                 {pack.name}
             </NavLink>
             <div>{pack.cardsCount}</div>
             <div>{pack.updated.slice(0, 10)}</div>
-            <div>{pack.user_id}</div>
+            <div>{pack.user_name}</div>
             <div className={styles.buttons}>
                 <button className={`${styles.button} ${styles.delete}`}>Delete</button>
                 <button className={styles.button}>Edit</button>

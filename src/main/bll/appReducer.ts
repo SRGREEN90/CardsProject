@@ -1,7 +1,7 @@
 import {Dispatch} from "redux";
 import {AppThunkType} from "./store";
 import {cardsAPI} from "../../API/api";
-import {setIsLoggedInAC} from "./loginReducer";
+import {loginTC, setIsLoggedInAC} from "./loginReducer";
 import {setProfileData} from "./profileReducer";
 
 const initialState = {
@@ -61,10 +61,8 @@ export const initializeAppTC = (): AppThunkType => {
   return (dispatch: Dispatch) => {
     cardsAPI.me()
       .then((res) => {
-        if (res.status === 200) {
           dispatch(setProfileData(res.data))
           dispatch(setIsLoggedInAC(true));
-        }
       })
       .catch(e => {
         const error = e.response ? e.response.data.error : (e.message + ', more details in the console');

@@ -11,12 +11,11 @@
 
 .item {
     display: grid;
-    grid-template-columns: 2fr 50px 120px minmax(220px, 1fr) 180px;
+    grid-template-columns: 2fr 50px 120px minmax(220px, 1fr) 170px;
     align-items: center;
     grid-gap: 0 30px;
     padding: 16px 24px;
 }
-
 .item:nth-child(odd) {
     background: #F8F7FD;
 }
@@ -30,6 +29,7 @@
     color: inherit;
     font-weight: 700;
     text-decoration: none;
+    word-break: break-all;
 }
 
 .button, a.button {
