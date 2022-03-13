@@ -1,10 +1,12 @@
 .container {
-    padding-left: 5px;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 30px 0;
 }
 
 .container span {
     display: inline-block;
-    width: 30px;
-    text-align: end;
-    padding-right: 5px;
+    width: 10%;
 }
