@@ -11,8 +11,6 @@ const initialState = {
     maxCardsCount: 100,
     page: 1,
     pageCount: 8,
-    minCardsRange: 0,
-    maxCardsRange: 10,
     myPacks: false,
     sortPacks: "0updated",
     min: 0,
@@ -40,8 +38,6 @@ type InitialStateType = {
     cardPacksTotalCount: number
     minCardsCount: number
     maxCardsCount: number
-    minCardsRange: number
-    maxCardsRange: number
     myPacks: boolean
     sortPacks: string
     min: number
