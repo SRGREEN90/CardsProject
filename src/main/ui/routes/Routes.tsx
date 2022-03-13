@@ -37,7 +37,7 @@ export const RoutesComponent = () => {
                 <Route path={PATH.SET_NEW_PASSWORD + `/:token`} element={<PasswordRecovery1/>}/>
                 <Route path={PATH.FORGOT_YOUR_PASSWORD} element={<ForgotYourPassword/>}/>
                 <Route path={PATH.CHECK_EMAIL} element={<CheckEmail/>}/>
-                {/*<Route path={PATH.TEST} element={<Test/>}/>*/}
+                <Route path={PATH.TEST} element={<Test/>}/>
                 <Route path={"/*"} element={<Error404/>}/>
             </Routes>
         </>
