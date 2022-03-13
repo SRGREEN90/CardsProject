@@ -10,7 +10,6 @@ const packName = [
     "Facebook",
     "Twitter",
     "Linkedin",
-    "Sinkedin"
 ];
 
 function Search() {

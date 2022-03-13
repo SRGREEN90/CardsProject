@@ -17,10 +17,17 @@ const initialState = {
 
 export const cardsPackReducer = (state: InitialStateType = initialState, action: CardsPackActionsType): InitialStateType => {
     switch (action.type) {
+        case "SET-MY-PACKS":
+            return {...state, myPacks: action.myPacks}
         default:
             return state
     }
 };
+export type CardsPackActionsType = setMyPacksACType
+
+type setMyPacksACType = ReturnType<typeof setMyPacksAC>
+
+export const setMyPacksAC = (myPacks: boolean) =>({type: 'SET-MY-PACKS', myPacks})
 
 // type
 type InitialStateType = {
@@ -36,5 +43,3 @@ type InitialStateType = {
     myPacks: boolean
     sortPacks: string
 }
-
-export type CardsPackActionsType = any

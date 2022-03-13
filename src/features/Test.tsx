@@ -23,7 +23,6 @@ export const Test = () => {
                     spanProps={{children: value ? undefined : 'enter text...'}}
                 />
 
-
                 <h3>Double Check</h3>
                 <div>
                     <DoubleCheckbox/>
