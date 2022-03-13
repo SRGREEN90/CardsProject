@@ -11,6 +11,7 @@ import {logoutTC} from "../../main/bll/loginReducer";
 import SuperEditableSpan from "../../main/ui/common/SuperEditableSpan/SuperEditableSpan";
 import {PATH} from "../../main/ui/routes/Routes";
 import Preloader from "../../main/ui/common/Preloader/Preloader";
+import Header from "../../main/ui/header/Header";
 
 export const Profile = () => {
   const dispatch = useDispatch();
@@ -63,6 +64,7 @@ export const Profile = () => {
   }
   return (
     <>
+      <Header/>
       {loading && <Preloader/>}
       <Frame>
         <span><strong>It-incubator</strong></span>
