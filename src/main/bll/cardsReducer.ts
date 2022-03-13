@@ -9,6 +9,7 @@ const initialState = {
     page: 1,
     pageCount: 100,
     searchCard: '',
+    sortCards: '',
 }
 
 export const cardsReducer = (state: InitialStateType = initialState, action: CardsActionsType): InitialStateType => {

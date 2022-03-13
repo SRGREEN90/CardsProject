@@ -12,6 +12,7 @@ const initialState = {
     minCardsRange: 0,
     maxCardsRange: 10,
     myPacks: false,
+    sortPacks: "",
 }
 
 export const cardsPackReducer = (state: InitialStateType = initialState, action: CardsPackActionsType): InitialStateType => {
@@ -33,6 +34,7 @@ type InitialStateType = {
     minCardsRange: number
     maxCardsRange: number
     myPacks: boolean
+    sortPacks: string
 }
 
 export type CardsPackActionsType = any
