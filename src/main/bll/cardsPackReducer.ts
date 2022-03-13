@@ -32,7 +32,6 @@ export const cardsPackReducer = (state: InitialStateType = initialState, action:
     }
 };
 
-
 // type
 type InitialStateType = {
     cardPacks: Array<PackType>

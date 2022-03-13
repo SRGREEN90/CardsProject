@@ -1,11 +1,12 @@
 import React from 'react';
 import styles from "./Sidebar.module.css";
+import {DoubleCheckbox} from "../common/GridinCheckbox/DoubleCheckbox";
 
 const Sidebar = () => {
     return (
         <div className={styles.sidebar}>
             Show packs cards
-            Checkbox
+            <DoubleCheckbox/>
             Двойной ползунок
         </div>
     );

@@ -12,7 +12,7 @@ const packName = [
     "Linkedin",
 ];
 
-function Search() {
+export const Search = () => {
     const [searchTerm, setSearchTerm] = useState<string>("");
     const [searchResults, setSearchResults] = useState<Array<string>>([]);
     const handleChange = (e:  ChangeEvent<HTMLInputElement>) => {
@@ -42,5 +42,3 @@ function Search() {
         </div>
     );
 }
-
-export default Search

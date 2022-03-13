@@ -39,7 +39,7 @@ const PacksList = () => {
                 <div className={styles.main}>
                     <h2>Packs list</h2>
                     {error ? <div style={{color:'red'}}>{error}</div> : ''}
-                    Поиск
+                    {/*<Search/>*/}
                     <SuperButton>Add new pack</SuperButton>
                     <PacksTable/>
                     Пагинация

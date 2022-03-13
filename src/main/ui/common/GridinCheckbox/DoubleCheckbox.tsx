@@ -5,7 +5,7 @@ import {useDispatch, useSelector} from "react-redux";
 import {AppRootStateType} from "../../../bll/store";
 
 
-function DoubleCheckbox() {
+export const DoubleCheckbox = () => {
     //const [select, setSelect] = useState<boolean>(true);
 
 
@@ -14,11 +14,11 @@ function DoubleCheckbox() {
 
 
     const myOnClickHandler = () => {
-      // console.log(myPacks)
+        // console.log(myPacks)
         dispatch(setMyPacksAC(true))
     }
     const allOnClickHandler = () => {
-       // console.log(myPacks)
+        // console.log(myPacks)
         dispatch(setMyPacksAC(false))
     }
 
@@ -31,5 +31,3 @@ function DoubleCheckbox() {
         </div>
     </div>
 }
-
-export default DoubleCheckbox
