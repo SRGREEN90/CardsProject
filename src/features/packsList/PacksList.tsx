@@ -10,15 +10,12 @@ import {AppRootStateType} from "../../main/bll/store";
 import {fetchPacksListsTC} from "../../main/bll/cardsPackReducer";
 import {Navigate} from "react-router-dom";
 import {PATH} from "../../main/ui/routes/Routes";
-import {PackType} from "../../API/cardsPackApi";
 
 const PacksList = () => {
     const dispatch = useDispatch();
     const error = useSelector<AppRootStateType, string>(state => state.app.error);
     const isLoggedIn = useSelector<AppRootStateType, boolean>(state => state.login.status);
 
-
-    const packs = useSelector<AppRootStateType, Array<PackType>>(state => state.cardsPack.cardPacks)
     const min = useSelector<AppRootStateType, number>(state => state.cardsPack.min)
     const max = useSelector<AppRootStateType, number>(state => state.cardsPack.max)
     const page = useSelector<AppRootStateType, number>(state => state.cardsPack.page)

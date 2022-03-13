@@ -18,7 +18,9 @@ const PacksTable = () => {
                 <div>Created by</div>
                 <div>Actions</div>
             </div>
-            {packs.map(pack => <Pack key={pack._id} pack={pack}/>)}
+            {packs.length > 0
+                ? packs.map(pack => <Pack key={pack._id} pack={pack}/>)
+                : <div style={{padding: '16px 24px'}}>Ничего не найдено</div>}
         </div>
 
 

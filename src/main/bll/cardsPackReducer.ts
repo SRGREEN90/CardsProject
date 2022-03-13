@@ -7,18 +7,17 @@ import {AppRootStateType} from "./store";
 const initialState = {
     cardPacks: [],
     cardPacksTotalCount: 0,
-    page: 1,
-    pageCount: 10,
-    minCardsCount: 10,
+    minCardsCount: 0,
     maxCardsCount: 100,
+    page: 1,
+    pageCount: 8,
     minCardsRange: 0,
     maxCardsRange: 10,
     myPacks: false,
-    searchPack: "",
-    sortPacks: "",
+    sortPacks: "1updated",
     min: 0,
     max: 100,
-    packName: ''
+    packName: '',
 }
 
 export const cardsPackReducer = (state: InitialStateType = initialState, action: CardsPackActionsType): InitialStateType => {
@@ -38,7 +37,6 @@ type InitialStateType = {
     cardPacksTotalCount: number
     minCardsCount: number
     maxCardsCount: number
-    searchPack: string
     minCardsRange: number
     maxCardsRange: number
     myPacks: boolean
@@ -58,15 +56,8 @@ type setPacksListsAC = ReturnType<typeof setPacksListsAC>
 export const fetchPacksListsTC = () => {
     return (dispatch: Dispatch, getState: () => AppRootStateType) => {
         dispatch(setLoadingAC(true))
-        let state = getState().cardsPack;
-        const payload = {
-            packName: state.packName,
-            min: state.min,
-            max: state.max,
-            sortPacks: state.sortPacks,
-            page: state.page,
-            pageCount: state.pageCount,
-        };
+        let {packName, min, max, sortPacks, page, pageCount} = getState().cardsPack;
+        const payload = {packName, min, max, sortPacks, page, pageCount,};
         cardsPackApi.getPacks(payload)
             .then((res) => {
                 dispatch(setPacksListsAC(res.data))
