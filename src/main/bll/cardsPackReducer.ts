@@ -25,6 +25,8 @@ export const cardsPackReducer = (state: InitialStateType = initialState, action:
     switch (action.type) {
         case 'PACKS/SET_PACKS_LIST':
             return {...state, ...action.data}
+        case 'PACKS/SORT':
+            return {...state, sortPacks: action.sortPacks}
         default:
             return state
     }
@@ -48,12 +50,17 @@ type InitialStateType = {
     user_id :string
 }
 
-export type CardsPackActionsType = setPacksListsAC
+export type CardsPackActionsType = setPacksListsACType | sortPacksACType
 
 export const setPacksListsAC = (data: PacksResponseType) =>
     ({type: 'PACKS/SET_PACKS_LIST', data} as const)
 
-type setPacksListsAC = ReturnType<typeof setPacksListsAC>
+type setPacksListsACType = ReturnType<typeof setPacksListsAC>
+
+export const sortPacksAC = (sortPacks: string) =>
+    ({type: 'PACKS/SORT', sortPacks} as const)
+
+type sortPacksACType = ReturnType<typeof sortPacksAC>
 
 export const fetchPacksListsTC = () => {
     return (dispatch: Dispatch, getState: () => AppRootStateType) => {
