@@ -4,6 +4,7 @@ import SuperCheckbox from "../main/ui/common/SuperCheckbox/SuperCheckbox";
 import SuperInputText from "../main/ui/common/SuperInputText/SuperInputText";
 import s from './test.module.css';
 import SuperEditableSpan from "../main/ui/common/SuperEditableSpan/SuperEditableSpan";
+import {RangeDemo} from "../main/ui/common/SuperRange/RangeDemo";
 
 export const Test = () => {
     const [value, setValue] = useState<string>('')
@@ -20,6 +21,7 @@ export const Test = () => {
                     spanProps={{children: value ? undefined : 'enter text...'}}
                 />
             </div>
+          <RangeDemo/>
         </div>
     );
 };
