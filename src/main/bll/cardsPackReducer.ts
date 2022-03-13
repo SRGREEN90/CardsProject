@@ -27,7 +27,7 @@ export type CardsPackActionsType = setMyPacksACType
 
 type setMyPacksACType = ReturnType<typeof setMyPacksAC>
 
-export const setMyPacksAC = (myPacks: boolean) =>({type: 'SET-MY-PACKS', myPacks})
+export const setMyPacksAC = (myPacks: boolean) =>({type: 'SET-MY-PACKS', myPacks} as const)
 
 // type
 type InitialStateType = {

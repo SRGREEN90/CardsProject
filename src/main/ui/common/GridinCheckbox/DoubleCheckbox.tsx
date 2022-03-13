@@ -14,11 +14,11 @@ function DoubleCheckbox() {
 
 
     const myOnClickHandler = () => {
-      // console.log(myPacks)
+       console.log(myPacks)
         dispatch(setMyPacksAC(true))
     }
     const allOnClickHandler = () => {
-       // console.log(myPacks)
+        console.log(myPacks)
         dispatch(setMyPacksAC(false))
     }
 
