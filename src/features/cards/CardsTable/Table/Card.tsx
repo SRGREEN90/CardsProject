@@ -1,6 +1,7 @@
 import React from 'react';
 import styles from "./CardsTable.module.css";
-import {CardType} from "./CardsTable";
+import {CardType} from "../../../../API/cardsApi";
+// import {CardType} from "./CardsTable";
 
 type CardPropsType = {
     card: CardType

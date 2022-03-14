@@ -1,5 +1,7 @@
 // КАРТОЧКИ
-import {CardType} from "../../API/cardsApi";
+import {cardsApi, CardType, GetCardsParamsType} from "../../API/cardsApi";
+import {AppRootStateType} from "./store";
+import {Dispatch} from "redux";
 
 const initialState = {
     cards: [],
@@ -10,10 +12,17 @@ const initialState = {
     pageCount: 100,
     searchCard: '',
     sortCards: '',
+    packUserId: '',
+    token: '',
+    tokenDeathTime: 0,
+    cardAnswer: "",
+    cardQuestion: '',
 }
 
 export const cardsReducer = (state: InitialStateType = initialState, action: CardsActionsType): InitialStateType => {
     switch (action.type) {
+        case 'CARDS/SET_CARD':
+            return {...state, ...action.data};
         default:
             return state
     }
@@ -28,6 +37,42 @@ type InitialStateType = {
     page: number
     pageCount: number
     searchCard: string
+    sortCards: string
+    packUserId: string
+    token: string
+    tokenDeathTime: number
+    cardAnswer: string
+    cardQuestion: string
 }
 
-export type CardsActionsType = any
+export type CardsActionsType = cardsReducerACType
+
+export const cardsReducerAC = (data: InitialStateType) => {
+    return {type: 'CARDS/SET_CARD', data} as const;
+};
+
+type cardsReducerACType = ReturnType<typeof cardsReducerAC>
+
+export const fetchCardsTC = (packUserId: string) =>
+    (dispatch: Dispatch, getState: () => AppRootStateType) => {
+    const state = getState().cards
+    const {sortCards, cardAnswer, cardQuestion, page, pageCount} = state
+    const data: GetCardsParamsType = {
+        cardAnswer: cardAnswer,
+        cardQuestion: cardQuestion,
+        cardsPack_id: packUserId,
+        min: 0,
+        max: 0,
+        sortCards: sortCards,
+        page: page,
+        pageCount: pageCount,
+    }
+    cardsApi.getCards(data)
+        .then((res) => {
+            // console.log(res.data)
+            dispatch(cardsReducerAC(res.data));
+        })
+        .catch((err) => {
+            console.log(err)
+        });
+};

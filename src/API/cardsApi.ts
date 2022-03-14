@@ -2,7 +2,7 @@ import {instance} from "./api";
 
 export const cardsApi = {
     getCards(params: Partial<GetCardsParamsType>) {
-        return instance.get<CardsResponseType>('/cards/card', {params: {...params}});
+        return instance.get('/cards/card', {params: {...params}});
     },
     addCard: (newCard: Partial<CardType>) => {
         return instance.post('/cards/pack', {newCard: {...newCard}})
