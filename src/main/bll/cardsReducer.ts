@@ -12,7 +12,7 @@ const initialState = {
     page: 1,
     pageCount: 8,
     searchCard: '',
-    sortCards: '',
+    sortCards: '0grade',
     packUserId: '',
     token: '',
     tokenDeathTime: 0,
@@ -26,6 +26,8 @@ export const cardsReducer = (state: InitialStateType = initialState, action: Car
             return {...state, ...action.data};
         case "CARDS/CHANGE_CURRENT_PAGE":
             return {...state, page: action.page}
+        case 'CARDS/SORT_CARDS':
+            return {...state, sortCards: action.sortCards}
         default:
             return state
     }
@@ -48,7 +50,7 @@ type InitialStateType = {
     cardQuestion: string
 }
 
-export type CardsActionsType = cardsReducerACType | ChangeCurrentPageCardsACType
+export type CardsActionsType = cardsReducerACType | ChangeCurrentPageCardsACType | SortCardsACACType
 
 export const cardsReducerAC = (data: InitialStateType) => {
     return {type: 'CARDS/SET_CARD', data} as const;
@@ -60,29 +62,33 @@ export const changeCurrentPageCardsAC = (page: number) =>
     ({type: 'CARDS/CHANGE_CURRENT_PAGE', page} as const)
 type ChangeCurrentPageCardsACType = ReturnType<typeof changeCurrentPageCardsAC>
 
-export const fetchCardsTC = (packUserId: string ) =>
+export const sortCardsAC = (sortCards: string) =>
+    ({type: 'CARDS/SORT_CARDS', sortCards} as const)
+type SortCardsACACType = ReturnType<typeof sortCardsAC>
+
+export const fetchCardsTC = (packUserId: string) =>
     (dispatch: Dispatch, getState: () => AppRootStateType) => {
         dispatch(setLoadingAC(true))
-    const {sortCards, cardAnswer, cardQuestion, page, pageCount} = getState().cards
-    const data: GetCardsParamsType = {
-        cardAnswer: cardAnswer,
-        cardQuestion: cardQuestion,
-        cardsPack_id: packUserId,
-        min: 0,
-        max: 0,
-        sortCards: sortCards,
-        page: page,
-        pageCount: pageCount,
-    }
-    cardsApi.getCards(data)
-        .then((res) => {
-            dispatch(cardsReducerAC(res.data));
-        })
-        .catch(e => {
-            const error = e.response ? e.response.data.error : (e.message + ', more details in the console');
-            dispatch(setErrorAC(error))
-        })
-        .finally(() => {
-            dispatch(setLoadingAC(false));
-        })
-};
+        const {sortCards, cardAnswer, cardQuestion, page, pageCount} = getState().cards
+        const data: GetCardsParamsType = {
+            cardAnswer: cardAnswer,
+            cardQuestion: cardQuestion,
+            cardsPack_id: packUserId,
+            min: 0,
+            max: 0,
+            sortCards: sortCards,
+            page: page,
+            pageCount: pageCount,
+        }
+        cardsApi.getCards(data)
+            .then((res) => {
+                dispatch(cardsReducerAC(res.data));
+            })
+            .catch(e => {
+                const error = e.response ? e.response.data.error : (e.message + ', more details in the console');
+                dispatch(setErrorAC(error))
+            })
+            .finally(() => {
+                dispatch(setLoadingAC(false));
+            })
+    };

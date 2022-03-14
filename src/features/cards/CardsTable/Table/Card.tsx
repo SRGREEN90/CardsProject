@@ -9,13 +9,14 @@ type CardPropsType = {
 }
 
 const Card: React.FC<CardPropsType> = ({card, isCheckId, classMyCards}) => {
+    const [year, month, day] = card.updated.slice(0, 10).split('-')
 
     return (
         <div>
             <div className={`${styles.card} ${classMyCards}`}>
                 <div>{card.question}</div>
                 <div>{card.answer}</div>
-                <div>{card.updated.slice(0, 10)}</div>
+                <div>{`${day}.${month}.${year}`}</div>
                 <div>{card.grade.toFixed(2)}</div>
                 {
                     isCheckId && <div className={styles.buttons}>
