@@ -53,7 +53,7 @@ export const cardsReducerAC = (data: InitialStateType) => {
 
 type cardsReducerACType = ReturnType<typeof cardsReducerAC>
 
-export const fetchCardsTC = (packUserId: string) =>
+export const fetchCardsTC = (packUserId: string ) =>
     (dispatch: Dispatch, getState: () => AppRootStateType) => {
     const state = getState().cards
     const {sortCards, cardAnswer, cardQuestion, page, pageCount} = state
