@@ -55,7 +55,7 @@ type InitialStateType = {
 }
 
 export type CardsPackActionsType = SetPacksListsACType | SortPacksACType | SetMyPacksACType
-  | ChangeCurrentPageACType | SetMinACType | SetMaxACType
+    | ChangeCurrentPageACType | SetMinACType | SetMaxACType
 // Action creators
 export const setPacksListsAC = (data: PacksResponseType) =>
     ({type: 'PACKS/SET_PACKS_LIST', data} as const)
@@ -72,16 +72,16 @@ export const setMyPacksAC = (myPacks: boolean) =>
 
 type SetMyPacksACType = ReturnType<typeof setMyPacksAC>
 
-export const changeCurrentPageAC = (page:number) =>
-  ({type: 'PACKS/CHANGE_CURRENT_PAGE', page} as const)
+export const changeCurrentPageAC = (page: number) =>
+    ({type: 'PACKS/CHANGE_CURRENT_PAGE', page} as const)
 type ChangeCurrentPageACType = ReturnType<typeof changeCurrentPageAC>
 
-export const setMinAC = (min:number) =>
+export const setMinAC = (min: number) =>
     ({type: 'PACKS/SET_MIN', min} as const)
 type SetMinACType = ReturnType<typeof setMinAC>
 
-export const setMaxAC = (max:number) =>
-  ({type: 'PACKS/SET_MAX', max} as const)
+export const setMaxAC = (max: number) =>
+    ({type: 'PACKS/SET_MAX', max} as const)
 type SetMaxACType = ReturnType<typeof setMaxAC>
 
 // Thunk creators
