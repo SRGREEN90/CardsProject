@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import styles from './PacksList.module.css'
 import Header from "../../main/ui/header/Header";
 import SuperButton from "../../main/ui/common/SuperButton/SuperButton";
@@ -7,48 +7,64 @@ import {PackFrame} from "../../main/ui/common/PackFrame/PackFrame";
 import Sidebar from "../../main/ui/Sidebar/Sidebar";
 import {useDispatch, useSelector} from "react-redux";
 import {AppRootStateType} from "../../main/bll/store";
-import {fetchPacksListsTC} from "../../main/bll/cardsPackReducer";
+import {changeCurrentPageAC, fetchPacksListsTC} from "../../main/bll/cardsPackReducer";
 import {Navigate} from "react-router-dom";
 import {PATH} from "../../main/ui/routes/Routes";
+import {Pagination} from "../../main/ui/common/Pagination/Pagination";
 
 const PacksList = () => {
-    const dispatch = useDispatch();
-    const error = useSelector<AppRootStateType, string>(state => state.app.error);
-    const isLoggedIn = useSelector<AppRootStateType, boolean>(state => state.login.status);
+  const dispatch = useDispatch();
+  const error = useSelector<AppRootStateType, string>(state => state.app.error);
+  const isLoggedIn = useSelector<AppRootStateType, boolean>(state => state.login.status);
 
-    const min = useSelector<AppRootStateType, number>(state => state.cardsPack.min)
-    const max = useSelector<AppRootStateType, number>(state => state.cardsPack.max)
-    const page = useSelector<AppRootStateType, number>(state => state.cardsPack.page)
-    const pageCount = useSelector<AppRootStateType, number>(state => state.cardsPack.pageCount)
-    const myPacks = useSelector<AppRootStateType, boolean>(state => state.cardsPack.myPacks)
-    const sortPacks = useSelector<AppRootStateType, string>(state => state.cardsPack.sortPacks)
+  const min = useSelector<AppRootStateType, number>(state => state.cardsPack.min)
+  const max = useSelector<AppRootStateType, number>(state => state.cardsPack.max)
+  const page = useSelector<AppRootStateType, number>(state => state.cardsPack.page)
+  const pageCount = useSelector<AppRootStateType, number>(state => state.cardsPack.pageCount)
+  const myPacks = useSelector<AppRootStateType, boolean>(state => state.cardsPack.myPacks)
+  const sortPacks = useSelector<AppRootStateType, string>(state => state.cardsPack.sortPacks)
+  const cardPacksTotalCount = useSelector<AppRootStateType, number>(state => state.cardsPack.cardPacksTotalCount)
 
-    useEffect(() => {
-        dispatch(fetchPacksListsTC())
-    }, [min, max, page, pageCount, myPacks, sortPacks])
+  const [id, setId] = useState(0)
 
-    if (!isLoggedIn) {
-        return <Navigate to={PATH.LOGIN}/>
-    }
+  useEffect(() => {
+    dispatch(fetchPacksListsTC())
+  }, [ page, pageCount, myPacks, sortPacks])
 
-    return (
-        <>
-            <Header/>
-            <PackFrame>
-                <Sidebar/>
-                <div className={styles.main}>
-                    <h2>Packs list</h2>
-                    {error ? <div style={{color:'red'}}>{error}</div> : ''}
-                    {/*<Search/>*/}
-                    <SuperButton>Add new pack</SuperButton>
-                    <PacksTable/>
-                    Пагинация
-                </div>
-            </PackFrame>
-        </>
+  useEffect(() => {
+    clearTimeout(id)
+    const x = +setTimeout(()=> {
+      dispatch(fetchPacksListsTC())
+    }, 1500)
+    setId(x)
+  }, [ min, max])
+
+  const onChangedPage = (newPage:number) => {
+    if (newPage !== page) dispatch(changeCurrentPageAC(newPage))
+  }
+
+  if (!isLoggedIn) {
+    return <Navigate to={PATH.LOGIN}/>
+  }
+
+  return (
+    <>
+      <Header/>
+      <PackFrame>
+        <Sidebar/>
+        <div className={styles.main}>
+          <h2>Packs list</h2>
+          {error ? <div style={{color: 'red'}}>{error}</div> : ''}
+          {/*<Search/>*/}
+          <SuperButton>Add new pack</SuperButton>
+          <PacksTable/>
+          <Pagination totalCount={cardPacksTotalCount} pageSize={pageCount} currentPage={page} onChangedPage={onChangedPage}/>
+        </div>
+      </PackFrame>
+    </>
 
 
-    );
+  );
 };
 
 export default PacksList;
