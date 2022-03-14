@@ -26,18 +26,18 @@
 }
 
 .item:nth-child(odd),
-.itemMy:nth-child(odd){
+.itemMy:nth-child(odd) {
     background: #F8F7FD;
 }
 
 .item.header,
-.itemMy.header{
+.itemMy.header {
     background: #ECECF9;
     font-weight: 700;
 }
 
 .item a,
-.itemMy a{
+.itemMy a {
     color: inherit;
     font-weight: 700;
     text-decoration: none;
@@ -60,13 +60,43 @@
     color: #fff;
 }
 
-.isActiveDown{
+/*.isActiveDown{*/
+/*    color: #21268F;*/
+/*    background: url(../../../../assets/images/down.png) no-repeat right/contain;*/
+/*}*/
+
+/*.isActiveUp{*/
+/*    color: #21268F;*/
+/*    background: url(../../../../assets/images/up.png) no-repeat right/contain;*/
+/*}*/
+.header div.isActiveUp,
+.header div.isActiveDown {
     color: #21268F;
-    background: url(../../../../assets/images/down.png) no-repeat right/contain;
 }
 
-.isActiveUp{
-    color: #21268F;
-    background: url(../../../../assets/images/up.png) no-repeat right/contain;
+.header div.isActiveUp:after,
+.header div.isActiveDown:after {
+    content: '';
+    border-width: 5px;
+    border-style: solid;
+    border-color: #2D2E46 transparent transparent transparent;
+    display: inline-block;
+    margin-left: 4px;
+}
+
+.header div.isActiveUp:after {
+    vertical-align: bottom;
+}
+
+.header div.isActiveDown:after {
+    align-items: center;
+}
+
+.header div.isActiveUp:after {
+    transform: rotate(180deg) translateY(5px);
+}
+
+.header div.isActiveDown:after {
+    transform: rotate(360deg) translateY(5px);
 }
 
