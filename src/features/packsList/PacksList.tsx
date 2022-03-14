@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import styles from './PacksList.module.css'
 import Header from "../../main/ui/header/Header";
 import SuperButton from "../../main/ui/common/SuperButton/SuperButton";
@@ -25,9 +25,19 @@ const PacksList = () => {
   const sortPacks = useSelector<AppRootStateType, string>(state => state.cardsPack.sortPacks)
   const cardPacksTotalCount = useSelector<AppRootStateType, number>(state => state.cardsPack.cardPacksTotalCount)
 
+  const [id, setId] = useState(0)
+
   useEffect(() => {
     dispatch(fetchPacksListsTC())
-  }, [min, max, page, pageCount, myPacks, sortPacks])
+  }, [ page, pageCount, myPacks, sortPacks])
+
+  useEffect(() => {
+    clearTimeout(id)
+    const x = +setTimeout(()=> {
+      dispatch(fetchPacksListsTC())
+    }, 1500)
+    setId(x)
+  }, [ min, max])
 
   const onChangedPage = (newPage:number) => {
     if (newPage !== page) dispatch(changeCurrentPageAC(newPage))

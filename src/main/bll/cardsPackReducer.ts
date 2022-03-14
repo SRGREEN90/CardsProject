@@ -14,7 +14,7 @@ const initialState = {
     myPacks: false,
     sortPacks: "0updated",
     min: 0,
-    max: 1000,
+    max: 100,
     packName: '',
     user_id: '',
 }
@@ -29,6 +29,10 @@ export const cardsPackReducer = (state: InitialStateType = initialState, action:
             return {...state, myPacks: action.myPacks}
         case "PACKS/CHANGE_CURRENT_PAGE":
             return {...state, page: action.page}
+        case "PACKS/SET_MIN":
+            return {...state, min: action.min}
+        case "PACKS/SET_MAX":
+            return {...state, max: action.max}
         default:
             return state
     }
@@ -50,7 +54,8 @@ type InitialStateType = {
     user_id: string
 }
 
-export type CardsPackActionsType = SetPacksListsACType | SortPacksACType | SetMyPacksACType | ChangeCurrentPageACType
+export type CardsPackActionsType = SetPacksListsACType | SortPacksACType | SetMyPacksACType
+  | ChangeCurrentPageACType | SetMinACType | SetMaxACType
 // Action creators
 export const setPacksListsAC = (data: PacksResponseType) =>
     ({type: 'PACKS/SET_PACKS_LIST', data} as const)
@@ -70,6 +75,14 @@ type SetMyPacksACType = ReturnType<typeof setMyPacksAC>
 export const changeCurrentPageAC = (page:number) =>
   ({type: 'PACKS/CHANGE_CURRENT_PAGE', page} as const)
 type ChangeCurrentPageACType = ReturnType<typeof changeCurrentPageAC>
+
+export const setMinAC = (min:number) =>
+    ({type: 'PACKS/SET_MIN', min} as const)
+type SetMinACType = ReturnType<typeof setMinAC>
+
+export const setMaxAC = (max:number) =>
+  ({type: 'PACKS/SET_MAX', max} as const)
+type SetMaxACType = ReturnType<typeof setMaxAC>
 
 // Thunk creators
 export const fetchPacksListsTC = () => {
