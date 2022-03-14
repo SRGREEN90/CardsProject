@@ -11,7 +11,7 @@
 
 .item {
     display: grid;
-    grid-template-columns: 2fr 50px 120px minmax(220px, 1fr) 170px;
+    grid-template-columns: 2fr 60px 120px minmax(220px, 1fr) 170px;
     align-items: center;
     grid-gap: 0 30px;
     padding: 16px 24px;
@@ -24,7 +24,24 @@
     background: #ECECF9;
     font-weight: 700;
 }
+.header div {
+    cursor: pointer;
+}
+.header div:hover {
 
+}
+.header div.active:after {
+    content: '';
+    border-width: 5px;
+    border-style: solid;
+    border-color: #000 transparent transparent transparent;
+    display: inline-block;
+    vertical-align: bottom;
+    margin-left: 4px;
+}
+.header div.active.up:after {
+    transform: rotate(180deg) translateY(5px) ;
+}
 .item a {
     color: inherit;
     font-weight: 700;
