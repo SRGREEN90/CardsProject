@@ -27,6 +27,8 @@ export const cardsPackReducer = (state: InitialStateType = initialState, action:
             return {...state, sortPacks: action.sortPacks}
         case 'PACKS/SET_MY_PACKS':
             return {...state, myPacks: action.myPacks}
+        case "PACKS/CHANGE_CURRENT_PAGE":
+            return {...state, page: action.page}
         default:
             return state
     }
@@ -48,23 +50,28 @@ type InitialStateType = {
     user_id: string
 }
 
-export type CardsPackActionsType = setPacksListsACType | sortPacksACType | setMyPacksACType
-
+export type CardsPackActionsType = SetPacksListsACType | SortPacksACType | SetMyPacksACType | ChangeCurrentPageACType
+// Action creators
 export const setPacksListsAC = (data: PacksResponseType) =>
     ({type: 'PACKS/SET_PACKS_LIST', data} as const)
 
-type setPacksListsACType = ReturnType<typeof setPacksListsAC>
+type SetPacksListsACType = ReturnType<typeof setPacksListsAC>
 
 export const sortPacksAC = (sortPacks: string) =>
     ({type: 'PACKS/SORT', sortPacks} as const)
 
-type sortPacksACType = ReturnType<typeof sortPacksAC>
+type SortPacksACType = ReturnType<typeof sortPacksAC>
 
 export const setMyPacksAC = (myPacks: boolean) =>
     ({type: 'PACKS/SET_MY_PACKS', myPacks} as const)
 
-type setMyPacksACType = ReturnType<typeof setMyPacksAC>
+type SetMyPacksACType = ReturnType<typeof setMyPacksAC>
 
+export const changeCurrentPageAC = (page:number) =>
+  ({type: 'PACKS/CHANGE_CURRENT_PAGE', page} as const)
+type ChangeCurrentPageACType = ReturnType<typeof changeCurrentPageAC>
+
+// Thunk creators
 export const fetchPacksListsTC = () => {
     return (dispatch: Dispatch, getState: () => AppRootStateType) => {
         dispatch(setLoadingAC(true))

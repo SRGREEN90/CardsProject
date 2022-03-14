@@ -22,6 +22,7 @@ export const Profile = () => {
   const isLoggedIn = useSelector<AppRootStateType, boolean>(state => state.login.status);
   const loading = useSelector<AppRootStateType, boolean>(state => state.app.isLoading);
 
+
   const [name, setName] = useState(profileName);
   const [localErr, setLocalErr] = useState<string>('')
 
