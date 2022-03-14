@@ -11,22 +11,33 @@
 
 .item {
     display: grid;
-    grid-template-columns: 1fr 1fr 120px 80px;
+    grid-template-columns: 1fr 1fr 120px 120px;
     align-items: center;
     grid-gap: 0 30px;
     padding: 16px 24px;
 }
 
-.item:nth-child(odd) {
+.itemMy {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 120px 120px;
+    align-items: center;
+    grid-gap: 0 30px;
+    padding: 16px 24px;
+}
+
+.item:nth-child(odd),
+.itemMy:nth-child(odd){
     background: #F8F7FD;
 }
 
-.item.header {
+.item.header,
+.itemMy.header{
     background: #ECECF9;
     font-weight: 700;
 }
 
-.item a {
+.item a,
+.itemMy a{
     color: inherit;
     font-weight: 700;
     text-decoration: none;

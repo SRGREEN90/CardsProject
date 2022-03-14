@@ -9,7 +9,7 @@ const initialState = {
     maxGrade: 0,
     minGrade: 0,
     page: 1,
-    pageCount: 100,
+    pageCount: 8,
     searchCard: '',
     sortCards: '',
     packUserId: '',
@@ -23,6 +23,8 @@ export const cardsReducer = (state: InitialStateType = initialState, action: Car
     switch (action.type) {
         case 'CARDS/SET_CARD':
             return {...state, ...action.data};
+        case "CARDS/CHANGE_CURRENT_PAGE":
+            return {...state, page: action.page}
         default:
             return state
     }
@@ -45,13 +47,17 @@ type InitialStateType = {
     cardQuestion: string
 }
 
-export type CardsActionsType = cardsReducerACType
+export type CardsActionsType = cardsReducerACType | ChangeCurrentPageCardsACType
 
 export const cardsReducerAC = (data: InitialStateType) => {
     return {type: 'CARDS/SET_CARD', data} as const;
 };
 
 type cardsReducerACType = ReturnType<typeof cardsReducerAC>
+
+export const changeCurrentPageCardsAC = (page: number) =>
+    ({type: 'CARDS/CHANGE_CURRENT_PAGE', page} as const)
+type ChangeCurrentPageCardsACType = ReturnType<typeof changeCurrentPageCardsAC>
 
 export const fetchCardsTC = (packUserId: string ) =>
     (dispatch: Dispatch, getState: () => AppRootStateType) => {
