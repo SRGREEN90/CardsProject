@@ -73,7 +73,7 @@ const SuperEditableSpan: React.FC<SuperEditableSpanType> = (
                         {/*если нет захардкодженного текста для спана, то значение инпута*/}
                 {children || restProps.value}
                 <span>&#160; &#9998;</span>
-            </span>
+              </span>
               <span className={classes.prompt}>Double click to edit</span>
             </span>
           </>
