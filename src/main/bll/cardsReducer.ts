@@ -2,6 +2,7 @@
 import {cardsApi, CardType, GetCardsParamsType} from "../../API/cardsApi";
 import {AppRootStateType} from "./store";
 import {Dispatch} from "redux";
+import {setErrorAC, setLoadingAC} from "./appReducer";
 
 const initialState = {
     cards: [],
@@ -61,8 +62,8 @@ type ChangeCurrentPageCardsACType = ReturnType<typeof changeCurrentPageCardsAC>
 
 export const fetchCardsTC = (packUserId: string ) =>
     (dispatch: Dispatch, getState: () => AppRootStateType) => {
-    const state = getState().cards
-    const {sortCards, cardAnswer, cardQuestion, page, pageCount} = state
+        dispatch(setLoadingAC(true))
+    const {sortCards, cardAnswer, cardQuestion, page, pageCount} = getState().cards
     const data: GetCardsParamsType = {
         cardAnswer: cardAnswer,
         cardQuestion: cardQuestion,
@@ -75,10 +76,13 @@ export const fetchCardsTC = (packUserId: string ) =>
     }
     cardsApi.getCards(data)
         .then((res) => {
-            // console.log(res.data)
             dispatch(cardsReducerAC(res.data));
         })
-        .catch((err) => {
-            console.log(err)
-        });
+        .catch(e => {
+            const error = e.response ? e.response.data.error : (e.message + ', more details in the console');
+            dispatch(setErrorAC(error))
+        })
+        .finally(() => {
+            dispatch(setLoadingAC(false));
+        })
 };
