@@ -32,9 +32,8 @@
 }
 .header div.active:after {
     content: '';
-    border-width: 5px;
-    border-style: solid;
-    border-color: #000 transparent transparent transparent;
+    border: 5px solid transparent;
+    border-top-color: #000;
     display: inline-block;
     vertical-align: bottom;
     margin-left: 4px;
