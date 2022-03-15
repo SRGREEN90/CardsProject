@@ -26,7 +26,7 @@ export const cardsPackReducer = (state: InitialStateType = initialState, action:
         case 'PACKS/SORT':
             return {...state, sortPacks: action.sortPacks}
         case 'PACKS/SET_MY_PACKS':
-            return {...state, myPacks: action.myPacks}
+            return {...state, myPacks: action.myPacks, min: 0}
         case "PACKS/CHANGE_CURRENT_PAGE":
             return {...state, page: action.page}
         case "PACKS/SET_MIN":
