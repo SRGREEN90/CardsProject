@@ -1,44 +1,30 @@
 import React, {ChangeEvent, useEffect, useState} from "react";
 import s from './Search.module.css'
+import {useDispatch, useSelector} from "react-redux";
+import {AppRootStateType} from "../../../bll/store";
+import {fetchCardsTC, setFilterReducerAC} from "../../../bll/cardsReducer";
+import {useParams} from "react-router-dom";
 
-const packName = [
-    "React",
-    "Redux",
-    "JS",
-    "TS",
-    "Google",
-    "Facebook",
-    "Twitter",
-    "Linkedin",
-];
+
 
 export const Search = () => {
-    const [searchTerm, setSearchTerm] = useState<string>("");
-    const [searchResults, setSearchResults] = useState<Array<string>>([]);
-    const handleChange = (e:  ChangeEvent<HTMLInputElement>) => {
-        setSearchTerm(e.currentTarget.value);
-    };
+    //const cardQuestion = useSelector<AppRootStateType, string>(state => state.cards.cardQuestion);
+    const cardAnswer = useSelector<AppRootStateType, string>(state => state.cards.cardAnswer);
+    const {packId} = useParams()
 
-    useEffect(() => {
-        const results = packName.filter(p =>
-            p.toLowerCase().includes(searchTerm)
-        );
-        setSearchResults(results);
-    }, [searchTerm]);
+const dispatch = useDispatch()
+    const handleChange = (e:  ChangeEvent<HTMLInputElement>) => {
+        dispatch(setFilterReducerAC(e.currentTarget.value))
+    };
 
     return (
         <div className={s.wrap}>
             <input
                 type="text"
                 placeholder="Search"
-                value={searchTerm}
+                value={cardAnswer}
                 onChange={handleChange}
             />
-            <ul>
-                {searchResults.map(item => (
-                    <li>{item}</li>
-                ))}
-            </ul>
         </div>
     );
 }

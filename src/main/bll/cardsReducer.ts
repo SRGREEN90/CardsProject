@@ -17,12 +17,18 @@ const initialState = {
     tokenDeathTime: 0,
     cardAnswer: "",
     cardQuestion: '',
+
 }
 
 export const cardsReducer = (state: InitialStateType = initialState, action: CardsActionsType): InitialStateType => {
     switch (action.type) {
         case 'CARDS/SET_CARD':
             return {...state, ...action.data};
+        case 'CARDS/SET_FILTER_CARDS':
+            return {
+                ...state,
+                cardAnswer: action.cardAnswer
+            };
         default:
             return state
     }
@@ -45,13 +51,17 @@ type InitialStateType = {
     cardQuestion: string
 }
 
-export type CardsActionsType = cardsReducerACType
+export type CardsActionsType = cardsReducerACType | setFilterReducerACType
 
 export const cardsReducerAC = (data: InitialStateType) => {
     return {type: 'CARDS/SET_CARD', data} as const;
 };
+export const setFilterReducerAC = (cardAnswer: string) => {
+    return {type: 'CARDS/SET_FILTER_CARDS', cardAnswer} as const;
+};
 
 type cardsReducerACType = ReturnType<typeof cardsReducerAC>
+type setFilterReducerACType = ReturnType<typeof setFilterReducerAC>
 
 export const fetchCardsTC = (packUserId: string ) =>
     (dispatch: Dispatch, getState: () => AppRootStateType) => {
@@ -69,7 +79,7 @@ export const fetchCardsTC = (packUserId: string ) =>
     }
     cardsApi.getCards(data)
         .then((res) => {
-            // console.log(res.data)
+            console.log(res.data)
             dispatch(cardsReducerAC(res.data));
         })
         .catch((err) => {

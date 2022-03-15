@@ -8,6 +8,7 @@ import {PATH} from "../../main/ui/routes/Routes";
 import {fetchCardsTC} from "../../main/bll/cardsReducer";
 import {useDispatch, useSelector} from "react-redux";
 import {AppRootStateType} from "../../main/bll/store";
+import {Search} from "../../main/ui/common/GridinSearch/Search";
 
 const Cards = () => {
     const dispatch = useDispatch();
@@ -39,7 +40,7 @@ const Cards = () => {
                 <div className={styles.main}>
                     <NavLink to={PATH.PACKS}>Назад</NavLink>
                     <h2>Pack Name</h2>
-                    Поиск
+                    <Search />
                     <CardsTable cards={cards}/>
                     Пагинация
                 </div>

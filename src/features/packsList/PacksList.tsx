@@ -11,6 +11,7 @@ import {changeCurrentPageAC, fetchPacksListsTC} from "../../main/bll/cardsPackRe
 import {Navigate} from "react-router-dom";
 import {PATH} from "../../main/ui/routes/Routes";
 import {Pagination} from "../../main/ui/common/Pagination/Pagination";
+import {Search} from "../../main/ui/common/GridinSearch/Search";
 
 const PacksList = () => {
   const dispatch = useDispatch();
