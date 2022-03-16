@@ -29,7 +29,6 @@ export const Login = () => {
     };
 
     useEffect(() => {
-        dispatch(setRegister(false));
         dispatch(setErrorAC(''))
     }, [])
 
