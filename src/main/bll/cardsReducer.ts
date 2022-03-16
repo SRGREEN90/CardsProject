@@ -27,7 +27,7 @@ export const cardsReducer = (state: InitialStateType = initialState, action: Car
         case 'CARDS/SET_FILTER_CARDS':
             return {
                 ...state,
-                cardAnswer: action.cardAnswer
+                cardQuestion: action.cardQuestion
             };
         default:
             return state
@@ -56,8 +56,8 @@ export type CardsActionsType = cardsReducerACType | setFilterReducerACType
 export const cardsReducerAC = (data: InitialStateType) => {
     return {type: 'CARDS/SET_CARD', data} as const;
 };
-export const setFilterReducerAC = (cardAnswer: string) => {
-    return {type: 'CARDS/SET_FILTER_CARDS', cardAnswer} as const;
+export const setFilterReducerAC = (cardQuestion: string) => {
+    return {type: 'CARDS/SET_FILTER_CARDS', cardQuestion} as const;
 };
 
 type cardsReducerACType = ReturnType<typeof cardsReducerAC>

@@ -33,6 +33,8 @@ export const cardsPackReducer = (state: InitialStateType = initialState, action:
             return {...state, min: action.min}
         case "PACKS/SET_MAX":
             return {...state, max: action.max}
+        case "PACKS/SET_FILTERED_PACKS":
+            return {...state, packName: action.packName}
         default:
             return state
     }
@@ -54,7 +56,7 @@ type InitialStateType = {
     user_id: string
 }
 
-export type CardsPackActionsType = SetPacksListsACType | SortPacksACType | SetMyPacksACType
+export type CardsPackActionsType = SetPacksListsACType | SortPacksACType | SetMyPacksACType | setFilteredPacksACType
     | ChangeCurrentPageACType | SetMinACType | SetMaxACType
 // Action creators
 export const setPacksListsAC = (data: PacksResponseType) =>
@@ -83,6 +85,10 @@ type SetMinACType = ReturnType<typeof setMinAC>
 export const setMaxAC = (max: number) =>
     ({type: 'PACKS/SET_MAX', max} as const)
 type SetMaxACType = ReturnType<typeof setMaxAC>
+
+export const setFilteredPacksAC = (packName: string) =>
+    ({type: 'PACKS/SET_FILTERED_PACKS', packName} as const)
+type setFilteredPacksACType = ReturnType<typeof setFilteredPacksAC>
 
 // Thunk creators
 export const fetchPacksListsTC = () => {

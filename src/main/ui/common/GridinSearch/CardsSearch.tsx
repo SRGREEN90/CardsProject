@@ -7,9 +7,9 @@ import {useParams} from "react-router-dom";
 
 
 
-export const Search = () => {
-    //const cardQuestion = useSelector<AppRootStateType, string>(state => state.cards.cardQuestion);
-    const cardAnswer = useSelector<AppRootStateType, string>(state => state.cards.cardAnswer);
+export const CardsSearch = () => {
+    const cardQuestion = useSelector<AppRootStateType, string>(state => state.cards.cardQuestion);
+  //  const cardAnswer = useSelector<AppRootStateType, string>(state => state.cards.cardAnswer);
     const {packId} = useParams()
 
 const dispatch = useDispatch()
@@ -22,7 +22,8 @@ const dispatch = useDispatch()
             <input
                 type="text"
                 placeholder="Search"
-                value={cardAnswer}
+
+               value={cardQuestion}
                 onChange={handleChange}
             />
         </div>
