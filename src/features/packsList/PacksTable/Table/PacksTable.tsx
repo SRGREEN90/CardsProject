@@ -10,6 +10,7 @@ const PacksTable = () => {
   const dispatch = useDispatch();
   const packs = useSelector<AppRootStateType, Array<PackType>>(state => state.cardsPack.cardPacks)
   const sortPacks = useSelector<AppRootStateType, string>(state => state.cardsPack.sortPacks)
+  const isLoading =useSelector<AppRootStateType, boolean>(state => state.app.isLoading)
 
   const direction = sortPacks[0]
   const activeField = sortPacks.slice(1)
@@ -18,7 +19,7 @@ const PacksTable = () => {
   // const [isActive, setIsActive] = useState<boolean>(false)
 
   const sortFields = (field: string) => {
-
+    if (isLoading) return
     if (sortPacks.slice(1) !== field) {
       dispatch(sortPacksAC('0' + field))
     } else {
