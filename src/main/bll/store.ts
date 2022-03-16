@@ -4,7 +4,7 @@ import {AuthActionsType, loginReducer} from "./loginReducer";
 import {registerReducer} from "./registerReducer";
 import {profileReducer} from "./profileReducer";
 import {passwordReducer} from "./passwordReducer";
-import {appReducer} from "./appReducer";
+import {appReducer, AppReducerActionsType} from "./appReducer";
 import {CardsPackActionsType, cardsPackReducer} from "./cardsPackReducer";
 import {CardsActionsType, cardsReducer} from "./cardsReducer";
 
@@ -23,7 +23,7 @@ export const store = createStore(rootReducer, applyMiddleware(thunk));
 export type AppRootStateType = ReturnType<typeof rootReducer>
 
 // все типы экшенов для App
-export type AppActionsType = AuthActionsType | CardsPackActionsType | CardsActionsType
+export type AppActionsType = AppReducerActionsType | AuthActionsType | CardsPackActionsType | CardsActionsType
 
 export type AppThunkType<ReturnType = void> = ThunkAction<ReturnType, AppRootStateType, unknown, AppActionsType>
 

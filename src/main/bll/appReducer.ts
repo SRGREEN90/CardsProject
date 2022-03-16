@@ -11,7 +11,7 @@ const initialState = {
   isLoading: false,
 }
 
-export const appReducer = (state: InitialStateType = initialState, action: AuthActionsType): InitialStateType => {
+export const appReducer = (state: InitialStateType = initialState, action: AppReducerActionsType): InitialStateType => {
   switch (action.type) {
     case 'APP/SET_LOADING':
       return {...state, isLoading: action.value}
@@ -34,7 +34,7 @@ type InitialStateType = {
   isLoading: boolean
 }
 
-export type AuthActionsType = setIsInitializedType | setErrorType | setIsLoggedInACType | setErrorAPPType
+export type AppReducerActionsType = setIsInitializedType | setErrorType | setIsLoggedInACType | setErrorAPPType
 
 type setIsLoggedInACType = ReturnType<typeof setLoadingAC>
 
