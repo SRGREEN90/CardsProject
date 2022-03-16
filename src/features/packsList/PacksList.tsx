@@ -17,27 +17,28 @@ const PacksList = () => {
   const error = useSelector<AppRootStateType, string>(state => state.app.error);
   const isLoggedIn = useSelector<AppRootStateType, boolean>(state => state.login.status);
 
-  const min = useSelector<AppRootStateType, number>(state => state.cardsPack.min)
-  const max = useSelector<AppRootStateType, number>(state => state.cardsPack.max)
+  //const min = useSelector<AppRootStateType, number>(state => state.cardsPack.min)
+  //const max = useSelector<AppRootStateType, number>(state => state.cardsPack.max)
   const page = useSelector<AppRootStateType, number>(state => state.cardsPack.page)
   const pageCount = useSelector<AppRootStateType, number>(state => state.cardsPack.pageCount)
   const myPacks = useSelector<AppRootStateType, boolean>(state => state.cardsPack.myPacks)
   const sortPacks = useSelector<AppRootStateType, string>(state => state.cardsPack.sortPacks)
   const cardPacksTotalCount = useSelector<AppRootStateType, number>(state => state.cardsPack.cardPacksTotalCount)
 
-  const [id, setId] = useState(0)
+  //const [id, setId] = useState(0)
 
   useEffect(() => {
     dispatch(fetchPacksListsTC())
   }, [ page, pageCount, myPacks, sortPacks])
 
-  useEffect(() => {
-    clearTimeout(id)
-    const x = +setTimeout(()=> {
-      dispatch(fetchPacksListsTC())
-    }, 1500)
-    setId(x)
-  }, [ min, max])
+  // useEffect(() => {
+  //   console.log('uEf2')
+  //   clearTimeout(id)
+  //   const x = +setTimeout(()=> {
+  //     dispatch(fetchPacksListsTC())
+  //   }, 1500)
+  //   setId(x)
+  // }, [ min, max])
 
   const onChangedPage = (newPage:number) => {
     if (newPage !== page) dispatch(changeCurrentPageAC(newPage))
