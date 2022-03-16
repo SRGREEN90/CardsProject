@@ -7,11 +7,11 @@ import {PackFrame} from "../../main/ui/common/PackFrame/PackFrame";
 import Sidebar from "../../main/ui/Sidebar/Sidebar";
 import {useDispatch, useSelector} from "react-redux";
 import {AppRootStateType} from "../../main/bll/store";
-import {changeCurrentPageAC, fetchPacksListsTC} from "../../main/bll/cardsPackReducer";
+import {changeCurrentPageAC, fetchPacksListsTC, setPageCountAC} from "../../main/bll/cardsPackReducer";
 import {Navigate} from "react-router-dom";
 import {PATH} from "../../main/ui/routes/Routes";
 import {Pagination} from "../../main/ui/common/Pagination/Pagination";
-import {PageSelector} from "../../main/ui/pageSelector/PageSelector";
+import {PageSizeSelector} from "../../main/ui/pageSizeSelector/PageSizeSelector";
 
 const PacksList = () => {
   const dispatch = useDispatch();
@@ -40,7 +40,9 @@ const PacksList = () => {
   //   }, 1500)
   //   setId(x)
   // }, [ min, max])
-
+ const pageSizeHandler = (value:number) => {
+   dispatch(setPageCountAC(value))
+ }
   const onChangedPage = (newPage:number) => {
     if (newPage !== page) dispatch(changeCurrentPageAC(newPage))
   }
@@ -65,7 +67,8 @@ const PacksList = () => {
                         pageSize={pageCount}
                         currentPage={page}
                         onChangedPage={onChangedPage}/>
-            <PageSelector pageCount={pageCount}/>
+            <PageSizeSelector pageCount={pageCount}
+                              handler={pageSizeHandler}/>
           </div>
         </div>
       </PackFrame>
