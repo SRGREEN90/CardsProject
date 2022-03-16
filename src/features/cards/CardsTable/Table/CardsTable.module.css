@@ -1,4 +1,5 @@
 .table {
+    position: relative;
     filter: drop-shadow(0px 4px 14px rgba(45, 46, 70, 0.15));
     width: 100%;
     background: #fff;
@@ -7,6 +8,16 @@
     font-size: 14px;
     line-height: 16px;
     margin: 24px 0;
+    overflow: auto;
+    flex-grow: 1;
+    scrollbar-width: thin;
+}
+.table::-webkit-scrollbar {
+    width: 4px;
+    background-color: #E6D4DE;
+}
+.table::-webkit-scrollbar-thumb {
+    background-color: #9890C7;
 }
 
 .item {
@@ -34,6 +45,8 @@
 .itemMy.header {
     background: #ECECF9;
     font-weight: 700;
+    position: sticky;
+    top: 0;
 }
 
 .item a,
