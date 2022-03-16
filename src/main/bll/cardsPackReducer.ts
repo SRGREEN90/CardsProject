@@ -1,5 +1,5 @@
 // КОЛОДЫ
-import {cardsPackApi, PacksResponseType, PackType} from "../../API/cardsPackApi";
+import {AddCardsPackParamsType, cardsPackApi, PacksResponseType, PackType} from "../../API/cardsPackApi";
 import {setErrorAC, setLoadingAC} from "./appReducer";
 import {Dispatch} from "redux";
 import {AppRootStateType, AppThunkType} from "./store";
@@ -121,6 +121,30 @@ export const deletePackTC = (packId: string): AppThunkType => {
         dispatch(setLoadingAC(true))
 
         cardsPackApi.deletePack(packId)
+            .then((res) => {
+                dispatch(fetchPacksListsTC())
+            })
+            .catch(e => {
+                const error = e.response ? e.response.data.error : (e.message + ', more details in the console');
+                dispatch(setErrorAC(error))
+            })
+            .finally(() => {
+                dispatch(setLoadingAC(false));
+            })
+    }
+}
+
+export const addPackTC = (packName: string): AppThunkType => {
+    return (dispatch)  => {
+        dispatch(setLoadingAC(true))
+
+        const payload = {
+            name: packName,
+            deckCover: '',
+            private: false
+        }
+
+        cardsPackApi.addPack(payload)
             .then((res) => {
                 dispatch(fetchPacksListsTC())
             })

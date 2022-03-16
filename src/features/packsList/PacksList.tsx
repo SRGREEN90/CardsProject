@@ -7,7 +7,7 @@ import {PackFrame} from "../../main/ui/common/PackFrame/PackFrame";
 import Sidebar from "../../main/ui/Sidebar/Sidebar";
 import {useDispatch, useSelector} from "react-redux";
 import {AppRootStateType} from "../../main/bll/store";
-import {changeCurrentPageAC, fetchPacksListsTC, setPageCountAC} from "../../main/bll/cardsPackReducer";
+import {addPackTC, changeCurrentPageAC, fetchPacksListsTC, setPageCountAC} from "../../main/bll/cardsPackReducer";
 import {Navigate} from "react-router-dom";
 import {PATH} from "../../main/ui/routes/Routes";
 import {Pagination} from "../../main/ui/common/Pagination/Pagination";
@@ -47,6 +47,8 @@ const PacksList = () => {
     if (newPage !== page) dispatch(changeCurrentPageAC(newPage))
   }
 
+  const addPack = () => dispatch(addPackTC('My pack'))
+
   if (!isLoggedIn) {
     return <Navigate to={PATH.LOGIN}/>
   }
@@ -60,7 +62,7 @@ const PacksList = () => {
           <h2>Packs list</h2>
           {error ? <div style={{color: 'red'}}>{error}</div> : ''}
           {/*<Search/>*/}
-          <SuperButton>Add new pack</SuperButton>
+          <SuperButton onClick={addPack}>Add new pack</SuperButton>
           <PacksTable/>
           <div className={styles.paginationWrapper}>
             <Pagination totalCount={cardPacksTotalCount}

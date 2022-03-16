@@ -5,7 +5,7 @@ export const cardsPackApi = {
         return instance.get<PacksResponseType>('/cards/pack', {params: {...params}});
     },
     addPack: (newCardsPack: Partial<AddCardsPackParamsType>) => {
-        return instance.post('/cards/pack', {newCardsPack: {...newCardsPack}})
+        return instance.post('/cards/pack', {cardsPack: {...newCardsPack}})
     },
     deletePack: (id: string) => {
         return instance.delete('/cards/pack', {params: {id: id}})
@@ -59,13 +59,13 @@ export type PackType = {
 
 export type AddCardsPackParamsType = {
     name: string
-    path: string
-    grade: number
-    shots: number
-    rating: number
+    // path: string
+    // grade: number
+    // shots: number
+    // rating: number
     deckCover: string
     private: boolean
-    type: string
+    // type: string
 }
 
 export type UpdateCardsPackType = {
