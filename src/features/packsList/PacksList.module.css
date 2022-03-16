@@ -1,4 +1,10 @@
 .main {
     padding: 24px 33px;
 }
+.paginationWrapper {
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    font-size: 15px;
+}
 

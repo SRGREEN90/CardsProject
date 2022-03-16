@@ -26,9 +26,9 @@ export const Profile = () => {
   const [name, setName] = useState(profileName);
   const [localErr, setLocalErr] = useState<string>('')
 
-  useEffect(()=>{
-    setName(profileName)
-  }, [profileName])
+  // useEffect(()=>{
+  //   setName(profileName)
+  // }, [profileName])
 
   const onBlurNameHandler = () => {
     onSubmitName();

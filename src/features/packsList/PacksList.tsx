@@ -11,6 +11,7 @@ import {changeCurrentPageAC, fetchPacksListsTC} from "../../main/bll/cardsPackRe
 import {Navigate} from "react-router-dom";
 import {PATH} from "../../main/ui/routes/Routes";
 import {Pagination} from "../../main/ui/common/Pagination/Pagination";
+import {PageSelector} from "../../main/ui/pageSelector/PageSelector";
 
 const PacksList = () => {
   const dispatch = useDispatch();
@@ -59,7 +60,13 @@ const PacksList = () => {
           {/*<Search/>*/}
           <SuperButton>Add new pack</SuperButton>
           <PacksTable/>
-          <Pagination totalCount={cardPacksTotalCount} pageSize={pageCount} currentPage={page} onChangedPage={onChangedPage}/>
+          <div className={styles.paginationWrapper}>
+            <Pagination totalCount={cardPacksTotalCount}
+                        pageSize={pageCount}
+                        currentPage={page}
+                        onChangedPage={onChangedPage}/>
+            <PageSelector pageCount={pageCount}/>
+          </div>
         </div>
       </PackFrame>
     </>
