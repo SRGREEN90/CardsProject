@@ -57,7 +57,7 @@ const CardsTable = ({cards}: PropsType) => {
                 cards.length > 0
                     ? cards.map(card => <Card key={card._id} card={card} isCheckId={isCheckId}
                                               classMyCards={classMyCards}/>)
-                    : <div style={{padding: '16px 24px'}}>Ничего не найдено</div>
+                    : <div style={{padding: '16px 24px'}}>Nothing found</div>
             }
         </div>
     );
