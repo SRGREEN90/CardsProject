@@ -28,6 +28,11 @@ export const cardsReducer = (state: InitialStateType = initialState, action: Car
             return {...state, page: action.page}
         case 'CARDS/SORT_CARDS':
             return {...state, sortCards: action.sortCards}
+        case 'CARDS/SET_FILTER_CARDS':
+            return {
+                ...state,
+                cardQuestion: action.cardQuestion
+            };
         default:
             return state
     }
@@ -50,13 +55,17 @@ type InitialStateType = {
     cardQuestion: string
 }
 
-export type CardsActionsType = cardsReducerACType | ChangeCurrentPageCardsACType | SortCardsACACType
+export type CardsActionsType = cardsReducerACType | ChangeCurrentPageCardsACType | SortCardsACACType | setFilterReducerACType
 
 export const cardsReducerAC = (data: InitialStateType) => {
     return {type: 'CARDS/SET_CARD', data} as const;
 };
+export const setFilterReducerAC = (cardQuestion: string) => {
+    return {type: 'CARDS/SET_FILTER_CARDS', cardQuestion} as const;
+};
 
 type cardsReducerACType = ReturnType<typeof cardsReducerAC>
+type setFilterReducerACType = ReturnType<typeof setFilterReducerAC>
 
 export const changeCurrentPageCardsAC = (page: number) =>
     ({type: 'CARDS/CHANGE_CURRENT_PAGE', page} as const)

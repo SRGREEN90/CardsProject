@@ -2,6 +2,7 @@ import {instance} from "./api";
 
 export const cardsApi = {
     getCards(params: Partial<GetCardsParamsType>) {
+        console.log(params)
         return instance.get('/cards/card', {params: {...params}});
     },
     addCard: (newCard: Partial<CardType>) => {
@@ -18,7 +19,7 @@ export const cardsApi = {
 export type GetCardsParamsType = {
     cardAnswer: string
     cardQuestion: string
-    cardsPack_id: string // обязательно!
+    cardsPack_id: string | undefined // обязательно!
     min: number
     max: number
     sortCards: string

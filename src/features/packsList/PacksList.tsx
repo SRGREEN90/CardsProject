@@ -12,72 +12,73 @@ import {Navigate} from "react-router-dom";
 import {PATH} from "../../main/ui/routes/Routes";
 import {Pagination} from "../../main/ui/common/Pagination/Pagination";
 import {PageSizeSelector} from "../../main/ui/pageSizeSelector/PageSizeSelector";
+import {PacksSearch} from "../../main/ui/common/GridinSearch/PacksSearch";
 
 const PacksList = () => {
-  const dispatch = useDispatch();
-  const error = useSelector<AppRootStateType, string>(state => state.app.error);
-  const isLoggedIn = useSelector<AppRootStateType, boolean>(state => state.login.status);
+    const dispatch = useDispatch();
+    const error = useSelector<AppRootStateType, string>(state => state.app.error);
+    const isLoggedIn = useSelector<AppRootStateType, boolean>(state => state.login.status);
 
-  //const min = useSelector<AppRootStateType, number>(state => state.cardsPack.min)
-  //const max = useSelector<AppRootStateType, number>(state => state.cardsPack.max)
-  const page = useSelector<AppRootStateType, number>(state => state.cardsPack.page)
-  const pageCount = useSelector<AppRootStateType, number>(state => state.cardsPack.pageCount)
-  const myPacks = useSelector<AppRootStateType, boolean>(state => state.cardsPack.myPacks)
-  const sortPacks = useSelector<AppRootStateType, string>(state => state.cardsPack.sortPacks)
-  const cardPacksTotalCount = useSelector<AppRootStateType, number>(state => state.cardsPack.cardPacksTotalCount)
+    //const min = useSelector<AppRootStateType, number>(state => state.cardsPack.min)
+    //const max = useSelector<AppRootStateType, number>(state => state.cardsPack.max)
+    const page = useSelector<AppRootStateType, number>(state => state.cardsPack.page)
+    const pageCount = useSelector<AppRootStateType, number>(state => state.cardsPack.pageCount)
+    const myPacks = useSelector<AppRootStateType, boolean>(state => state.cardsPack.myPacks)
+    const sortPacks = useSelector<AppRootStateType, string>(state => state.cardsPack.sortPacks)
+    const cardPacksTotalCount = useSelector<AppRootStateType, number>(state => state.cardsPack.cardPacksTotalCount)
+    const packName = useSelector<AppRootStateType, string>(state => state.cardsPack.packName)
+    //const [id, setId] = useState(0)
 
-  //const [id, setId] = useState(0)
+    useEffect(() => {
+        dispatch(fetchPacksListsTC())
+    }, [page, pageCount, myPacks, sortPacks, packName])
 
-  useEffect(() => {
-    dispatch(fetchPacksListsTC())
-  }, [ page, pageCount, myPacks, sortPacks])
+    // useEffect(() => {
+    //   console.log('uEf2')
+    //   clearTimeout(id)
+    //   const x = +setTimeout(()=> {
+    //     dispatch(fetchPacksListsTC())
+    //   }, 1500)
+    //   setId(x)
+    // }, [ min, max])
+    const pageSizeHandler = (value: number) => {
+        dispatch(setPageCountAC(value))
+    }
+    const onChangedPage = (newPage: number) => {
+        if (newPage !== page) dispatch(changeCurrentPageAC(newPage))
+    }
 
-  // useEffect(() => {
-  //   console.log('uEf2')
-  //   clearTimeout(id)
-  //   const x = +setTimeout(()=> {
-  //     dispatch(fetchPacksListsTC())
-  //   }, 1500)
-  //   setId(x)
-  // }, [ min, max])
- const pageSizeHandler = (value:number) => {
-   dispatch(setPageCountAC(value))
- }
-  const onChangedPage = (newPage:number) => {
-    if (newPage !== page) dispatch(changeCurrentPageAC(newPage))
-  }
+    const addPack = () => dispatch(addPackTC('My pack'))
 
-  const addPack = () => dispatch(addPackTC('My pack'))
+    if (!isLoggedIn) {
+        return <Navigate to={PATH.LOGIN}/>
+    }
 
-  if (!isLoggedIn) {
-    return <Navigate to={PATH.LOGIN}/>
-  }
-
-  return (
-    <>
-      <Header/>
-      <PackFrame>
-        <Sidebar/>
-        <div className={styles.main}>
-          <h2>Packs list</h2>
-          {error ? <div style={{color: 'red'}}>{error}</div> : ''}
-          {/*<Search/>*/}
-          <SuperButton onClick={addPack}>Add new pack</SuperButton>
-          <PacksTable/>
-          <div className={styles.paginationWrapper}>
-            <Pagination totalCount={cardPacksTotalCount}
-                        pageSize={pageCount}
-                        currentPage={page}
-                        onChangedPage={onChangedPage}/>
-            <PageSizeSelector pageCount={pageCount}
-                              handler={pageSizeHandler}/>
-          </div>
-        </div>
-      </PackFrame>
-    </>
-
-
-  );
+    return (
+        <>
+            <Header/>
+            <PackFrame>
+                <Sidebar/>
+                <div className={styles.main}>
+                    <h2>Packs list</h2>
+                    <div className={styles.search}>
+                        <PacksSearch/>
+                    </div>
+                    {error ? <div style={{color: 'red'}}>{error}</div> : ''}
+                    <SuperButton onClick={addPack}>Add new pack</SuperButton>
+                    <PacksTable/>
+                    <div className={styles.paginationWrapper}>
+                        <Pagination totalCount={cardPacksTotalCount}
+                                    pageSize={pageCount}
+                                    currentPage={page}
+                                    onChangedPage={onChangedPage}/>
+                        <PageSizeSelector pageCount={pageCount}
+                                          handler={pageSizeHandler}/>
+                    </div>
+                </div>
+            </PackFrame>
+        </>
+    );
 };
 
 export default PacksList;

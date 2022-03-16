@@ -10,6 +10,7 @@ import {useDispatch, useSelector} from "react-redux";
 import {AppRootStateType} from "../../main/bll/store";
 import {CardType} from "../../API/cardsApi";
 import {Pagination} from "../../main/ui/common/Pagination/Pagination";
+import {CardsSearch} from "../../main/ui/common/GridinSearch/CardsSearch";
 
 const Cards = () => {
     const dispatch = useDispatch();
@@ -47,6 +48,8 @@ const Cards = () => {
                     <NavLink to={PATH.PACKS}>Назад</NavLink>
                     <h2>{packName}</h2>
                     Поиск
+                    <h2>Pack Name</h2>
+                    <CardsSearch />
                     <CardsTable cards={cards}/>
                     {
                         cardsTotalCount < pageCount
@@ -58,8 +61,6 @@ const Cards = () => {
                 </div>
             </PackFrame>
         </>
-
-
     );
 };
 
