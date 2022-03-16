@@ -3,4 +3,9 @@
     padding: 24px;
     max-width: 243px;
 }
+@media (max-width: 1150px) {
+    .sidebar {
+        display: none;
+    }
+}
 
