@@ -5,6 +5,7 @@ import {CardType} from "../../../../API/cardsApi";
 import {useDispatch, useSelector} from "react-redux";
 import {AppRootStateType} from "../../../../main/bll/store";
 import {sortCardsAC} from "../../../../main/bll/cardsReducer";
+import {sortFields} from "../../../../utilits/functionsCommon/sortingField";
 
 export type PropsType = {
     cards: Array<CardType>
@@ -22,23 +23,23 @@ const CardsTable = ({cards}: PropsType) => {
     const activeField = sortCards.slice(1)
     const rotate = direction === "1" ? styles.up : ""
 
-    const sortFields = (field: string) => {
-        if (isLoading) return
-        if (sortCards.slice(1) !== field) {
-            dispatch(sortCardsAC('0' + field))
-        } else {
-            if (sortCards[0] !== '0') {
-                dispatch(sortCardsAC('0' + field))
-            } else {
-                dispatch(sortCardsAC('1' + field))
-            }
-        }
-    }
+    // const sortFields = (field: string) => {
+    //     if (isLoading) return
+    //     if (sortCards.slice(1) !== field) {
+    //         dispatch(sortCardsAC('0' + field))
+    //     } else {
+    //         if (sortCards[0] !== '0') {
+    //             dispatch(sortCardsAC('0' + field))
+    //         } else {
+    //             dispatch(sortCardsAC('1' + field))
+    //         }
+    //     }
+    // }
 
-    const sortUpdate = () => sortFields('updated')
-    const sortQuestion = () => sortFields('question')
-    const sortAnswer = () => sortFields('answer')
-    const sortGrade = () => sortFields('grade')
+    const sortUpdate = () => sortFields('updated', sortCardsAC, isLoading, sortCards, dispatch)
+    const sortQuestion = () => sortFields('question', sortCardsAC, isLoading, sortCards, dispatch)
+    const sortAnswer = () => sortFields('answer', sortCardsAC, isLoading, sortCards, dispatch)
+    const sortGrade = () => sortFields('grade', sortCardsAC, isLoading, sortCards, dispatch)
 
     return (
         <div className={styles.table}>
