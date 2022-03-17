@@ -14,23 +14,33 @@ nav {
     justify-content: center;
 }
 
-nav img {
-    width: 15px;
-}
-
 nav a {
     text-decoration: none;
     color: #2D2E46;
-    padding: 20px 0;
+    padding: 20px 10px;
     opacity: 0.4;
-    width: 10%;
+    width: 129px;
+    min-width: 90px;
     font-size: 17px;
+    white-space: nowrap;
     border-bottom: 2px solid transparent;
 }
 
 nav a:hover {
     background-color: #DCCCDB;
     opacity: 1;
+}
+
+.packsLink,
+.profileLink {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.packsLink img,
+.profileLink img {
+    width: 20px;
 }
 
 .isActive {
