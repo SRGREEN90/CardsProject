@@ -5,17 +5,22 @@
     flex-direction: column;
     align-items: flex-start;
 }
+
 .search {
     width: 80%;
 }
-.paginationWrapper{
-    position: relative;
+
+.paginationWrapper {
     display: flex;
     justify-content: space-between;
     align-items: center;
     width: 100%;
 }
-.pageSizeSelectorWrapper {
-    position: absolute;
-    left: 0;
+
+.main a {
+    text-decoration:none;
+}
+
+.main a img{
+   width: 30px;
 }

@@ -12,7 +12,7 @@ import {CardType} from "../../API/cardsApi";
 import {Pagination} from "../../main/ui/common/Pagination/Pagination";
 import {CardsSearch} from "../../main/ui/common/GridinSearch/CardsSearch";
 import {PageSizeSelector} from "../../main/ui/pageSizeSelector/PageSizeSelector";
-import {setPageCountAC} from "../../main/bll/cardsPackReducer";
+import backPage from "../../assets/images/backPage.svg"
 
 const Cards = () => {
     const dispatch = useDispatch();
@@ -51,7 +51,7 @@ const Cards = () => {
             <Header/>
             <PackFrame>
                 <div className={styles.main}>
-                    <NavLink to={PATH.PACKS}>Назад</NavLink>
+                    <NavLink to={PATH.PACKS}><img src={backPage} alt={"backPage"}/></NavLink>
                     <h2>{packName}</h2>
                     <div className={styles.search}>
                         <CardsSearch/>
@@ -61,13 +61,12 @@ const Cards = () => {
                         {
                             cardsTotalCount < pageCount
                                 ? <></>
-                                :
+                                : <>
                                     <Pagination totalCount={cardsTotalCount} pageSize={pageCount} currentPage={page}
                                                 onChangedPage={onChangedPage}/>
-                        } <div>
-                        <PageSizeSelector pageCount={pageCount}
-                                          handler={pageSizeHandler}/>
-                    </div>
+                                    <PageSizeSelector pageCount={pageCount} handler={pageSizeHandler}/>
+                                </>
+                        }
                     </div>
                 </div>
             </PackFrame>
