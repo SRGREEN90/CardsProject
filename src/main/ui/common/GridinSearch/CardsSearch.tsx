@@ -1,31 +1,42 @@
-import React, {ChangeEvent, useEffect, useState} from "react";
-import s from './Search.module.css'
-import {useDispatch, useSelector} from "react-redux";
-import {AppRootStateType} from "../../../bll/store";
-import {fetchCardsTC, setFilterReducerAC} from "../../../bll/cardsReducer";
+import React, {ChangeEvent, useState} from "react";
+import s from './PackSearch.module.css'
+import {useDispatch} from "react-redux";
+
+import {setFilterReducerAC} from "../../../bll/cardsReducer";
 import {useParams} from "react-router-dom";
 
+import Background from "./IconSearch.svg";
 
 
 export const CardsSearch = () => {
-    const cardQuestion = useSelector<AppRootStateType, string>(state => state.cards.cardQuestion);
-  //  const cardAnswer = useSelector<AppRootStateType, string>(state => state.cards.cardAnswer);
+    // const cardQuestion = useSelector<AppRootStateType, string>(state => state.cards.cardQuestion);
+    //  const cardAnswer = useSelector<AppRootStateType, string>(state => state.cards.cardAnswer);
     const {packId} = useParams()
+    const dispatch = useDispatch()
 
-const dispatch = useDispatch()
-    const handleChange = (e:  ChangeEvent<HTMLInputElement>) => {
-        dispatch(setFilterReducerAC(e.currentTarget.value))
+
+    let [event, setEvent] = useState<string>('')
+
+    const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
+        setEvent(e.currentTarget.value)
+
     };
+    let BtnHandler = () => {
+        dispatch(setFilterReducerAC(event))
 
+    }
     return (
         <div className={s.wrap}>
             <input
                 type="text"
-                placeholder="Search"
+                placeholder="Search..."
 
-               value={cardQuestion}
+                value={event}
                 onChange={handleChange}
             />
+            <div className={s.searchBtn}>
+                <div onClick={BtnHandler}>{<img src={Background} alt="search"/>}</div>
+            </div>
         </div>
     );
 }
