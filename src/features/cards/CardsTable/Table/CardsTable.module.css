@@ -73,44 +73,32 @@
     color: #fff;
 }
 
-/*.isActiveDown{*/
-/*    color: #21268F;*/
-/*    background: url(../../../../assets/images/down.png) no-repeat right/contain;*/
-/*}*/
-
-/*.isActiveUp{*/
-/*    color: #21268F;*/
-/*    background: url(../../../../assets/images/up.png) no-repeat right/contain;*/
-/*}*/
-.header div.isActiveUp,
-.header div.isActiveDown {
-    color: #21268F;
+.header div {
+    cursor: pointer;
 }
 
-.header div.isActiveUp:after,
-.header div.isActiveDown:after {
+.header div.active:after {
     content: '';
-    border-width: 5px;
-    border-style: solid;
-    border-color: #2D2E46 transparent transparent transparent;
+    border: 5px solid transparent;
+    border-top-color: #2D2E46;
     display: inline-block;
+    vertical-align: bottom;
     margin-left: 4px;
 }
 
-.header div.isActiveUp:after {
-    vertical-align: bottom;
-}
-
-.header div.isActiveDown:after {
-    align-items: center;
-}
-
-.header div.isActiveUp:after {
+.header div.active.up:after {
     transform: rotate(180deg) translateY(5px);
 }
 
-.header div.isActiveDown:after {
-    transform: rotate(360deg) translateY(5px);
+.item a {
+    color: inherit;
+    font-weight: 700;
+    text-decoration: none;
+    word-break: break-all;
+}
+
+.item a, .item div {
+    word-break: break-all;
 }
 
 .rating_result {

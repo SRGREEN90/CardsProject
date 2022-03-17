@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React from 'react';
 import styles from './CardsTable.module.css'
 import Card from "./Card";
 import {CardType} from "../../../../API/cardsApi";
@@ -10,43 +10,43 @@ export type PropsType = {
     cards: Array<CardType>
 }
 
-type SortType = string
-
 const CardsTable = ({cards}: PropsType) => {
-    const [active, setActive] = useState<SortType>('')
+    const dispatch = useDispatch();
     const myUserId = useSelector<AppRootStateType, string>(state => state.profilePage._id)
     let isCheckId = cards.every(m => m._id === myUserId)
     const classMyCards = `${isCheckId ? `${styles.itemMy}` : `${styles.item}`}`
-    const dispatch = useDispatch();
     const sortCards = useSelector<AppRootStateType, string>(state => state.cards.sortCards)
-    let sort = sortCards[0]
-    const classActiveQuestion = `${active === 'question' && sort === '1' ? `${styles.isActiveDown}` : active === 'question' && sort === '0' ? `${styles.isActiveUp}` : ``}`
-    const classActiveAnswer = `${active === 'answer' && sort === '1' ? `${styles.isActiveDown}` : active === 'answer' && sort === '0' ? `${styles.isActiveUp}` : ``}`
-    const classActiveUpdated = `${active === 'updated' && sort === '1' ? `${styles.isActiveDown}` : active === 'updated' && sort === '0' ? `${styles.isActiveUp}` : ``}`
-    const classActiveGrade = `${active === 'grade' && sort === '1' ? `${styles.isActiveDown}` : active === 'grade' && sort === '0' ? `${styles.isActiveUp}` : ``}`
+    const isLoading =useSelector<AppRootStateType, boolean>(state => state.app.isLoading)
 
-    const sortCardsHandler = (item: string) => {
-        if ((sortCards.slice(1) !== item)) {
-            dispatch(sortCardsAC(sort + item))
-            setActive(item)
+    const direction = sortCards[0]
+    const activeField = sortCards.slice(1)
+    const rotate = direction === "1" ? styles.up : ""
+
+    const sortFields = (field: string) => {
+        if (isLoading) return
+        if (sortCards.slice(1) !== field) {
+            dispatch(sortCardsAC('0' + field))
         } else {
-            if (sort === '0') {
-                dispatch(sortCardsAC('1' + item))
-                setActive(item)
+            if (sortCards[0] !== '0') {
+                dispatch(sortCardsAC('0' + field))
             } else {
-                dispatch(sortCardsAC('0' + item))
-                setActive(item)
+                dispatch(sortCardsAC('1' + field))
             }
         }
     }
 
+    const sortUpdate = () => sortFields('updated')
+    const sortQuestion = () => sortFields('question')
+    const sortAnswer = () => sortFields('answer')
+    const sortGrade = () => sortFields('grade')
+
     return (
         <div className={styles.table}>
             <div className={`${styles.header} ${classMyCards}`}>
-                <div className={`${classActiveQuestion}`} onClick={() => sortCardsHandler('question')}>Question</div>
-                <div className={`${classActiveAnswer}`} onClick={() => sortCardsHandler('answer')}>Answer</div>
-                <div className={`${classActiveUpdated}`} onClick={() => sortCardsHandler('updated')}>Last Updated</div>
-                <div className={`${classActiveGrade}`} onClick={() => sortCardsHandler('grade')}>Grade</div>
+                <div onClick={sortQuestion} className={activeField === "question" ? `${styles.active} ${rotate}` : ""} >Question</div>
+                <div onClick={sortAnswer} className={activeField === "answer" ? `${styles.active} ${rotate}` : ""}>Answer</div>
+                <div onClick={sortUpdate} className={activeField === "updated" ? `${styles.active} ${rotate}` : ""}>Last Updated</div>
+                <div onClick={sortGrade} className={activeField === "grade" ? `${styles.active} ${rotate}` : ""}>Grade</div>
                 {
                     isCheckId && <>
                         <div>Actions</div>

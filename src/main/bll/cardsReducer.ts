@@ -12,7 +12,7 @@ const initialState = {
     page: 1,
     pageCount: 8,
     searchCard: '',
-    sortCards: '0grade',
+    sortCards: '0updated',
     packUserId: '',
     token: '',
     tokenDeathTime: 0,
