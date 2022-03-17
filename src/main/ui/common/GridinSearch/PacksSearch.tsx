@@ -8,14 +8,15 @@ import {setFilteredPacksAC} from "../../../bll/cardsPackReducer";
 
 
 export const PacksSearch = () => {
-  const packName = useSelector<AppRootStateType, string>(state => state.cardsPack.packName);
-    console.log(packName)
+    const packName = useSelector<AppRootStateType, string>(state => state.cardsPack.packName);
+    const dispatch = useDispatch()
     const {packId} = useParams()
 
-const dispatch = useDispatch()
-    const handleChange = (e:  ChangeEvent<HTMLInputElement>) => {
+
+    let handleChange = (e: ChangeEvent<HTMLInputElement>) => {
         dispatch(setFilteredPacksAC(e.currentTarget.value))
     };
+
 
     return (
         <div className={s.wrap}>
