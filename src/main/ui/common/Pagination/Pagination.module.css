@@ -1,32 +1,58 @@
 .pagesWrapper {
   display: flex;
-  margin: 10px 0;
-  gap: 10px;
-  justify-content: center;
-  font-family: Bahnschrift, sans-serif;
-  font-size: 22px;
+  color: #2D2E46;
+  font-size: 16px;
+  position: relative;
+}
+
+.page:hover {
   font-weight: bold;
-  color: #6d70d5;
 }
 
 .pageList {
   display: flex;
-  flex-wrap: wrap;
-  gap: 10px;
+  /*position: absolute;*/
+  /*left: 40px;*/
+  /*flex-wrap: wrap;*/
+  /*gap: 10px;*/
 }
 
 .currentPage {
-  color: #21268F;
-  font-size: 28px;
+  background: #21268F;
+  border-radius: 2px;
+  color: #F2F5F7;
   user-select: none;
+  padding: 5px;
+  min-width: 24px;
+  width: content-box;
+  text-align: center;
 }
 
-.page {
+/*.page {*/
+/*  min-width: 24px;*/
+/*  cursor: pointer;*/
+/*  padding: 5px;*/
+/*  width: content-box;*/
+/*  text-align: center;*/
+/*}*/
+
+/*.prev{*/
+/*  position: absolute;*/
+/*}*/
+
+/*.next{*/
+/*  position: absolute;*/
+/*  left: calc();*/
+/*}*/
+
+.pagesWrapper span {
+  min-width: 24px;
   cursor: pointer;
-  user-select: none;
+  padding: 5px;
+  width: content-box;
+  text-align: center;
 }
 
-.page:hover {
-  color: #0003d0;
-  font-size: 25px;
+.page:disabled {
+background-color: red;
 }

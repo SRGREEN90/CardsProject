@@ -1,5 +1,5 @@
 import React from "react";
-import stl from './Pagination.module.css';
+import styles from './Pagination.module.css';
 
 type PropsType = {
     totalCount: number
@@ -12,7 +12,7 @@ export const Pagination = ({totalCount, pageSize, currentPage, onChangedPage}: P
     const pageCounts = totalCount ? Math.ceil(totalCount / pageSize) : 1;
     const pages = [];
     const step = pageCounts > 200 ? 50 : 10;
-    const isStep = pageCounts > 10;
+    const isStep = pageCounts > 4;
 
     let pageLimit = 4;
     let startPage = currentPage - pageLimit / 2;
@@ -36,7 +36,7 @@ export const Pagination = ({totalCount, pageSize, currentPage, onChangedPage}: P
 
         return (
             <span key={n}
-                  className={currentPage === n ? stl.currentPage : stl.page}
+                  className={currentPage === n ? styles.currentPage : styles.page}
                   onClick={onClickGetByPage}>
                 {n}
             </span>
@@ -67,16 +67,20 @@ export const Pagination = ({totalCount, pageSize, currentPage, onChangedPage}: P
 
     //COMPLETE JSX
     return (
-        <div className={stl.pagesWrapper}>
-            {currentPage > 1 ? <span className={stl.page} onClick={previous}>{'<'}</span> : <></>}
-            {startPage > 1 ? <span className={stl.page} onClick={firstPageHandler}>1</span> : <></>}
-            {isStep && <span className={stl.page} onClick={downPageHandler}>{'...'}</span>}
-            <div className={stl.pageList}>
+        <div className={styles.pagesWrapper}>
+            {currentPage > 1 ? <span className={styles.page} onClick={previous}>{'<'}</span> : <></>}
+            {currentPage > 4 ? <span className={styles.page} onClick={firstPageHandler}>1</span> : <></>}
+            {/*{isStep && <span className={styles.page} onClick={downPageHandler}>{'...'}</span>}*/}
+            {currentPage > 3 ? <span className={styles.page} onClick={downPageHandler}>{'...'}</span> : <></>}
+            <div className={styles.pageList}>
                 {pageList}
             </div>
-            {isStep && <span className={stl.page} onClick={upPageHandler}>{'...'}</span>}
-            {endPage === pageCounts ? <></> : <span className={stl.page} onClick={lastPageHandler}>{pageCounts}</span>}
-            {(currentPage !== pageCounts) ? <span className={stl.page} onClick={next}>{'>'}</span> : <></>}
+            {currentPage < pageCounts - 3 ?
+                <span className={styles.page} onClick={upPageHandler}>{'...'}</span> : <></>}
+            {/*{isStep && <span className={styles.page} onClick={upPageHandler}>{'...'}</span>}*/}
+            {endPage === pageCounts ? <></> :
+                <span className={styles.page} onClick={lastPageHandler}>{pageCounts}</span>}
+            {(currentPage !== pageCounts) ? <span className={styles.page} onClick={next}>{'>'}</span> : <></>}
         </div>
     );
 }
