@@ -1,0 +1,15 @@
+
+.wrap{
+    color: black;
+    display: flex;
+    flex-direction: row;
+}
+.searchBtn{
+    border: 1px solid grey;
+    cursor: pointer;
+    width: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+}
