@@ -15,7 +15,7 @@ export const PacksSearch = () => {
 
     let handleChange = (e: ChangeEvent<HTMLInputElement>) => {
         setEvent(e.currentTarget.value)
-        dispatch(setFilteredPacksAC(''))
+
     };
 
     let BtnHandler = () => {

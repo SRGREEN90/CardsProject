@@ -19,7 +19,7 @@ export const CardsSearch = () => {
 
     const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
         setEvent(e.currentTarget.value)
-        dispatch(setFilterReducerAC(''))
+
     };
     let BtnHandler = () => {
         dispatch(setFilterReducerAC(event))
