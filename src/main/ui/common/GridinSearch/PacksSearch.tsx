@@ -30,11 +30,7 @@ export const PacksSearch = () => {
                 value={event}
                 onChange={handleChange}
             />
-
-            <div className={s.searchBtn}>
-                <div onClick={BtnHandler}>{<img src={Background} alt="search"/>}</div>
-            </div>
-
+            <button onClick={BtnHandler} className={s.btnSearch}></button>
         </div>
     );
 }

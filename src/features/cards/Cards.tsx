@@ -5,12 +5,14 @@ import {PackFrame} from "../../main/ui/common/PackFrame/PackFrame";
 import CardsTable from "./CardsTable/Table/CardsTable";
 import {Navigate, NavLink, useParams} from "react-router-dom";
 import {PATH} from "../../main/ui/routes/Routes";
-import {changeCurrentPageCardsAC, fetchCardsTC} from "../../main/bll/cardsReducer";
+import {changeCurrentPageCardsAC, fetchCardsTC, setPageCountCardsAC} from "../../main/bll/cardsReducer";
 import {useDispatch, useSelector} from "react-redux";
 import {AppRootStateType} from "../../main/bll/store";
 import {CardType} from "../../API/cardsApi";
 import {Pagination} from "../../main/ui/common/Pagination/Pagination";
 import {CardsSearch} from "../../main/ui/common/GridinSearch/CardsSearch";
+import {PageSizeSelector} from "../../main/ui/pageSizeSelector/PageSizeSelector";
+import {setPageCountAC} from "../../main/bll/cardsPackReducer";
 
 const Cards = () => {
     const dispatch = useDispatch();
@@ -40,6 +42,10 @@ const Cards = () => {
         if (newPage !== page) dispatch(changeCurrentPageCardsAC(newPage))
     }
 
+    const pageSizeHandler = (value: number) => {
+        dispatch(setPageCountCardsAC(value))
+    }
+
     return (
         <>
             <Header/>
@@ -47,17 +53,22 @@ const Cards = () => {
                 <div className={styles.main}>
                     <NavLink to={PATH.PACKS}>Назад</NavLink>
                     <h2>{packName}</h2>
-                    Поиск
-                    <h2>Pack Name</h2>
-                    <CardsSearch />
+                    <div className={styles.search}>
+                        <CardsSearch/>
+                    </div>
                     <CardsTable cards={cards}/>
-                    {
-                        cardsTotalCount < pageCount
-                            ? <></>
-                            :
-                            <Pagination totalCount={cardsTotalCount} pageSize={pageCount} currentPage={page}
-                                        onChangedPage={onChangedPage}/>
-                    }
+                    <div className={styles.paginationWrapper}>
+                        {
+                            cardsTotalCount < pageCount
+                                ? <></>
+                                :
+                                    <Pagination totalCount={cardsTotalCount} pageSize={pageCount} currentPage={page}
+                                                onChangedPage={onChangedPage}/>
+                        } <div>
+                        <PageSizeSelector pageCount={pageCount}
+                                          handler={pageSizeHandler}/>
+                    </div>
+                    </div>
                 </div>
             </PackFrame>
         </>

@@ -29,10 +29,9 @@ export const cardsReducer = (state: InitialStateType = initialState, action: Car
         case 'CARDS/SORT_CARDS':
             return {...state, sortCards: action.sortCards}
         case 'CARDS/SET_FILTER_CARDS':
-            return {
-                ...state,
-                cardQuestion: action.cardQuestion
-            };
+            return {...state, cardQuestion: action.cardQuestion}
+        case 'CARDS/SET_PAGE_COUNT_CARDS':
+            return {...state, pageCount: action.pageCount}
         default:
             return state
     }
@@ -55,7 +54,7 @@ type InitialStateType = {
     cardQuestion: string
 }
 
-export type CardsActionsType = cardsReducerACType | ChangeCurrentPageCardsACType | SortCardsACACType | setFilterReducerACType
+export type CardsActionsType = cardsReducerACType | ChangeCurrentPageCardsACType | SortCardsACACType | setFilterReducerACType | SetPageCountCardsACType
 
 export const cardsReducerAC = (data: InitialStateType) => {
     return {type: 'CARDS/SET_CARD', data} as const;
@@ -74,6 +73,10 @@ type ChangeCurrentPageCardsACType = ReturnType<typeof changeCurrentPageCardsAC>
 export const sortCardsAC = (sortCards: string) =>
     ({type: 'CARDS/SORT_CARDS', sortCards} as const)
 type SortCardsACACType = ReturnType<typeof sortCardsAC>
+
+export const setPageCountCardsAC = (pageCount:number) =>
+    ({type: 'CARDS/SET_PAGE_COUNT_CARDS', pageCount} as const)
+type SetPageCountCardsACType = ReturnType<typeof setPageCountCardsAC>
 
 export const fetchCardsTC = (packUserId: string) =>
     (dispatch: Dispatch, getState: () => AppRootStateType) => {

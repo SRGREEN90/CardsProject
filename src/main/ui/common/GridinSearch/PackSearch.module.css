@@ -1,15 +1,66 @@
-
 .wrap{
-    color: black;
-    display: flex;
-    flex-direction: row;
+    position: relative;
+    display: block;
+    width: 80%;
 }
-.searchBtn{
-    border: 1px solid grey;
-    cursor: pointer;
-    width: 30px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
 
+.wrap input {
+    background: #ECECF9;
+    opacity: 0.5;
+    border: 1px solid #635D80;
+    box-sizing: border-box;
+    border-radius: 2px;
+    height: 36px;
+    width: 100%;
+    padding: 10px;
+    color: #2D2E46;
 }
+
+.wrap input:focus {
+    outline: none;
+    border: 1px solid #2D2E46;
+}
+
+.wrap .btnSearch {
+    position: absolute;
+    height: 24px;
+    width: 24px;
+    right: 10px;
+    border: none;
+    background: url(../GridinSearch/IconSearch.svg) no-repeat center/contain;
+    cursor: pointer;
+    z-index: 2;
+    top: 15%;
+    opacity: 1;
+}
+
+
+/*.searchBtn{*/
+/*    border: 1px solid grey;*/
+/*    cursor: pointer;*/
+/*    width: 30px;*/
+/*    display: flex;*/
+/*    justify-content: center;*/
+/*    align-items: center;*/
+
+/*}*/
+
+
+/*background: url(../GridinSearch/IconSearch.svg) no-repeat center/contain;*/
+
+
+
+/*.wrap{*/
+/*    color: black;*/
+/*    display: flex;*/
+/*    flex-direction: row;*/
+/*}*/
+/*.searchBtn{*/
+/*    border: 1px solid grey;*/
+/*    cursor: pointer;*/
+/*    width: 30px;*/
+/*    display: flex;*/
+/*    justify-content: center;*/
+/*    align-items: center;*/
+
+/*}*/

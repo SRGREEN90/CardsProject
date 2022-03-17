@@ -1,0 +1,9 @@
+.containerSelector{
+    display: flex;
+    align-items: center;
+}
+.containerSelector p {
+    font-size: 12px;
+    line-height: 15px;
+    color: #2D2E46;
+}

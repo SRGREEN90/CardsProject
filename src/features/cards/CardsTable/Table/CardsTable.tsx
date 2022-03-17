@@ -17,24 +17,11 @@ const CardsTable = ({cards}: PropsType) => {
     let isCheckId = cards.every(m => m._id === myUserId)
     const classMyCards = `${isCheckId ? `${styles.itemMy}` : `${styles.item}`}`
     const sortCards = useSelector<AppRootStateType, string>(state => state.cards.sortCards)
-    const isLoading =useSelector<AppRootStateType, boolean>(state => state.app.isLoading)
+    const isLoading = useSelector<AppRootStateType, boolean>(state => state.app.isLoading)
 
     const direction = sortCards[0]
     const activeField = sortCards.slice(1)
     const rotate = direction === "1" ? styles.up : ""
-
-    // const sortFields = (field: string) => {
-    //     if (isLoading) return
-    //     if (sortCards.slice(1) !== field) {
-    //         dispatch(sortCardsAC('0' + field))
-    //     } else {
-    //         if (sortCards[0] !== '0') {
-    //             dispatch(sortCardsAC('0' + field))
-    //         } else {
-    //             dispatch(sortCardsAC('1' + field))
-    //         }
-    //     }
-    // }
 
     const sortUpdate = () => sortFields('updated', sortCardsAC, isLoading, sortCards, dispatch)
     const sortQuestion = () => sortFields('question', sortCardsAC, isLoading, sortCards, dispatch)
@@ -44,10 +31,17 @@ const CardsTable = ({cards}: PropsType) => {
     return (
         <div className={styles.table}>
             <div className={`${styles.header} ${classMyCards}`}>
-                <div onClick={sortQuestion} className={activeField === "question" ? `${styles.active} ${rotate}` : ""} >Question</div>
-                <div onClick={sortAnswer} className={activeField === "answer" ? `${styles.active} ${rotate}` : ""}>Answer</div>
-                <div onClick={sortUpdate} className={activeField === "updated" ? `${styles.active} ${rotate}` : ""}>Last Updated</div>
-                <div onClick={sortGrade} className={activeField === "grade" ? `${styles.active} ${rotate}` : ""}>Grade</div>
+                <div onClick={sortQuestion}
+                     className={activeField === "question" ? `${styles.active} ${rotate}` : ""}>Question
+                </div>
+                <div onClick={sortAnswer}
+                     className={activeField === "answer" ? `${styles.active} ${rotate}` : ""}>Answer
+                </div>
+                <div onClick={sortUpdate} className={activeField === "updated" ? `${styles.active} ${rotate}` : ""}>Last
+                    Updated
+                </div>
+                <div onClick={sortGrade} className={activeField === "grade" ? `${styles.active} ${rotate}` : ""}>Grade
+                </div>
                 {
                     isCheckId && <>
                         <div>Actions</div>

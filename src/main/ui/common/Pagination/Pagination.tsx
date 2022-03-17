@@ -70,14 +70,12 @@ export const Pagination = ({totalCount, pageSize, currentPage, onChangedPage}: P
         <div className={styles.pagesWrapper}>
             {currentPage > 1 ? <span className={styles.page} onClick={previous}>{'<'}</span> : <></>}
             {currentPage > 4 ? <span className={styles.page} onClick={firstPageHandler}>1</span> : <></>}
-            {/*{isStep && <span className={styles.page} onClick={downPageHandler}>{'...'}</span>}*/}
             {currentPage > 3 ? <span className={styles.page} onClick={downPageHandler}>{'...'}</span> : <></>}
             <div className={styles.pageList}>
                 {pageList}
             </div>
             {currentPage < pageCounts - 3 ?
                 <span className={styles.page} onClick={upPageHandler}>{'...'}</span> : <></>}
-            {/*{isStep && <span className={styles.page} onClick={upPageHandler}>{'...'}</span>}*/}
             {endPage === pageCounts ? <></> :
                 <span className={styles.page} onClick={lastPageHandler}>{pageCounts}</span>}
             {(currentPage !== pageCounts) ? <span className={styles.page} onClick={next}>{'>'}</span> : <></>}
