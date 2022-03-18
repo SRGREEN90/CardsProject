@@ -37,14 +37,6 @@ export type CardsResponseType = {
     packUserId: string
     token: string
     tokenDeathTime: number
-    // "packUserId": "61b5e9866555340004202106",
-    // "page": 1,
-    // "pageCount": 4,
-    // "cardsTotalCount": 2,
-    // "minGrade": 0,
-    // "maxGrade": 6,
-    // "token": "84810400-a26f-11ec-bf8b-b331e9adfac0",
-    // "tokenDeathTime": 1647740838976
 }
 
 export type CardType = {
@@ -66,30 +58,5 @@ export type CardType = {
     answerVideo: string
     questionImg: string
     questionVideo: string
-    // "_id": "622ba17229bee9000469655e",
-    // "cardsPack_id": "61c23d74b4e18c0004e4392f",
-    // "user_id": "61b5e9866555340004202106",
-    // "answer": "no answer",
-    // "question": "WTF?",
-    // "grade": 0,
-    // "shots": 0,
-    // "comments": "",
-    // "type": "card",
-    // "rating": 0,
-    // "more_id": "61b5e9866555340004202106",
-    // "created": "2022-03-11T19:22:26.150Z",
-    // "updated": "2022-03-12T17:49:54.582Z",
-    // "__v": 0,
-    // "answerImg": "",
-    // "answerVideo": "",
-    // "questionImg": "",
-    // "questionVideo": ""
+
 }
-
-export type AddCardParamsType = {}
-
-export type UpdateCardType = {
-    _id: string
-    question: string
-    comments: string
-};
