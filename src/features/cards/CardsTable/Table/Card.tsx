@@ -18,7 +18,6 @@ const Card: React.FC<CardPropsType> = ({card, isCheckId, classMyCards}) => {
     const finalClass5 = `${5 <= rating ? `${styles.active}` : ``}`
 
     return (
-        <div>
             <div className={`${styles.card} ${classMyCards}`}>
                 <div>{card.question}</div>
                 <div>{card.answer}</div>
@@ -41,7 +40,6 @@ const Card: React.FC<CardPropsType> = ({card, isCheckId, classMyCards}) => {
                     </div>
                 }
             </div>
-        </div>
     );
 };
 
