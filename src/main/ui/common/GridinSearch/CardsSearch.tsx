@@ -22,8 +22,7 @@ export const CardsSearch = () => {
 
     };
     let BtnHandler = () => {
-        dispatch(setFilterReducerAC(event))
-        dispatch(changeCurrentPageCardsAC(1))
+        dispatch(setFilterReducerAC(event)); dispatch(changeCurrentPageCardsAC(1))
     }
     return (
         <div className={s.wrap}>

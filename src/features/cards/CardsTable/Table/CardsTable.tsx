@@ -4,9 +4,8 @@ import Card from "./Card";
 import {CardType} from "../../../../API/cardsApi";
 import {useDispatch, useSelector} from "react-redux";
 import {AppRootStateType} from "../../../../main/bll/store";
-import {sortCardsAC} from "../../../../main/bll/cardsReducer";
+import {changeCurrentPageCardsAC, sortCardsAC} from "../../../../main/bll/cardsReducer";
 import {sortFields} from "../../../../utilits/functionsCommon/sortingField";
-import Preloader from "../../../../main/ui/common/Preloader/Preloader";
 
 export type PropsType = {
     cards: Array<CardType>
@@ -19,18 +18,32 @@ const CardsTable = ({cards}: PropsType) => {
     const classMyCards = `${isCheckId ? `${styles.itemMy}` : `${styles.item}`}`
     const sortCards = useSelector<AppRootStateType, string>(state => state.cards.sortCards)
     const isLoading = useSelector<AppRootStateType, boolean>(state => state.app.isLoading)
+    const curPage = useSelector<AppRootStateType, number>(state => state.cards.page)
 
     const direction = sortCards[0]
     const activeField = sortCards.slice(1)
     const rotate = direction === "1" ? styles.up : ""
 
-    const sortUpdate = () => sortFields('updated', sortCardsAC, isLoading, sortCards, dispatch)
-    const sortQuestion = () => sortFields('question', sortCardsAC, isLoading, sortCards, dispatch);
-    const sortAnswer = () => sortFields('answer', sortCardsAC, isLoading, sortCards, dispatch)
-    const sortGrade = () => sortFields('grade', sortCardsAC, isLoading, sortCards, dispatch)
-
-    if (isLoading) {
-        return <Preloader/>
+    const sortUpdate = () => {
+        sortFields('updated', sortCardsAC, isLoading, sortCards, dispatch)
+        if (curPage !== 1) {
+            dispatch(changeCurrentPageCardsAC(1));
+        }
+    }
+    const sortQuestion = () => {
+        sortFields('question', sortCardsAC, isLoading, sortCards, dispatch)
+        if (curPage !== 1) {
+            dispatch(changeCurrentPageCardsAC(1));
+        }
+    }
+    const sortAnswer = () => {
+        sortFields('answer', sortCardsAC, isLoading, sortCards, dispatch)
+        if (curPage !== 1) {
+            dispatch(changeCurrentPageCardsAC(1));
+        }
+    }
+    const sortGrade = () => {
+        sortFields('grade', sortCardsAC, isLoading, sortCards, dispatch)
     }
 
     return (

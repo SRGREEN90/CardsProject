@@ -13,13 +13,11 @@ import {PATH} from "../../main/ui/routes/Routes";
 import {Pagination} from "../../main/ui/common/Pagination/Pagination";
 import {PageSizeSelector} from "../../main/ui/pageSizeSelector/PageSizeSelector";
 import {PacksSearch} from "../../main/ui/common/GridinSearch/PacksSearch";
-import Preloader from "../../main/ui/common/Preloader/Preloader";
 
 const PacksList = () => {
     const dispatch = useDispatch();
     const error = useSelector<AppRootStateType, string>(state => state.app.error);
     const isLoggedIn = useSelector<AppRootStateType, boolean>(state => state.login.status);
-    const isLoading =useSelector<AppRootStateType, boolean>(state => state.app.isLoading)
     //const min = useSelector<AppRootStateType, number>(state => state.cardsPack.min)
     //const max = useSelector<AppRootStateType, number>(state => state.cardsPack.max)
     const page = useSelector<AppRootStateType, number>(state => state.cardsPack.page)
@@ -53,9 +51,6 @@ const PacksList = () => {
 
     if (!isLoggedIn) {
         return <Navigate to={PATH.LOGIN}/>
-    }
-    if (isLoading) {
-        return <Preloader/>
     }
 
     return (

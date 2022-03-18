@@ -1,5 +1,8 @@
 import React from "react";
 import styles from './Pagination.module.css';
+import {useDispatch, useSelector} from "react-redux";
+import {AppRootStateType} from "../../../bll/store";
+import {setLoadingAC} from "../../../bll/appReducer";
 
 type PropsType = {
     totalCount: number
@@ -8,11 +11,14 @@ type PropsType = {
     onChangedPage: (n: number) => void
 }
 export const Pagination = ({totalCount, pageSize, currentPage, onChangedPage}: PropsType) => {
-    //const isLoading = useSelector<AppRootStateType, boolean>(state => state.app.isLoading);
+    const dispatch = useDispatch();
+    const isLoading = useSelector<AppRootStateType, boolean>(state => state.app.isLoading);
     const pageCounts = totalCount ? Math.ceil(totalCount / pageSize) : 1;
     const pages = [];
     const step = pageCounts > 200 ? 50 : 10;
     const isStep = pageCounts > 4;
+
+    const newActiveClass = `${isLoading ? `${styles.pageActive}` : `${styles.page}`}`
 
     let pageLimit = 4;
     let startPage = currentPage - pageLimit / 2;
@@ -36,12 +42,13 @@ export const Pagination = ({totalCount, pageSize, currentPage, onChangedPage}: P
 
         return (
             <span key={n}
-                  className={currentPage === n ? styles.currentPage : styles.page}
+                  className={currentPage === n ? `${newActiveClass} ${styles.currentPage}` : `${newActiveClass} ${styles.page}`}
                   onClick={onClickGetByPage}>
                 {n}
             </span>
         );
     })
+
 
     //Functions Buttons
     const firstPageHandler = () => onChangedPage(1);
@@ -58,27 +65,28 @@ export const Pagination = ({totalCount, pageSize, currentPage, onChangedPage}: P
     };
 
     const previous = () => {
-        onChangedPage(currentPage - 1)
+        onChangedPage(currentPage - 1);  dispatch(setLoadingAC(false))
+
     }
 
     const next = () => {
-        onChangedPage(currentPage + 1)
+        onChangedPage(currentPage + 1);  dispatch(setLoadingAC(false))
     }
 
     //COMPLETE JSX
     return (
         <div className={styles.pagesWrapper}>
-            {currentPage > 1 ? <span className={styles.page} onClick={previous}>{'<'}</span> : <></>}
-            {currentPage > 4 ? <span className={styles.page} onClick={firstPageHandler}>1</span> : <></>}
-            {currentPage > 3 ? <span className={styles.page} onClick={downPageHandler}>{'...'}</span> : <></>}
+            {currentPage > 1 ? <span className={newActiveClass} onClick={previous}>{'<'}</span> : <></>}
+            {currentPage > 4 ? <span className={newActiveClass} onClick={firstPageHandler}>1</span> : <></>}
+            {currentPage > 3 ? <span className={newActiveClass} onClick={downPageHandler}>{'...'}</span> : <></>}
             <div className={styles.pageList}>
                 {pageList}
             </div>
             {currentPage < pageCounts - 3 ?
-                <span className={styles.page} onClick={upPageHandler}>{'...'}</span> : <></>}
+                <span className={newActiveClass} onClick={upPageHandler}>{'...'}</span> : <></>}
             {endPage === pageCounts ? <></> :
-                <span className={styles.page} onClick={lastPageHandler}>{pageCounts}</span>}
-            {(currentPage !== pageCounts) ? <span className={styles.page} onClick={next}>{'>'}</span> : <></>}
+                <span className={newActiveClass} onClick={lastPageHandler}>{pageCounts}</span>}
+            {(currentPage !== pageCounts) ? <span className={newActiveClass} onClick={next}>{'>'}</span> : <></>}
         </div>
     );
 }

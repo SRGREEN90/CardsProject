@@ -4,6 +4,7 @@ import {CardType} from "../../../../API/cardsApi";
 import Preloader from "../../../../main/ui/common/Preloader/Preloader";
 import {useSelector} from "react-redux";
 import {AppRootStateType} from "../../../../main/bll/store";
+import {SuperLoading} from "../../../../main/ui/common/Loading/loading";
 
 type CardPropsType = {
     card: CardType
@@ -22,7 +23,7 @@ const Card: React.FC<CardPropsType> = ({card, isCheckId, classMyCards}) => {
     const finalClass5 = `${5 <= rating ? `${styles.active}` : ``}`
 
     if (isLoading) {
-        return <Preloader/>
+        return <SuperLoading/>
     }
 
     return (

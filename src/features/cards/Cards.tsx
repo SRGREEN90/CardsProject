@@ -13,7 +13,6 @@ import {Pagination} from "../../main/ui/common/Pagination/Pagination";
 import {CardsSearch} from "../../main/ui/common/GridinSearch/CardsSearch";
 import {PageSizeSelector} from "../../main/ui/pageSizeSelector/PageSizeSelector";
 import backPage from "../../assets/images/backPage.svg"
-import Preloader from "../../main/ui/common/Preloader/Preloader";
 
 const Cards = () => {
     const dispatch = useDispatch();
@@ -26,7 +25,6 @@ const Cards = () => {
     const cardAnswer = useSelector<AppRootStateType, string>(state => state.cards.cardAnswer)
     const sortCards = useSelector<AppRootStateType, string>(state => state.cards.sortCards)
     const cardsTotalCount = useSelector<AppRootStateType, number>(state => state.cards.cardsTotalCount)
-    const isLoading = useSelector<AppRootStateType, boolean>(state => state.app.isLoading)
     const {packId} = useParams<{ packId: string }>();
 
     useEffect(() => {
@@ -46,10 +44,6 @@ const Cards = () => {
 
     const pageSizeHandler = (value: number) => {
         dispatch(setPageCountCardsAC(value))
-    }
-
-    if (isLoading) {
-        return <Preloader/>
     }
 
     return (

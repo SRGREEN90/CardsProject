@@ -5,6 +5,7 @@ import {PackType} from "../../../../API/cardsPackApi";
 import {useDispatch, useSelector} from "react-redux";
 import {AppRootStateType} from "../../../../main/bll/store";
 import {deletePackTC} from "../../../../main/bll/cardsPackReducer";
+import {SuperLoading} from "../../../../main/ui/common/Loading/loading";
 
 type PackPropsType = {
     pack: PackType
@@ -13,8 +14,12 @@ type PackPropsType = {
 const Pack: React.FC<PackPropsType> = ({pack}) => {
     const dispatch = useDispatch();
     const myUserId = useSelector<AppRootStateType, string>(state => state.profilePage._id)
-
+    const isLoading = useSelector<AppRootStateType, boolean>(state => state.app.isLoading)
     const deletePack = (packId: string) => dispatch(deletePackTC(packId))
+
+    if (isLoading) {
+        return <SuperLoading/>
+    }
 
     return (
         <div className={`${styles.pack} ${styles.item}`}>
@@ -27,7 +32,9 @@ const Pack: React.FC<PackPropsType> = ({pack}) => {
             <div className={styles.buttons}>
                 {
                     myUserId === pack.user_id && <>
-                        <button className={`${styles.button} ${styles.delete}`} onClick={() => deletePack(pack._id)}>Delete</button>
+                        <button className={`${styles.button} ${styles.delete}`}
+                                onClick={() => deletePack(pack._id)}>Delete
+                        </button>
                         <button className={styles.button}>Edit</button>
                     </>
                 }
