@@ -18,7 +18,6 @@ const PacksList = () => {
     const dispatch = useDispatch();
     const error = useSelector<AppRootStateType, string>(state => state.app.error);
     const isLoggedIn = useSelector<AppRootStateType, boolean>(state => state.login.status);
-
     //const min = useSelector<AppRootStateType, number>(state => state.cardsPack.min)
     //const max = useSelector<AppRootStateType, number>(state => state.cardsPack.max)
     const page = useSelector<AppRootStateType, number>(state => state.cardsPack.page)
@@ -68,10 +67,14 @@ const PacksList = () => {
                     <SuperButton onClick={addPack}>Add new pack</SuperButton>
                     <PacksTable/>
                     <div className={styles.paginationWrapper}>
-                        <Pagination totalCount={cardPacksTotalCount}
-                                    pageSize={pageCount}
-                                    currentPage={page}
-                                    onChangedPage={onChangedPage}/>
+                        {
+                            cardPacksTotalCount < pageCount
+                                ? <></>
+                                : <Pagination totalCount={cardPacksTotalCount}
+                                              pageSize={pageCount}
+                                              currentPage={page}
+                                              onChangedPage={onChangedPage}/>
+                        }
                         <PageSizeSelector pageCount={pageCount}
                                           handler={pageSizeHandler}/>
                     </div>
