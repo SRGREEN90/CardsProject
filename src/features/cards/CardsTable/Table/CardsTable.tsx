@@ -6,6 +6,7 @@ import {useDispatch, useSelector} from "react-redux";
 import {AppRootStateType} from "../../../../main/bll/store";
 import {sortCardsAC} from "../../../../main/bll/cardsReducer";
 import {sortFields} from "../../../../utilits/functionsCommon/sortingField";
+import Preloader from "../../../../main/ui/common/Preloader/Preloader";
 
 export type PropsType = {
     cards: Array<CardType>
@@ -24,9 +25,13 @@ const CardsTable = ({cards}: PropsType) => {
     const rotate = direction === "1" ? styles.up : ""
 
     const sortUpdate = () => sortFields('updated', sortCardsAC, isLoading, sortCards, dispatch)
-    const sortQuestion = () => sortFields('question', sortCardsAC, isLoading, sortCards, dispatch)
+    const sortQuestion = () => sortFields('question', sortCardsAC, isLoading, sortCards, dispatch);
     const sortAnswer = () => sortFields('answer', sortCardsAC, isLoading, sortCards, dispatch)
     const sortGrade = () => sortFields('grade', sortCardsAC, isLoading, sortCards, dispatch)
+
+    if (isLoading) {
+        return <Preloader/>
+    }
 
     return (
         <div className={styles.table}>

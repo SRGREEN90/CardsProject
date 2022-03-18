@@ -5,6 +5,7 @@ import {useDispatch, useSelector} from "react-redux";
 import {AppRootStateType} from "../../../../main/bll/store";
 import {PackType} from "../../../../API/cardsPackApi";
 import {sortPacksAC} from "../../../../main/bll/cardsPackReducer";
+import Preloader from "../../../../main/ui/common/Preloader/Preloader";
 
 const PacksTable = () => {
   const dispatch = useDispatch();
@@ -35,6 +36,10 @@ const PacksTable = () => {
   const sortName = () => sortFields('name')
   const sortCards = () => sortFields('cardsCount')
   const sortUserName = () => sortFields('user_name')
+
+  if (isLoading) {
+    return <Preloader/>
+  }
 
   return (
     <div className={styles.table}>

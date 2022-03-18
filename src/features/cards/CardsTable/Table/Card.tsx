@@ -1,6 +1,9 @@
 import React from 'react';
 import styles from "./CardsTable.module.css";
 import {CardType} from "../../../../API/cardsApi";
+import Preloader from "../../../../main/ui/common/Preloader/Preloader";
+import {useSelector} from "react-redux";
+import {AppRootStateType} from "../../../../main/bll/store";
 
 type CardPropsType = {
     card: CardType
@@ -9,6 +12,7 @@ type CardPropsType = {
 }
 
 const Card: React.FC<CardPropsType> = ({card, isCheckId, classMyCards}) => {
+    const isLoading = useSelector<AppRootStateType, boolean>(state => state.app.isLoading)
     const [year, month, day] = card.updated.slice(0, 10).split('-')
     let rating = +card.grade.toFixed(0)
     const finalClass1 = `${1 <= rating ? `${styles.active}` : ``}`
@@ -16,6 +20,10 @@ const Card: React.FC<CardPropsType> = ({card, isCheckId, classMyCards}) => {
     const finalClass3 = `${3 <= rating ? `${styles.active}` : ``}`
     const finalClass4 = `${4 <= rating ? `${styles.active}` : ``}`
     const finalClass5 = `${5 <= rating ? `${styles.active}` : ``}`
+
+    if (isLoading) {
+        return <Preloader/>
+    }
 
     return (
             <div className={`${styles.card} ${classMyCards}`}>
