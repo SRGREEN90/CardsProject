@@ -25,7 +25,7 @@ export const cardsReducer = (state: InitialStateType = initialState, action: Car
         case 'CARDS/SET_CARD':
             return {...state, ...action.data};
         case "CARDS/CLEAR_CARDS":
-            return {...state, cards: []}
+            return initialState
         case "CARDS/CHANGE_CURRENT_PAGE":
             return {...state, page: action.page}
         case 'CARDS/SORT_CARDS':
