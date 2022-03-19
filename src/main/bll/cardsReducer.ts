@@ -24,6 +24,8 @@ export const cardsReducer = (state: InitialStateType = initialState, action: Car
     switch (action.type) {
         case 'CARDS/SET_CARD':
             return {...state, ...action.data};
+        case "CARDS/CLEAR_CARDS":
+            return {...state, cards: []}
         case "CARDS/CHANGE_CURRENT_PAGE":
             return {...state, page: action.page}
         case 'CARDS/SORT_CARDS':
@@ -54,11 +56,18 @@ type InitialStateType = {
     cardQuestion: string
 }
 
-export type CardsActionsType = cardsReducerACType | ChangeCurrentPageCardsACType | SortCardsACACType | setFilterReducerACType | SetPageCountCardsACType
+export type CardsActionsType = cardsReducerACType | ChangeCurrentPageCardsACType
+  | SortCardsACACType | setFilterReducerACType | SetPageCountCardsACType
+| ClearCardsACType
 
 export const cardsReducerAC = (data: InitialStateType) => {
     return {type: 'CARDS/SET_CARD', data} as const;
 };
+export const clearCardsAC = () => {
+    return {type: 'CARDS/CLEAR_CARDS'} as const;
+};
+type ClearCardsACType = ReturnType<typeof clearCardsAC>
+
 export const setFilterReducerAC = (cardQuestion: string) => {
     return {type: 'CARDS/SET_FILTER_CARDS', cardQuestion} as const;
 };
@@ -104,3 +113,29 @@ export const fetchCardsTC = (packUserId: string) =>
                 dispatch(setLoadingAC(false));
             })
     };
+
+export const learnCardsTC = (packUserId: string) =>
+  (dispatch: Dispatch) => {
+      dispatch(setLoadingAC(true))
+      const data: GetCardsParamsType = {
+          cardAnswer: "",
+          cardQuestion: "",
+          cardsPack_id: packUserId,
+          min: 0,
+          max: 0,
+          sortCards: "0question",
+          page: 1,
+          pageCount: 1000,
+      }
+      cardsApi.getCards(data)
+        .then((res) => {
+            dispatch(cardsReducerAC(res.data));
+        })
+        .catch(e => {
+            const error = e.response ? e.response.data.error : (e.message + ', more details in the console');
+            dispatch(setErrorAC(error))
+        })
+        .finally(() => {
+            dispatch(setLoadingAC(false));
+        })
+  };

@@ -38,7 +38,7 @@ const Pack: React.FC<PackPropsType> = ({pack}) => {
                         <button className={styles.button}>Edit</button>
                     </>
                 }
-                <NavLink to={`/pack-learn/${pack._id}`} className={styles.button}>Learn</NavLink>
+                <NavLink to={`/learn/${pack._id}`} className={styles.button}>Learn</NavLink>
             </div>
         </div>
     );
