@@ -12,6 +12,7 @@ import CheckEmail from "../../../features/auth/Password/CheckEmail/CheckEmail";
 import PacksList from "../../../features/packsList/PacksList";
 import Cards from "../../../features/cards/Cards";
 import {Learn} from "../../../features/learn/Learn";
+import {AnswerPage} from "../../../features/learn/AnswerPage";
 
 export const PATH = {
     LOGIN: '/login',
@@ -26,6 +27,7 @@ export const PATH = {
     CHECK_EMAIL: '/check-email',
     PACKS: '/packs',
     LEARN: '/learn',
+    ANSWER: '/answer-page'
 }
 
 export const RoutesComponent = () => {
@@ -45,7 +47,12 @@ export const RoutesComponent = () => {
                 {/*<Route path={PATH.TEST} element={<Test/>}/>*/}
                 <Route path={PATH.PACKS} element={<PacksList/>}/>
                 <Route path={PATH.CARDS + '/:packId'} element={<Cards/>}/>
+
                 <Route path={PATH.LEARN + '/:packId'} element={<Learn/>}/>
+
+                <Route path={PATH.ANSWER} element={<AnswerPage/>}/>
+
+
                 <Route path={PATH.TEST} element={<Test/>}/>
                 <Route path={"/*"} element={<Error404/>}/>
             </Routes>
