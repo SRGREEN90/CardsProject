@@ -13,6 +13,8 @@ import {PATH} from "../../main/ui/routes/Routes";
 import {Pagination} from "../../main/ui/common/Pagination/Pagination";
 import {PageSizeSelector} from "../../main/ui/pageSizeSelector/PageSizeSelector";
 import {PacksSearch} from "../../main/ui/common/GridinSearch/PacksSearch";
+import Modal from "../../main/ui/common/Modal/Modal";
+import SuperInputText from "../../main/ui/common/SuperInputText/SuperInputText";
 
 const PacksList = () => {
     const dispatch = useDispatch();
@@ -27,6 +29,11 @@ const PacksList = () => {
     const cardPacksTotalCount = useSelector<AppRootStateType, number>(state => state.cardsPack.cardPacksTotalCount)
     const packName = useSelector<AppRootStateType, string>(state => state.cardsPack.packName)
     //const [id, setId] = useState(0)
+
+    const [newPackName, setNewPackName] = useState<string>('');
+    const [isModalAdd, setIsModalAdd] = useState<boolean>(false)
+    const showModalAdd = () => setIsModalAdd(true);
+    const closeModalAdd = () => setIsModalAdd(false);
 
     useEffect(() => {
         dispatch(fetchPacksListsTC())
@@ -46,8 +53,11 @@ const PacksList = () => {
     const onChangedPage = (newPage: number) => {
         if (newPage !== page) dispatch(changeCurrentPageAC(newPage))
     }
-
-    const addPack = () => dispatch(addPackTC('My pack'))
+    const addPack = () => {
+        dispatch(addPackTC(newPackName))
+        setNewPackName('')
+        closeModalAdd()
+    }
 
     if (!isLoggedIn) {
         return <Navigate to={PATH.LOGIN}/>
@@ -64,7 +74,7 @@ const PacksList = () => {
                         <PacksSearch/>
                     </div>
                     {error ? <div style={{color: 'red'}}>{error}</div> : ''}
-                    <SuperButton onClick={addPack}>Add new pack</SuperButton>
+                    <SuperButton onClick={showModalAdd}>Add new pack</SuperButton>
                     <PacksTable/>
                     <div className={styles.paginationWrapper}>
                         {
@@ -80,6 +90,12 @@ const PacksList = () => {
                     </div>
                 </div>
             </PackFrame>
+            <Modal title={'Add new pack'} show={isModalAdd} closeModal={closeModalAdd}>
+                <label>Name pack</label>
+                <SuperInputText value={newPackName} onChangeText={setNewPackName}/>
+                <SuperButton onClick={closeModalAdd}>Cancel</SuperButton>
+                <SuperButton onClick={addPack}>Save</SuperButton>
+            </Modal>
         </>
     );
 };
