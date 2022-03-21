@@ -4,7 +4,8 @@ import Pack from "./Pack";
 import {useDispatch, useSelector} from "react-redux";
 import {AppRootStateType} from "../../../../main/bll/store";
 import {PackType} from "../../../../API/cardsPackApi";
-import {changeCurrentPageAC, sortPacksAC} from "../../../../main/bll/cardsPackReducer";
+import {sortPacksAC} from "../../../../main/bll/cardsPackReducer";
+import {sortFields} from "../../../../utilits/functionsCommon/sortingField";
 
 
 const PacksTable = () => {
@@ -12,7 +13,6 @@ const PacksTable = () => {
     const packs = useSelector<AppRootStateType, Array<PackType>>(state => state.cardsPack.cardPacks)
     const sortPacks = useSelector<AppRootStateType, string>(state => state.cardsPack.sortPacks)
     const isLoading = useSelector<AppRootStateType, boolean>(state => state.app.isLoading)
-    const curPage = useSelector<AppRootStateType, number>(state => state.cardsPack.page)
 
     const direction = sortPacks[0]
     const activeField = sortPacks.slice(1)
@@ -20,43 +20,12 @@ const PacksTable = () => {
 
     // const [isActive, setIsActive] = useState<boolean>(false)
 
-    const sortFields = (field: string) => {
-        if (isLoading) return
-        if (sortPacks.slice(1) !== field) {
-            dispatch(sortPacksAC('0' + field))
-        } else {
-            if (sortPacks[0] !== '0') {
-                dispatch(sortPacksAC('0' + field))
-            } else {
-                dispatch(sortPacksAC('1' + field))
-            }
-        }
-    }
+    const sortFieldsPack = (field: string) => sortFields(field, sortPacksAC, isLoading, sortPacks, dispatch)
 
-    const sortUpdate = () => {
-        sortFields('updated')
-        if (curPage !== 1) {
-            dispatch(changeCurrentPageAC(1));
-        }
-    }
-    const sortName = () => {
-        sortFields('name')
-        if (curPage !== 1) {
-            dispatch(changeCurrentPageAC(1));
-        }
-    }
-    const sortCards = () => {
-        sortFields('cardsCount')
-        if (curPage !== 1) {
-            dispatch(changeCurrentPageAC(1));
-        }
-    }
-    const sortUserName = () => {
-        sortFields('user_name')
-        if (curPage !== 1) {
-            dispatch(changeCurrentPageAC(1));
-        }
-    }
+    const sortUpdate = () => sortFieldsPack('updated')
+    const sortName = () => sortFieldsPack('name')
+    const sortCards = () => sortFieldsPack('cardsCount')
+    const sortUserName = () => sortFieldsPack('user_name')
 
     return (
         <div className={styles.table}>
@@ -75,7 +44,7 @@ const PacksTable = () => {
                 <div>Actions</div>
             </div>
             {packs.length > 0
-                ? packs.map(pack => <Pack key={pack._id} pack={pack} />)
+                ? packs.map(pack => <Pack key={pack._id} pack={pack}/>)
                 : <div style={{padding: '16px 24px'}}>Ничего не найдено</div>}
         </div>
     );

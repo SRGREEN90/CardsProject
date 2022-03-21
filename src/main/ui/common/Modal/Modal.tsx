@@ -26,6 +26,3 @@ const Modal = (props: PropsType) => {
 
 export default Modal;
 
-// {props.modalType === 'Delete' && <h3>Delete</h3>}
-// {props.modalType === 'Add' && <h3>Add</h3>}
-// {props.modalType === 'Edit' && <h3>Edit</h3>}
