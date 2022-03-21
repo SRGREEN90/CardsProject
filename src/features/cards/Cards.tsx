@@ -16,6 +16,7 @@ import backPage from "../../assets/images/backPage.svg"
 import SuperButton from "../../main/ui/common/SuperButton/SuperButton";
 import Modal from "../../main/ui/common/Modal/Modal";
 import SuperInputText from "../../main/ui/common/SuperInputText/SuperInputText";
+import ModalButtonsWrap from "../../main/ui/common/Modal/ModalButtonsWrap";
 
 const Cards = () => {
     const myId = useSelector<AppRootStateType, string>(state => state.profilePage._id);
@@ -37,8 +38,8 @@ const Cards = () => {
     const [newCardQuestion, setNewCardQuestion] = useState<string>('');
     const [newCardAnswer, setNewCardAnswer] = useState<string>('');
     const [isModalAdd, setIsModalAdd] = useState<boolean>(false)
-    const showModalAdd = () => setIsModalAdd(true);
-    const closeModalAdd = () => setIsModalAdd(false);
+    const showModal = () => setIsModalAdd(true);
+    const closeModal = () => setIsModalAdd(false);
 
     useEffect(() => {
         if (packId) {
@@ -62,7 +63,7 @@ const Cards = () => {
         dispatch(addCardTC(currId, newCardQuestion, newCardAnswer))
         setNewCardQuestion('')
         setNewCardAnswer('')
-        closeModalAdd()
+        closeModal()
     }
 
     return (
@@ -72,14 +73,16 @@ const Cards = () => {
                 <div className={styles.main}>
                     <NavLink to={PATH.PACKS}><img src={backPage} alt={"backPage"}/></NavLink>
                     <h2>{packName}</h2>
-                    <div className={styles.search}>
-                        <CardsSearch/>
+                    <div className={styles.containerHeaderCard}>
+                        <div className={styles.search}>
+                            <CardsSearch/>
+                        </div>
+                        {
+                            myId === userId
+                                ? <SuperButton onClick={showModal} className={styles.addBtn}>Add new card</SuperButton>
+                                : <></>
+                        }
                     </div>
-                    {
-                        myId === userId
-                            ? <SuperButton onClick={showModalAdd}>Add new card</SuperButton>
-                            : <></>
-                    }
                     <CardsTable cards={cards}/>
                     <div className={styles.paginationWrapper}>
                         {
@@ -94,13 +97,14 @@ const Cards = () => {
                     </div>
                 </div>
             </PackFrame>
-            <Modal title={'Card Info'} show={isModalAdd} closeModal={closeModalAdd}>
+            <Modal title={'Card Info'} show={isModalAdd} closeModal={closeModal}>
                 <label>Question</label>
                 <SuperInputText value={newCardQuestion} onChangeText={setNewCardQuestion}/>
                 <label>Answer</label>
                 <SuperInputText value={newCardAnswer} onChangeText={setNewCardAnswer}/>
-                <SuperButton onClick={closeModalAdd}>Cancel</SuperButton>
-                <SuperButton onClick={addCard}>Save</SuperButton>
+                <ModalButtonsWrap closeModal={closeModal}>
+                    <SuperButton onClick={addCard}>Save</SuperButton>
+                </ModalButtonsWrap>
             </Modal>
         </>
     );
