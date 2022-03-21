@@ -1,13 +1,13 @@
 // КАРТОЧКИ
 import {
-  cardsApi,
-  CardsGradeResponseType,
-  CardType,
-  GetCardsGrade,
-  GetCardsParamsType,
-  updatedGradeType
+    cardsApi,
+    CardsGradeResponseType,
+    CardType,
+    GetCardsGrade,
+    GetCardsParamsType,
+    updatedGradeType
 } from "../../API/cardsApi";
-import {AppRootStateType} from "./store";
+import {AppRootStateType, AppThunkType} from "./store";
 import {Dispatch} from "redux";
 import {setErrorAC, setLoadingAC} from "./appReducer";
 
@@ -43,9 +43,11 @@ export const cardsReducer = (state: InitialStateType = initialState, action: Car
         case 'CARDS/SET_PAGE_COUNT_CARDS':
             return {...state, pageCount: action.pageCount}
         case 'CARDS/SET_CARDS_GRADE':
-            return {...state, cards: state.cards.map(m => m._id === action.updatedGrade.card_id
-              ? {...m, shots: action.updatedGrade.shots, grade: action.updatedGrade.grade}
-              : m)}
+            return {
+                ...state, cards: state.cards.map(m => m._id === action.updatedGrade.card_id
+                    ? {...m, shots: action.updatedGrade.shots, grade: action.updatedGrade.grade}
+                    : m)
+            }
         default:
             return state
     }
@@ -70,8 +72,8 @@ type InitialStateType = {
 }
 
 export type CardsActionsType = cardsReducerACType | ChangeCurrentPageCardsACType
-  | SortCardsACACType | setFilterReducerACType | SetPageCountCardsACType
-| ClearCardsACType | SetCardsGradeACType
+    | SortCardsACACType | setFilterReducerACType | SetPageCountCardsACType
+    | ClearCardsACType | SetCardsGradeACType
 
 export const cardsReducerAC = (data: InitialStateType) => {
     return {type: 'CARDS/SET_CARD', data} as const;
@@ -96,7 +98,7 @@ export const sortCardsAC = (sortCards: string) =>
     ({type: 'CARDS/SORT_CARDS', sortCards} as const)
 type SortCardsACACType = ReturnType<typeof sortCardsAC>
 
-export const setPageCountCardsAC = (pageCount:number) =>
+export const setPageCountCardsAC = (pageCount: number) =>
     ({type: 'CARDS/SET_PAGE_COUNT_CARDS', pageCount} as const)
 type SetPageCountCardsACType = ReturnType<typeof setPageCountCardsAC>
 
@@ -133,33 +135,30 @@ export const fetchCardsTC = (packUserId: string) =>
     };
 
 export const learnCardsTC = (packUserId: string) =>
-  (dispatch: Dispatch) => {
-      dispatch(setLoadingAC(true))
-      const data: GetCardsParamsType = {
-          cardAnswer: "",
-          cardQuestion: "",
-          cardsPack_id: packUserId,
-          min: 0,
-          max: 0,
-          sortCards: "0question",
-          page: 1,
-          pageCount: 1000,
-      }
-      cardsApi.getCards(data)
-        .then((res) => {
-            dispatch(cardsReducerAC(res.data));
-        })
-        .catch(e => {
-            const error = e.response ? e.response.data.error : (e.message + ', more details in the console');
-            dispatch(setErrorAC(error))
-        })
-        .finally(() => {
-            dispatch(setLoadingAC(false));
-        })
-  };
-
-
-
+    (dispatch: Dispatch) => {
+        dispatch(setLoadingAC(true))
+        const data: GetCardsParamsType = {
+            cardAnswer: "",
+            cardQuestion: "",
+            cardsPack_id: packUserId,
+            min: 0,
+            max: 0,
+            sortCards: "0question",
+            page: 1,
+            pageCount: 1000,
+        }
+        cardsApi.getCards(data)
+            .then((res) => {
+                dispatch(cardsReducerAC(res.data));
+            })
+            .catch(e => {
+                const error = e.response ? e.response.data.error : (e.message + ', more details in the console');
+                dispatch(setErrorAC(error))
+            })
+            .finally(() => {
+                dispatch(setLoadingAC(false));
+            })
+    };
 
 export const CardsGradeTC = (cardId: string, grade: number) =>
     (dispatch: Dispatch) => {
@@ -181,3 +180,32 @@ export const CardsGradeTC = (cardId: string, grade: number) =>
                 dispatch(setLoadingAC(false));
             })
     };
+
+
+export const addCardTC = (packUserId: string, question: string, answer: string): AppThunkType => {
+    return (dispatch) => {
+        dispatch(setLoadingAC(true))
+        const payload = {
+            cardsPack_id: packUserId,
+            question: question,
+            answer: answer,
+            grade: 0,
+            shots: 0,
+            answerImg: '',
+            questionImg: '',
+            questionVideo: '',
+            answerVideo: '',
+        }
+        cardsApi.addCard(payload)
+            .then(() => {
+                dispatch(fetchCardsTC(packUserId))
+            })
+            .catch(e => {
+                const error = e.response ? e.response.data.error : (e.message + ', more details in the console');
+                dispatch(setErrorAC(error))
+            })
+            .finally(() => {
+                dispatch(setLoadingAC(false));
+            })
+    }
+}

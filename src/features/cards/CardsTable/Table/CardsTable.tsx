@@ -14,7 +14,7 @@ export type PropsType = {
 const CardsTable = ({cards}: PropsType) => {
     const dispatch = useDispatch();
     const myUserId = useSelector<AppRootStateType, string>(state => state.profilePage._id)
-    let isCheckId = cards.every(m => m._id === myUserId)
+    let isCheckId = cards.every(m => m.user_id === myUserId)
     const classMyCards = `${isCheckId ? `${styles.itemMy}` : `${styles.item}`}`
     const sortCards = useSelector<AppRootStateType, string>(state => state.cards.sortCards)
     const isLoading = useSelector<AppRootStateType, boolean>(state => state.app.isLoading)

@@ -5,8 +5,8 @@ export const cardsApi = {
         console.log(params)
         return instance.get('/cards/card', {params: {...params}});
     },
-    addCard: (newCard: Partial<CardType>) => {
-        return instance.post('/cards/pack', {newCard: {...newCard}})
+    addCard: (newCard: addCardType) => {
+        return instance.post('/cards/card', {card: {...newCard}})
     },
     deleteCard: (id: string) => {
         return instance.delete('/cards/card', {params: {id: id}})
@@ -22,7 +22,7 @@ export const cardsApi = {
 export type GetCardsParamsType = {
     cardAnswer: string
     cardQuestion: string
-    cardsPack_id: string | undefined // обязательно!
+    cardsPack_id: string // обязательно!
     min: number
     max: number
     sortCards: string
@@ -81,3 +81,15 @@ export type updatedGradeType = {
     shots: number
 }
 
+
+export type addCardType = {
+    cardsPack_id?: string;
+    question?: string;
+    answer?: string;
+    grade?: number;
+    shots?: number;
+    answerImg?: string;
+    questionImg?: any;
+    questionVideo?: string;
+    answerVideo?:string;
+}
