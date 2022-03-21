@@ -2,9 +2,11 @@ import React from 'react';
 import styles from "./CardsTable.module.css";
 import {CardType} from "../../../../API/cardsApi";
 import Preloader from "../../../../main/ui/common/Preloader/Preloader";
-import {useSelector} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import {AppRootStateType} from "../../../../main/bll/store";
 import {SuperLoading} from "../../../../main/ui/common/Loading/loading";
+import {deleteCardTC} from "../../../../main/bll/cardsReducer";
+import {useParams} from "react-router-dom";
 
 type CardPropsType = {
     card: CardType
@@ -13,6 +15,7 @@ type CardPropsType = {
 }
 
 const Card: React.FC<CardPropsType> = ({card, isCheckId, classMyCards}) => {
+    const dispatch = useDispatch();
     const isLoading = useSelector<AppRootStateType, boolean>(state => state.app.isLoading)
     const [year, month, day] = card.updated.slice(0, 10).split('-')
     let rating = +card.grade.toFixed(0)
@@ -22,8 +25,15 @@ const Card: React.FC<CardPropsType> = ({card, isCheckId, classMyCards}) => {
     const finalClass4 = `${4 <= rating ? `${styles.active}` : ``}`
     const finalClass5 = `${5 <= rating ? `${styles.active}` : ``}`
 
+    const {packId} = useParams<{ packId: string }>();
+    const currId = packId ? packId : ''
+
     if (isLoading) {
         return <SuperLoading/>
+    }
+
+    const deleteCard = () => {
+        dispatch(deleteCardTC(currId, card._id))
     }
 
     return (
@@ -43,7 +53,7 @@ const Card: React.FC<CardPropsType> = ({card, isCheckId, classMyCards}) => {
                 {
                     isCheckId && <div className={styles.buttons}>
                         <>
-                            <button className={`${styles.button} ${styles.delete}`}>Delete</button>
+                            <button className={`${styles.button} ${styles.delete}`} onClick={deleteCard}>Delete</button>
                             <button className={styles.button}>Edit</button>
                         </>
                     </div>

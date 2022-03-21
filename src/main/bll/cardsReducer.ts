@@ -10,6 +10,8 @@ import {
 import {AppRootStateType, AppThunkType} from "./store";
 import {Dispatch} from "redux";
 import {setErrorAC, setLoadingAC} from "./appReducer";
+import {cardsPackApi} from "../../API/cardsPackApi";
+import {fetchPacksListsTC} from "./cardsPackReducer";
 
 const initialState = {
     cards: [],
@@ -198,6 +200,24 @@ export const addCardTC = (packUserId: string, question: string, answer: string):
         }
         cardsApi.addCard(payload)
             .then(() => {
+                dispatch(fetchCardsTC(packUserId))
+            })
+            .catch(e => {
+                const error = e.response ? e.response.data.error : (e.message + ', more details in the console');
+                dispatch(setErrorAC(error))
+            })
+            .finally(() => {
+                dispatch(setLoadingAC(false));
+            })
+    }
+}
+
+export const deleteCardTC = (packUserId: string, cardId: string): AppThunkType => {
+    return (dispatch)  => {
+        dispatch(setLoadingAC(true))
+
+        cardsApi.deleteCard(cardId)
+            .then((res) => {
                 dispatch(fetchCardsTC(packUserId))
             })
             .catch(e => {
