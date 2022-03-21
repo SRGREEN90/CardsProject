@@ -40,11 +40,15 @@
     font-size: 16px;
     line-height: 20px;
     color: #ffffff;
-    background: #003465;
+    background: #F1453D;
     border-radius: 10px;
 }
 
 .red:hover {
-    background-color: #00488B;
+    background-color: darkred;
     color: #ffffff;
+}
+.light {
+    background: #D7D8EF;
+    color: #21268F;
 }

@@ -88,8 +88,8 @@ export const setMaxAC = (max: number) =>
     ({type: 'PACKS/SET_MAX', max} as const)
 type SetMaxACType = ReturnType<typeof setMaxAC>
 
-export const setPageCountAC = (pageCount:number) =>
-  ({type: 'PACKS/SET_PAGE_COUNT', pageCount} as const)
+export const setPageCountAC = (pageCount: number) =>
+    ({type: 'PACKS/SET_PAGE_COUNT', pageCount} as const)
 type SetPageCountACType = ReturnType<typeof setPageCountAC>
 
 export const setFilteredPacksAC = (packName: string) =>
@@ -123,7 +123,7 @@ export const fetchPacksListsTC = () => {
 }
 
 export const deletePackTC = (packId: string): AppThunkType => {
-    return (dispatch)  => {
+    return (dispatch) => {
         dispatch(setLoadingAC(true))
 
         cardsPackApi.deletePack(packId)
@@ -141,7 +141,7 @@ export const deletePackTC = (packId: string): AppThunkType => {
 }
 
 export const addPackTC = (packName: string): AppThunkType => {
-    return (dispatch)  => {
+    return (dispatch) => {
         dispatch(setLoadingAC(true))
 
         const payload = {
@@ -158,8 +158,25 @@ export const addPackTC = (packName: string): AppThunkType => {
                 const error = e.response ? e.response.data.error : (e.message + ', more details in the console');
                 dispatch(setErrorAC(error))
             })
-            .finally(() => {
-                dispatch(setLoadingAC(false));
+    }
+}
+
+export const editPackTC = (_id: string, packName: string): AppThunkType => {
+    return (dispatch) => {
+        dispatch(setLoadingAC(true))
+
+        const payload = {
+            _id: _id,
+            name: packName,
+        }
+
+        cardsPackApi.updatePack(payload)
+            .then((res) => {
+                dispatch(fetchPacksListsTC())
+            })
+            .catch(e => {
+                const error = e.response ? e.response.data.error : (e.message + ', more details in the console');
+                dispatch(setErrorAC(error))
             })
     }
 }

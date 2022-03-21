@@ -35,12 +35,12 @@ export const Test = () => {
 
             </div>
             <RangeDemo/>
-            <Modal title={'Delete Pack'} show={isShownModal} closeModal={closeModal}>
-                <p>Do you really want to remove Pack Name - Name Pack?
-                    All cards will be excluded from this course.</p>
-                <SuperButton onClick={closeModal}>Cancel</SuperButton>
-                <SuperButton>Delete</SuperButton>
-            </Modal>
+            {/*<Modal title={'Delete Pack'} show={isShownModal} closeModal={closeModal}>*/}
+            {/*    <p>Do you really want to remove Pack Name - Name Pack?*/}
+            {/*        All cards will be excluded from this course.</p>*/}
+            {/*    <SuperButton onClick={closeModal}>Cancel</SuperButton>*/}
+            {/*    <SuperButton>Delete</SuperButton>*/}
+            {/*</Modal>*/}
         </div>
     );
 };

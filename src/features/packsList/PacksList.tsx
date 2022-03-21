@@ -15,6 +15,7 @@ import {PageSizeSelector} from "../../main/ui/pageSizeSelector/PageSizeSelector"
 import {PacksSearch} from "../../main/ui/common/GridinSearch/PacksSearch";
 import Modal from "../../main/ui/common/Modal/Modal";
 import SuperInputText from "../../main/ui/common/SuperInputText/SuperInputText";
+import ModalButtonsWrap from "../../main/ui/common/Modal/ModalButtonsWrap";
 
 const PacksList = () => {
     const dispatch = useDispatch();
@@ -31,22 +32,16 @@ const PacksList = () => {
     //const [id, setId] = useState(0)
 
     const [newPackName, setNewPackName] = useState<string>('');
-    const [isModalAdd, setIsModalAdd] = useState<boolean>(false)
-    const showModalAdd = () => setIsModalAdd(true);
-    const closeModalAdd = () => setIsModalAdd(false);
+    const [isModal, setIsModal] = useState<boolean>(false);
+
+    const showModal = () => setIsModal(true);
+    const closeModal = () => setIsModal(false);
 
     useEffect(() => {
         dispatch(fetchPacksListsTC())
     }, [page, pageCount, myPacks, sortPacks, packName])
 
-    // useEffect(() => {
-    //   console.log('uEf2')
-    //   clearTimeout(id)
-    //   const x = +setTimeout(()=> {
-    //     dispatch(fetchPacksListsTC())
-    //   }, 1500)
-    //   setId(x)
-    // }, [ min, max])
+
     const pageSizeHandler = (value: number) => {
         dispatch(setPageCountAC(value))
     }
@@ -56,7 +51,7 @@ const PacksList = () => {
     const addPack = () => {
         dispatch(addPackTC(newPackName))
         setNewPackName('')
-        closeModalAdd()
+        closeModal()
     }
 
     if (!isLoggedIn) {
@@ -74,7 +69,7 @@ const PacksList = () => {
                         <PacksSearch/>
                     </div>
                     {error ? <div style={{color: 'red'}}>{error}</div> : ''}
-                    <SuperButton onClick={showModalAdd}>Add new pack</SuperButton>
+                    <SuperButton onClick={showModal}>Add new pack</SuperButton>
                     <PacksTable/>
                     <div className={styles.paginationWrapper}>
                         {
@@ -90,11 +85,13 @@ const PacksList = () => {
                     </div>
                 </div>
             </PackFrame>
-            <Modal title={'Add new pack'} show={isModalAdd} closeModal={closeModalAdd}>
+            <Modal title={'Add new pack'} show={isModal} closeModal={closeModal}>
                 <label>Name pack</label>
-                <SuperInputText value={newPackName} onChangeText={setNewPackName}/>
-                <SuperButton onClick={closeModalAdd}>Cancel</SuperButton>
-                <SuperButton onClick={addPack}>Save</SuperButton>
+                <SuperInputText value={newPackName} onChangeText={setNewPackName} placeholder={'Enter pack name'}/>
+                <ModalButtonsWrap>
+                    <SuperButton onClick={closeModal} light={true}>Cancel</SuperButton>
+                    <SuperButton onClick={addPack}>Save</SuperButton>
+                </ModalButtonsWrap>
             </Modal>
         </>
     );

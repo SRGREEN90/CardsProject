@@ -1,6 +1,6 @@
 .table {
     position: relative;
-    filter: drop-shadow(0px 4px 14px rgba(45, 46, 70, 0.15));
+    /*filter: drop-shadow(0px 4px 14px rgba(45, 46, 70, 0.15));*/
     width: 100%;
     background: #fff;
     text-align: left;
