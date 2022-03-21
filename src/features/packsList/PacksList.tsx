@@ -65,11 +65,13 @@ const PacksList = () => {
                 <Sidebar/>
                 <div className={styles.main}>
                     <h2>Packs list</h2>
-                    <div className={styles.search}>
-                        <PacksSearch/>
+                    <div className={styles.topPanel}>
+                        <div className={styles.search}>
+                            <PacksSearch/>
+                        </div>
+                        <SuperButton onClick={showModal} className={styles.addBtn}>Add new pack</SuperButton>
                     </div>
                     {error ? <div style={{color: 'red'}}>{error}</div> : ''}
-                    <SuperButton onClick={showModal}>Add new pack</SuperButton>
                     <PacksTable/>
                     <div className={styles.paginationWrapper}>
                         {
