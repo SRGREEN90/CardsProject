@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import styles from './Cards.module.css'
 import Header from "../../main/ui/header/Header";
 import {PackFrame} from "../../main/ui/common/PackFrame/PackFrame";
@@ -14,11 +14,12 @@ import {CardsSearch} from "../../main/ui/common/GridinSearch/CardsSearch";
 import {PageSizeSelector} from "../../main/ui/pageSizeSelector/PageSizeSelector";
 import backPage from "../../assets/images/backPage.svg"
 import SuperButton from "../../main/ui/common/SuperButton/SuperButton";
+import Modal from "../../main/ui/common/Modal/Modal";
+import SuperInputText from "../../main/ui/common/SuperInputText/SuperInputText";
 
 const Cards = () => {
     const myId = useSelector<AppRootStateType, string>(state => state.profilePage._id);
     const userId = useSelector<AppRootStateType, string>(state => state.cards.packUserId);
-    const userCurr = useSelector<AppRootStateType, string>(state => state.cardsPack.user_id);
     const dispatch = useDispatch();
     const packName = useSelector<AppRootStateType, string>(state => state.cardsPack.packName);
     const cards = useSelector<AppRootStateType, Array<CardType>>(state => state.cards.cards);
@@ -32,6 +33,12 @@ const Cards = () => {
     const {packId} = useParams<{ packId: string }>();
 
     const currId = packId ? packId : ''
+
+    const [newCardQuestion, setNewCardQuestion] = useState<string>('');
+    const [newCardAnswer, setNewCardAnswer] = useState<string>('');
+    const [isModalAdd, setIsModalAdd] = useState<boolean>(false)
+    const showModalAdd = () => setIsModalAdd(true);
+    const closeModalAdd = () => setIsModalAdd(false);
 
     useEffect(() => {
         if (packId) {
@@ -52,8 +59,10 @@ const Cards = () => {
         dispatch(setPageCountCardsAC(value))
     }
     const addCard = () => {
-        dispatch(addCardTC(currId, 'react', 'library'))
-        console.log('click')
+        dispatch(addCardTC(currId, newCardQuestion, newCardAnswer))
+        setNewCardQuestion('')
+        setNewCardAnswer('')
+        closeModalAdd()
     }
 
     return (
@@ -68,7 +77,7 @@ const Cards = () => {
                     </div>
                     {
                         myId === userId
-                            ? <SuperButton onClick={addCard}>Add new card</SuperButton>
+                            ? <SuperButton onClick={showModalAdd}>Add new card</SuperButton>
                             : <></>
                     }
                     <CardsTable cards={cards}/>
@@ -85,6 +94,14 @@ const Cards = () => {
                     </div>
                 </div>
             </PackFrame>
+            <Modal title={'Card Info'} show={isModalAdd} closeModal={closeModalAdd}>
+                <label>Question</label>
+                <SuperInputText value={newCardQuestion} onChangeText={setNewCardQuestion}/>
+                <label>Answer</label>
+                <SuperInputText value={newCardAnswer} onChangeText={setNewCardAnswer}/>
+                <SuperButton onClick={closeModalAdd}>Cancel</SuperButton>
+                <SuperButton onClick={addCard}>Save</SuperButton>
+            </Modal>
         </>
     );
 };
