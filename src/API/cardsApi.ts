@@ -15,7 +15,7 @@ export const cardsApi = {
         return instance.put('/cards/card', {updatedCard: {...UpdatedCard}})
     },
     updateCardsGrade: (updatedGrade: Partial<GetCardsGrade>) => {
-        return instance.put<CardsGradeResponseType>('/cards/grade', {updatedGrade: {...updatedGrade}})
+        return instance.put<CardsGradeResponseType>('/cards/grade', updatedGrade)
     },
 }
 
@@ -68,6 +68,11 @@ export type GetCardsGrade = {
     card_id: string
 }
 export type CardsGradeResponseType = {
+    token: string
+    tokenDeathTime: number
+    updatedGrade: updatedGradeType
+}
+export type updatedGradeType = {
     _id: string
     cardsPack_id: string
     card_id: string
