@@ -99,6 +99,11 @@
 .delete:hover {
     background: darkred;
 }
+.disabled {
+    pointer-events: none;
+    opacity: 30%;
+}
+
 
 @media (max-width: 900px) {
     .item {
