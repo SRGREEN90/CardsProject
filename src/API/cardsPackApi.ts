@@ -72,3 +72,4 @@ export type UpdateCardsPackType = {
     _id: string;
     name?: string;
 };
+

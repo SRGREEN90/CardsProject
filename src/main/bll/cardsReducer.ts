@@ -1,5 +1,12 @@
 // КАРТОЧКИ
-import {cardsApi, CardType, GetCardsParamsType} from "../../API/cardsApi";
+import {
+  cardsApi,
+  CardsGradeResponseType,
+  CardType,
+  GetCardsGrade,
+  GetCardsParamsType,
+  updatedGradeType
+} from "../../API/cardsApi";
 import {AppRootStateType} from "./store";
 import {Dispatch} from "redux";
 import {setErrorAC, setLoadingAC} from "./appReducer";
@@ -18,6 +25,7 @@ const initialState = {
     tokenDeathTime: 0,
     cardAnswer: "",
     cardQuestion: '',
+    grade: 0
 }
 
 export const cardsReducer = (state: InitialStateType = initialState, action: CardsActionsType): InitialStateType => {
@@ -34,6 +42,10 @@ export const cardsReducer = (state: InitialStateType = initialState, action: Car
             return {...state, cardQuestion: action.cardQuestion}
         case 'CARDS/SET_PAGE_COUNT_CARDS':
             return {...state, pageCount: action.pageCount}
+        case 'CARDS/SET_CARDS_GRADE':
+            return {...state, cards: state.cards.map(m => m._id === action.updatedGrade.card_id
+              ? {...m, shots: action.updatedGrade.shots, grade: action.updatedGrade.grade}
+              : m)}
         default:
             return state
     }
@@ -54,11 +66,12 @@ type InitialStateType = {
     tokenDeathTime: number
     cardAnswer: string
     cardQuestion: string
+    grade: number
 }
 
 export type CardsActionsType = cardsReducerACType | ChangeCurrentPageCardsACType
   | SortCardsACACType | setFilterReducerACType | SetPageCountCardsACType
-| ClearCardsACType
+| ClearCardsACType | SetCardsGradeACType
 
 export const cardsReducerAC = (data: InitialStateType) => {
     return {type: 'CARDS/SET_CARD', data} as const;
@@ -86,6 +99,11 @@ type SortCardsACACType = ReturnType<typeof sortCardsAC>
 export const setPageCountCardsAC = (pageCount:number) =>
     ({type: 'CARDS/SET_PAGE_COUNT_CARDS', pageCount} as const)
 type SetPageCountCardsACType = ReturnType<typeof setPageCountCardsAC>
+
+export const setCardsGradeAC = (updatedGrade: updatedGradeType) =>
+    ({type: 'CARDS/SET_CARDS_GRADE', updatedGrade} as const)
+type SetCardsGradeACType = ReturnType<typeof setCardsGradeAC>
+
 
 export const fetchCardsTC = (packUserId: string) =>
     (dispatch: Dispatch, getState: () => AppRootStateType) => {
@@ -139,3 +157,27 @@ export const learnCardsTC = (packUserId: string) =>
             dispatch(setLoadingAC(false));
         })
   };
+
+
+
+
+export const CardsGradeTC = (cardId: string, grade: number) =>
+    (dispatch: Dispatch) => {
+        dispatch(setLoadingAC(true))
+        const data: GetCardsGrade = {
+            grade: grade,
+            card_id: cardId
+        }
+        cardsApi.updateCardsGrade(data)
+            .then((res) => {
+                console.log(res.data)
+                dispatch(setCardsGradeAC(res.data.updatedGrade));
+            })
+            .catch(e => {
+                const error = e.response ? e.response.data.error : (e.message + ', more details in the console');
+                dispatch(setErrorAC(error))
+            })
+            .finally(() => {
+                dispatch(setLoadingAC(false));
+            })
+    };
