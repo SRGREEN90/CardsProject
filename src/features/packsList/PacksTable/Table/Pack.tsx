@@ -67,8 +67,7 @@ const Pack: React.FC<PackPropsType> = ({pack}) => {
             <Modal title={'Delete Pack'} show={isShownModal} closeModal={closeModal}>
                 <p>Do you really want to remove Pack Name - Name Pack?
                     All cards will be excluded from this course.</p>
-                <ModalButtonsWrap>
-                    <SuperButton onClick={closeModal} light={true}>Cancel</SuperButton>
+                <ModalButtonsWrap closeModal={closeModal}>
                     <SuperButton onClick={deletePack} red={true}>Delete</SuperButton>
                 </ModalButtonsWrap>
             </Modal>
@@ -77,8 +76,7 @@ const Pack: React.FC<PackPropsType> = ({pack}) => {
             <Modal title={'Edit Pack'} show={isShownModal} closeModal={closeModal}>
                 <label>New name</label>
                 <SuperInputText value={newPackName} onChangeText={setNewPackName}/>
-                <ModalButtonsWrap>
-                    <SuperButton onClick={closeModal} light={true}>Cancel</SuperButton>
+                <ModalButtonsWrap closeModal={closeModal}>
                     <SuperButton onClick={editPack}>Save</SuperButton>
                 </ModalButtonsWrap>
             </Modal>

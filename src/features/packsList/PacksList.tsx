@@ -88,8 +88,7 @@ const PacksList = () => {
             <Modal title={'Add new pack'} show={isModal} closeModal={closeModal}>
                 <label>Name pack</label>
                 <SuperInputText value={newPackName} onChangeText={setNewPackName} placeholder={'Enter pack name'}/>
-                <ModalButtonsWrap>
-                    <SuperButton onClick={closeModal} light={true}>Cancel</SuperButton>
+                <ModalButtonsWrap closeModal={closeModal}>
                     <SuperButton onClick={addPack}>Save</SuperButton>
                 </ModalButtonsWrap>
             </Modal>
