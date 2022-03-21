@@ -12,7 +12,7 @@ export const cardsApi = {
         return instance.delete('/cards/card', {params: {id: id}})
     },
     updateCard: (UpdatedCard: Partial<CardType>) => {
-        return instance.put('/cards/card', {updatedCard: {...UpdatedCard}})
+        return instance.put('/cards/card', {card: {...UpdatedCard}})
     },
     updateCardsGrade: (updatedGrade: Partial<GetCardsGrade>) => {
         return instance.put<CardsGradeResponseType>('/cards/grade', updatedGrade)

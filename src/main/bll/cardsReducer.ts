@@ -213,11 +213,37 @@ export const addCardTC = (packUserId: string, question: string, answer: string):
 }
 
 export const deleteCardTC = (packUserId: string, cardId: string): AppThunkType => {
-    return (dispatch)  => {
+    return (dispatch) => {
         dispatch(setLoadingAC(true))
 
         cardsApi.deleteCard(cardId)
             .then((res) => {
+                dispatch(fetchCardsTC(packUserId))
+            })
+            .catch(e => {
+                const error = e.response ? e.response.data.error : (e.message + ', more details in the console');
+                dispatch(setErrorAC(error))
+            })
+            .finally(() => {
+                dispatch(setLoadingAC(false));
+            })
+    }
+}
+
+
+export const updateCardTC = (packUserId: string, cardId: string, question: string, answer: string): AppThunkType => {
+    return (dispatch) => {
+        dispatch(setLoadingAC(true))
+
+        const payload = {
+            _id: cardId,
+            cardsPack_id: packUserId,
+            question: question,
+            answer: answer
+        }
+
+        cardsApi.updateCard(payload)
+            .then(() => {
                 dispatch(fetchCardsTC(packUserId))
             })
             .catch(e => {

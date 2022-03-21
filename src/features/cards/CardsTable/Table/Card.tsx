@@ -5,7 +5,7 @@ import Preloader from "../../../../main/ui/common/Preloader/Preloader";
 import {useDispatch, useSelector} from "react-redux";
 import {AppRootStateType} from "../../../../main/bll/store";
 import {SuperLoading} from "../../../../main/ui/common/Loading/loading";
-import {deleteCardTC} from "../../../../main/bll/cardsReducer";
+import {deleteCardTC, updateCardTC} from "../../../../main/bll/cardsReducer";
 import {useParams} from "react-router-dom";
 
 type CardPropsType = {
@@ -36,6 +36,10 @@ const Card: React.FC<CardPropsType> = ({card, isCheckId, classMyCards}) => {
         dispatch(deleteCardTC(currId, card._id))
     }
 
+    const updateCard = () => {
+        dispatch(updateCardTC(currId, card._id, 'angular', 'framework'))
+    }
+
     return (
             <div className={`${styles.card} ${classMyCards}`}>
                 <div>{card.question}</div>
@@ -54,7 +58,7 @@ const Card: React.FC<CardPropsType> = ({card, isCheckId, classMyCards}) => {
                     isCheckId && <div className={styles.buttons}>
                         <>
                             <button className={`${styles.button} ${styles.delete}`} onClick={deleteCard}>Delete</button>
-                            <button className={styles.button}>Edit</button>
+                            <button className={styles.button} onClick={updateCard}>Edit</button>
                         </>
                     </div>
                 }
