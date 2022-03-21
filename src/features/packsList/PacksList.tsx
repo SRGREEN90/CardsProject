@@ -13,6 +13,9 @@ import {PATH} from "../../main/ui/routes/Routes";
 import {Pagination} from "../../main/ui/common/Pagination/Pagination";
 import {PageSizeSelector} from "../../main/ui/pageSizeSelector/PageSizeSelector";
 import {PacksSearch} from "../../main/ui/common/GridinSearch/PacksSearch";
+import Modal from "../../main/ui/common/Modal/Modal";
+import SuperInputText from "../../main/ui/common/SuperInputText/SuperInputText";
+import ModalButtonsWrap from "../../main/ui/common/Modal/ModalButtonsWrap";
 
 const PacksList = () => {
     const dispatch = useDispatch();
@@ -28,26 +31,28 @@ const PacksList = () => {
     const packName = useSelector<AppRootStateType, string>(state => state.cardsPack.packName)
     //const [id, setId] = useState(0)
 
+    const [newPackName, setNewPackName] = useState<string>('');
+    const [isModal, setIsModal] = useState<boolean>(false);
+
+    const showModal = () => setIsModal(true);
+    const closeModal = () => setIsModal(false);
+
     useEffect(() => {
         dispatch(fetchPacksListsTC())
     }, [page, pageCount, myPacks, sortPacks, packName])
 
-    // useEffect(() => {
-    //   console.log('uEf2')
-    //   clearTimeout(id)
-    //   const x = +setTimeout(()=> {
-    //     dispatch(fetchPacksListsTC())
-    //   }, 1500)
-    //   setId(x)
-    // }, [ min, max])
+
     const pageSizeHandler = (value: number) => {
         dispatch(setPageCountAC(value))
     }
     const onChangedPage = (newPage: number) => {
         if (newPage !== page) dispatch(changeCurrentPageAC(newPage))
     }
-
-    const addPack = () => dispatch(addPackTC('My pack'))
+    const addPack = () => {
+        dispatch(addPackTC(newPackName))
+        setNewPackName('')
+        closeModal()
+    }
 
     if (!isLoggedIn) {
         return <Navigate to={PATH.LOGIN}/>
@@ -60,11 +65,13 @@ const PacksList = () => {
                 <Sidebar/>
                 <div className={styles.main}>
                     <h2>Packs list</h2>
-                    <div className={styles.search}>
-                        <PacksSearch/>
+                    <div className={styles.topPanel}>
+                        <div className={styles.search}>
+                            <PacksSearch/>
+                        </div>
+                        <SuperButton onClick={showModal} className={styles.addBtn}>Add new pack</SuperButton>
                     </div>
                     {error ? <div style={{color: 'red'}}>{error}</div> : ''}
-                    <SuperButton onClick={addPack}>Add new pack</SuperButton>
                     <PacksTable/>
                     <div className={styles.paginationWrapper}>
                         {
@@ -80,6 +87,13 @@ const PacksList = () => {
                     </div>
                 </div>
             </PackFrame>
+            <Modal title={'Add new pack'} show={isModal} closeModal={closeModal}>
+                <label>Name pack</label>
+                <SuperInputText value={newPackName} onChangeText={setNewPackName} placeholder={'Enter pack name'}/>
+                <ModalButtonsWrap closeModal={closeModal}>
+                    <SuperButton onClick={addPack}>Save</SuperButton>
+                </ModalButtonsWrap>
+            </Modal>
         </>
     );
 };

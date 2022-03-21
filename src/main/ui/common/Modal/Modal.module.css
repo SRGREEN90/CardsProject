@@ -7,6 +7,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    z-index: 999;
 }
 .overlay {
     position: absolute;
@@ -54,4 +55,11 @@ h3 {
 }
 .close:hover {
     color: #21268F;
+}
+
+.modalButtons {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
 }

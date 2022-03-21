@@ -1,13 +1,13 @@
 .wrap{
     position: relative;
     display: block;
-    width: 80%;
+    /*width: 80%;*/
 }
 
 .wrap input {
-    background: #ECECF9;
-    opacity: 0.5;
-    border: 1px solid #635D80;
+    background: rgba(236, 236, 249, 0.5);
+    /*opacity: 0.5;*/
+    border: 1px solid rgba(99, 93, 128, 0.5);
     box-sizing: border-box;
     border-radius: 2px;
     height: 36px;
@@ -23,14 +23,14 @@
 
 .wrap .btnSearch {
     position: absolute;
-    height: 24px;
-    width: 24px;
-    right: 10px;
-    border: none;
-    background: url(../GridinSearch/IconSearch.svg) no-repeat center/contain;
+    height: 100%;
+    width: 70px;
+    right: 0;
+    border: 1px solid rgba(99, 93, 128, 0.5);
+    background: #D7D8EF url(../GridinSearch/IconSearch.svg) no-repeat center/auto 80%;
     cursor: pointer;
     z-index: 2;
-    top: 15%;
+    top: 0;
     opacity: 1;
 }
 

@@ -22,7 +22,7 @@ const App = () => {
 
     return (
         <div className="App">
-            <Main/>
+            {/*<Main/>*/}
             <RoutesComponent/>
         </div>
     );

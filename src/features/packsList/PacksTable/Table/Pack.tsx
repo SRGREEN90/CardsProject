@@ -4,8 +4,12 @@ import {NavLink, useParams} from "react-router-dom";
 import {PackType} from "../../../../API/cardsPackApi";
 import {useDispatch, useSelector} from "react-redux";
 import {AppRootStateType} from "../../../../main/bll/store";
-import {deletePackTC} from "../../../../main/bll/cardsPackReducer";
+import {deletePackTC, editPackTC} from "../../../../main/bll/cardsPackReducer";
 import {SuperLoading} from "../../../../main/ui/common/Loading/loading";
+import Modal from "../../../../main/ui/common/Modal/Modal";
+import SuperButton from "../../../../main/ui/common/SuperButton/SuperButton";
+import SuperInputText from "../../../../main/ui/common/SuperInputText/SuperInputText";
+import ModalButtonsWrap from "../../../../main/ui/common/Modal/ModalButtonsWrap";
 
 
 type PackPropsType = {
@@ -16,7 +20,26 @@ const Pack: React.FC<PackPropsType> = ({pack}) => {
     const dispatch = useDispatch();
     const myUserId = useSelector<AppRootStateType, string>(state => state.profilePage._id)
     const isLoading = useSelector<AppRootStateType, boolean>(state => state.app.isLoading)
-    const deletePack = (packId: string) => dispatch(deletePackTC(packId))
+
+    const [newPackName, setNewPackName] = useState<string>(pack.name);
+    const [isShownModal, setIsShownModal] = useState<boolean>(false)
+
+    const [modalType, setModalType] = useState<'Delete' | 'Edit' | ''>('');
+    const closeModal = () => setIsShownModal(false)
+    const showModal = (modalType: 'Delete' | 'Edit' | '') => {
+        setIsShownModal(true)
+        setModalType(modalType)
+    }
+
+    const deletePack = () => {
+        setIsShownModal(false)
+        dispatch(deletePackTC(pack._id))
+    }
+
+    const editPack = () => {
+        dispatch(editPackTC(pack._id, newPackName))
+        closeModal()
+    }
 
 
     if (isLoading) {
@@ -35,13 +58,31 @@ const Pack: React.FC<PackPropsType> = ({pack}) => {
                 {
                     myUserId === pack.user_id && <>
                         <button className={`${styles.button} ${styles.delete}`}
-                                onClick={() => deletePack(pack._id)}>Delete
+                                onClick={() => showModal('Delete')}>Delete
                         </button>
-                        <button className={styles.button}>Edit</button>
+                        <button className={styles.button} onClick={() => showModal('Edit')}>Edit</button>
                     </>
                 }
                 <NavLink to={`/learn/${pack._id}`} className={`${!pack.cardsCount ? styles.disabled : ''} ${styles.button}`}>Learn</NavLink>
             </div>
+            {modalType === 'Delete' &&
+            <Modal title={'Delete Pack'} show={isShownModal} closeModal={closeModal}>
+                <p>Do you really want to remove Pack Name - Name Pack?
+                    All cards will be excluded from this course.</p>
+                <ModalButtonsWrap closeModal={closeModal}>
+                    <SuperButton onClick={deletePack} red={true}>Delete</SuperButton>
+                </ModalButtonsWrap>
+            </Modal>
+            }
+            {modalType === 'Edit' &&
+            <Modal title={'Edit Pack'} show={isShownModal} closeModal={closeModal}>
+                <label>New name</label>
+                <SuperInputText value={newPackName} onChangeText={setNewPackName}/>
+                <ModalButtonsWrap closeModal={closeModal}>
+                    <SuperButton onClick={editPack}>Save</SuperButton>
+                </ModalButtonsWrap>
+            </Modal>
+            }
         </div>
     );
 };

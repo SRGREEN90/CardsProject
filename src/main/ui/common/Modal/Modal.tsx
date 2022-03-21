@@ -14,7 +14,7 @@ const Modal = (props: PropsType) => {
 
     return (
         <div className={styles.modal}>
-            <div className={styles.overlay} onClick={props.closeModal}></div>
+            <div className={styles.overlay} onClick={props.closeModal}/>
             <div className={styles.dialog}>
                 {props.title && <h3>{props.title}</h3>}
                 <div className={styles.content}>{props.children}</div>
@@ -25,3 +25,4 @@ const Modal = (props: PropsType) => {
 };
 
 export default Modal;
+
