@@ -1,5 +1,12 @@
 // КАРТОЧКИ
-import {cardsApi, CardsGradeResponseType, CardType, GetCardsGrade, GetCardsParamsType} from "../../API/cardsApi";
+import {
+  cardsApi,
+  CardsGradeResponseType,
+  CardType,
+  GetCardsGrade,
+  GetCardsParamsType,
+  updatedGradeType
+} from "../../API/cardsApi";
 import {AppRootStateType} from "./store";
 import {Dispatch} from "redux";
 import {setErrorAC, setLoadingAC} from "./appReducer";
@@ -36,7 +43,9 @@ export const cardsReducer = (state: InitialStateType = initialState, action: Car
         case 'CARDS/SET_PAGE_COUNT_CARDS':
             return {...state, pageCount: action.pageCount}
         case 'CARDS/SET_CARDS_GRADE':
-            return {...state, grade: action.grade}
+            return {...state, cards: state.cards.map(m => m._id === action.updatedGrade.card_id
+              ? {...m, shots: action.updatedGrade.shots, grade: action.updatedGrade.grade}
+              : m)}
         default:
             return state
     }
@@ -91,8 +100,8 @@ export const setPageCountCardsAC = (pageCount:number) =>
     ({type: 'CARDS/SET_PAGE_COUNT_CARDS', pageCount} as const)
 type SetPageCountCardsACType = ReturnType<typeof setPageCountCardsAC>
 
-export const setCardsGradeAC = (grade: number) =>
-    ({type: 'CARDS/SET_CARDS_GRADE', grade} as const)
+export const setCardsGradeAC = (updatedGrade: updatedGradeType) =>
+    ({type: 'CARDS/SET_CARDS_GRADE', updatedGrade} as const)
 type SetCardsGradeACType = ReturnType<typeof setCardsGradeAC>
 
 
@@ -161,7 +170,8 @@ export const CardsGradeTC = (cardId: string, grade: number) =>
         }
         cardsApi.updateCardsGrade(data)
             .then((res) => {
-                dispatch(setCardsGradeAC(res.data.grade));
+                console.log(res.data)
+                dispatch(setCardsGradeAC(res.data.updatedGrade));
             })
             .catch(e => {
                 const error = e.response ? e.response.data.error : (e.message + ', more details in the console');
