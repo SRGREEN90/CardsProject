@@ -1,0 +1,20 @@
+.superTextArea {
+    border: none;
+    border-bottom: 1px solid #42435d;
+    background-color: transparent;
+    outline: none;
+    min-width: 100%;
+    max-width: 100%;
+    width: 100%;
+    min-height: 30px;
+    height: 30px;
+    font-size: 16px;
+    opacity: 0.8;
+    color: #24254A;
+}
+
+.superTextArea:focus {
+    outline: none;
+    border-bottom: 1px solid #24254A;
+    opacity: 1;
+}
