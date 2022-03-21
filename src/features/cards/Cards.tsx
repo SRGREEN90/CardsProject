@@ -17,6 +17,7 @@ import SuperButton from "../../main/ui/common/SuperButton/SuperButton";
 import Modal from "../../main/ui/common/Modal/Modal";
 import SuperInputText from "../../main/ui/common/SuperInputText/SuperInputText";
 import ModalButtonsWrap from "../../main/ui/common/Modal/ModalButtonsWrap";
+import SuperTextArea from "../../main/ui/common/SuperTextArea/SuperTextArea";
 
 const Cards = () => {
     const myId = useSelector<AppRootStateType, string>(state => state.profilePage._id);
@@ -98,10 +99,16 @@ const Cards = () => {
                 </div>
             </PackFrame>
             <Modal title={'Card Info'} show={isModalAdd} closeModal={closeModal}>
+                <div className={styles.textArea}>
                 <label>Question</label>
-                <SuperInputText value={newCardQuestion} onChangeText={setNewCardQuestion}/>
+                    <SuperTextArea value={newCardQuestion} onChangeText={setNewCardQuestion}/>
+                {/*<SuperInputText value={newCardQuestion} onChangeText={setNewCardQuestion}/>*/}
+                </div>
+                    <div className={styles.textArea}>
                 <label>Answer</label>
-                <SuperInputText value={newCardAnswer} onChangeText={setNewCardAnswer}/>
+                        <SuperTextArea value={newCardAnswer} onChangeText={setNewCardAnswer}/>
+                {/*<SuperInputText value={newCardAnswer} onChangeText={setNewCardAnswer}/>*/}
+                    </div>
                 <ModalButtonsWrap closeModal={closeModal}>
                     <SuperButton onClick={addCard}>Save</SuperButton>
                 </ModalButtonsWrap>

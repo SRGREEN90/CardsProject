@@ -11,6 +11,7 @@ import Modal from "../../../../main/ui/common/Modal/Modal";
 import ModalButtonsWrap from "../../../../main/ui/common/Modal/ModalButtonsWrap";
 import SuperButton from "../../../../main/ui/common/SuperButton/SuperButton";
 import SuperInputText from "../../../../main/ui/common/SuperInputText/SuperInputText";
+import SuperTextArea from "../../../../main/ui/common/SuperTextArea/SuperTextArea";
 
 type CardPropsType = {
     card: CardType
@@ -90,10 +91,16 @@ const Card: React.FC<CardPropsType> = ({card, isCheckId, classMyCards}) => {
             }
             {modalType === 'Edit' &&
             <Modal title={'Edit Pack'} show={isShownModal} closeModal={closeModal}>
-                <label>New Question</label>
-                <SuperInputText value={newQuestion} onChangeText={setNewQuestion}/>
-                <label>New Answer</label>
-                <SuperInputText value={newAnswer} onChangeText={setNewAnswer}/>
+                <div className={styles.textArea}>
+                    <label>New Question</label>
+                    <SuperTextArea value={newQuestion} onChangeText={setNewQuestion}/>
+                    {/*<SuperInputText value={newQuestion} onChangeText={setNewQuestion}/>*/}
+                </div>
+                <div className={styles.textArea}>
+                    <label>New Answer</label>
+                    <SuperTextArea value={newAnswer} onChangeText={setNewAnswer}/>
+                    {/*<SuperInputText value={newAnswer} onChangeText={setNewAnswer}/>*/}
+                </div>
                 <ModalButtonsWrap closeModal={closeModal}>
                     <SuperButton onClick={updateCard}>Save</SuperButton>
                 </ModalButtonsWrap>
