@@ -67,11 +67,21 @@
     cursor: pointer;
     display: inline-block;
     margin-right: 6px;
+    transition: 0.4s all;
+}
+
+.button:hover, a.button:hover {
+    background: #21268F;
+    color: #fff;
 }
 
 .delete {
     background: #F1453D;
     color: #fff;
+}
+
+.delete:hover {
+    background: darkred;
 }
 
 .header div {

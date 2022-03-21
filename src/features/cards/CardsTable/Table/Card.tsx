@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import styles from "./CardsTable.module.css";
 import {CardType} from "../../../../API/cardsApi";
 import Preloader from "../../../../main/ui/common/Preloader/Preloader";
@@ -7,6 +7,10 @@ import {AppRootStateType} from "../../../../main/bll/store";
 import {SuperLoading} from "../../../../main/ui/common/Loading/loading";
 import {deleteCardTC, updateCardTC} from "../../../../main/bll/cardsReducer";
 import {useParams} from "react-router-dom";
+import Modal from "../../../../main/ui/common/Modal/Modal";
+import ModalButtonsWrap from "../../../../main/ui/common/Modal/ModalButtonsWrap";
+import SuperButton from "../../../../main/ui/common/SuperButton/SuperButton";
+import SuperInputText from "../../../../main/ui/common/SuperInputText/SuperInputText";
 
 type CardPropsType = {
     card: CardType
@@ -24,45 +28,78 @@ const Card: React.FC<CardPropsType> = ({card, isCheckId, classMyCards}) => {
     const finalClass3 = `${3 <= rating ? `${styles.active}` : ``}`
     const finalClass4 = `${4 <= rating ? `${styles.active}` : ``}`
     const finalClass5 = `${5 <= rating ? `${styles.active}` : ``}`
-
     const {packId} = useParams<{ packId: string }>();
     const currId = packId ? packId : ''
+
+    const [newQuestion, setNewQuestion] = useState<string>(card.question);
+    const [newAnswer, setNewAnswer] = useState<string>(card.answer);
+    const [isShownModal, setIsShownModal] = useState<boolean>(false)
+
+    const [modalType, setModalType] = useState<'Delete' | 'Edit' | ''>('');
+    const closeModal = () => setIsShownModal(false)
+    const showModal = (modalType: 'Delete' | 'Edit' | '') => {
+        setIsShownModal(true)
+        setModalType(modalType)
+    }
+
+    const deleteCard = () => {
+        setIsShownModal(false)
+        dispatch(deleteCardTC(currId, card._id))
+    }
+
+    const updateCard = () => {
+        dispatch(updateCardTC(currId, card._id, newQuestion, newAnswer))
+        closeModal()
+    }
 
     if (isLoading) {
         return <SuperLoading/>
     }
 
-    const deleteCard = () => {
-        dispatch(deleteCardTC(currId, card._id))
-    }
-
-    const updateCard = () => {
-        dispatch(updateCardTC(currId, card._id, 'angular', 'framework'))
-    }
-
     return (
-            <div className={`${styles.card} ${classMyCards}`}>
-                <div>{card.question}</div>
-                <div>{card.answer}</div>
-                <div>{`${day}.${month}.${year}`}</div>
-                <div>
-                    <div className={styles.rating_result}>
-                        <span className={finalClass1}></span>
-                        <span className={finalClass2}></span>
-                        <span className={finalClass3}></span>
-                        <span className={finalClass4}></span>
-                        <span className={finalClass5}></span>
-                    </div>
+        <div className={`${styles.card} ${classMyCards}`}>
+            <div>{card.question}</div>
+            <div>{card.answer}</div>
+            <div>{`${day}.${month}.${year}`}</div>
+            <div>
+                <div className={styles.rating_result}>
+                    <span className={finalClass1}></span>
+                    <span className={finalClass2}></span>
+                    <span className={finalClass3}></span>
+                    <span className={finalClass4}></span>
+                    <span className={finalClass5}></span>
                 </div>
-                {
-                    isCheckId && <div className={styles.buttons}>
-                        <>
-                            <button className={`${styles.button} ${styles.delete}`} onClick={deleteCard}>Delete</button>
-                            <button className={styles.button} onClick={updateCard}>Edit</button>
-                        </>
-                    </div>
-                }
             </div>
+            {
+                isCheckId && <div className={styles.buttons}>
+                    <>
+                        <button className={`${styles.button} ${styles.delete}`}
+                                onClick={() => showModal('Delete')}>Delete
+                        </button>
+                        <button className={styles.button} onClick={() => showModal('Edit')}>Edit</button>
+                    </>
+                </div>
+            }
+            {modalType === 'Delete' &&
+            <Modal title={'Delete Card'} show={isShownModal} closeModal={closeModal}>
+                <p>Do you really want to remove Card?</p>
+                <ModalButtonsWrap closeModal={closeModal}>
+                    <SuperButton onClick={deleteCard} red={true}>Delete</SuperButton>
+                </ModalButtonsWrap>
+            </Modal>
+            }
+            {modalType === 'Edit' &&
+            <Modal title={'Edit Pack'} show={isShownModal} closeModal={closeModal}>
+                <label>New Question</label>
+                <SuperInputText value={newQuestion} onChangeText={setNewQuestion}/>
+                <label>New Answer</label>
+                <SuperInputText value={newAnswer} onChangeText={setNewAnswer}/>
+                <ModalButtonsWrap closeModal={closeModal}>
+                    <SuperButton onClick={updateCard}>Save</SuperButton>
+                </ModalButtonsWrap>
+            </Modal>
+            }
+        </div>
     );
 };
 
