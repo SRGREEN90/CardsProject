@@ -3,13 +3,13 @@ import Header from "../../main/ui/header/Header";
 import {Frame} from "../../main/ui/common/Frame/Frame";
 import SuperButton from "../../main/ui/common/SuperButton/SuperButton";
 import {PATH} from "../../main/ui/routes/Routes";
-import {NavLink, useParams} from "react-router-dom";
+import {Navigate, NavLink, useNavigate, useParams} from "react-router-dom";
 import {useDispatch, useSelector} from "react-redux";
 import {CardsGradeTC, clearCardsAC, learnCardsTC} from "../../main/bll/cardsReducer";
 import {AppRootStateType} from "../../main/bll/store";
 import {CardType} from "../../API/cardsApi";
 import SuperRadio from "../../main/ui/common/SuperRadio/SuperRadio";
-import s from './Learn.module.css'
+import stl from './Learn.module.css'
 
 
 const grades = ["Did not know", "Forgot", "A lot of thought", "Confused", "Knew the answer"];
@@ -27,6 +27,7 @@ const getCard = (cards: CardType[]) => {
 
 export const Learn = () => {
     const dispatch = useDispatch()
+    const navigate = useNavigate()
     const {packId} = useParams<{ packId: string }>()
     const cards = useSelector<AppRootStateType, Array<CardType>>(state => state.cards.cards)
     const packName = useSelector<AppRootStateType, string>(state => state.cardsPack.cardPacks.filter((p: any) => p._id === packId)[0]?.name)
@@ -77,13 +78,13 @@ export const Learn = () => {
         }
     }
 
+    const cancelHandler = () => {
+     navigate(PATH.PACKS, { replace: true })
+    }
+
     const cancelStyle = {
-        backgroundColor: '#D7D8EF',
-        width: '20px',
-        color: '#21268F',
-        display: 'flex',
-        justifyContent: 'center',
-        textDecoration: 'none'
+        width: '150px',
+        padding: '0'
     }
 
 
@@ -93,10 +94,11 @@ export const Learn = () => {
             <Frame>
                 <h2>Learn "{packName}"</h2>
                 <h3>Question: {card.question}</h3>
+
                 {isChecked && (
                     <>
-                        <div className={s.radioBlock}>
-                            <h3>Answer: {card.answer}</h3>
+                        <div className={stl.radioBlock}>
+                            <h3><span>Answer: </span> {card.answer}</h3>
                             <h3>Rate yourself:</h3>
                             <SuperRadio
                                 name={'radio'}
@@ -109,13 +111,12 @@ export const Learn = () => {
 
                     </>
                 )}
-                <div className={s.btnBlock}>
-                    <NavLink to={PATH.PACKS}><SuperButton
-                        style={cancelStyle}>Cancel</SuperButton></NavLink>
+                <div className={stl.btnBlock}>
+                    <SuperButton onClick={cancelHandler} light={true}>Cancel</SuperButton>
                     {
                         isChecked
-                            ? <SuperButton onClick={onNext}>Next</SuperButton>
-                            : <SuperButton onClick={() => setIsChecked(true)}>Show answer</SuperButton>
+                            ? <SuperButton onClick={onNext} disabled={!rating}>Next</SuperButton>
+                            : <SuperButton onClick={() => setIsChecked(true)} style={cancelStyle}>Show answer</SuperButton>
                     }
                 </div>
 
