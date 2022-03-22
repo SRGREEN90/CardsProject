@@ -11,6 +11,7 @@ export const DoubleCheckbox = () => {
 
     const myOnClickHandler = () => {
         dispatch(setMyPacksAC(true))
+
     }
     const allOnClickHandler = () => {
         dispatch(setMyPacksAC(false))
