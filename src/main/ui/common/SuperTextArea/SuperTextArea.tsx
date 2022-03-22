@@ -1,17 +1,16 @@
 import React, {DetailedHTMLProps, KeyboardEvent, TextareaHTMLAttributes} from 'react';
 import styles from './SuperTextArea.module.css';
 
-// тип пропсов обычного инпута
-type DefaultInputPropsType = DetailedHTMLProps<TextareaHTMLAttributes<HTMLTextAreaElement>, HTMLTextAreaElement>
+type DefaultTextareaPropsType = DetailedHTMLProps<TextareaHTMLAttributes<HTMLTextAreaElement>, HTMLTextAreaElement>
 
-type SuperInputTextPropsType = DefaultInputPropsType & {
+type SuperTextareaTextPropsType = DefaultTextareaPropsType & {
     onChangeText?: (value: string) => void
     onEnter?: () => void
     error?: string
     spanClassName?: string
 }
 
-const SuperTextArea: React.FC<SuperInputTextPropsType> = (
+const SuperTextArea: React.FC<SuperTextareaTextPropsType> = (
     {
         onChange, onChangeText,
         onKeyPress, onEnter,
@@ -41,6 +40,7 @@ const SuperTextArea: React.FC<SuperInputTextPropsType> = (
         <>
             <div className={styles.inputContainer}>
                 <textarea
+                    maxLength={500}
                     onChange={onChangeCallback}
                     onKeyPress={onKeyPressCallback}
                     className={finalAreaClassName}
