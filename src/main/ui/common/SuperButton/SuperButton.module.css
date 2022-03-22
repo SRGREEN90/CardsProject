@@ -10,7 +10,7 @@
     color: #ECECF9;
     background: #21268F;
     border-radius: 30px;
-    transition: 0.4s all;
+    /*transition: 0.4s all;*/
 }
 
 .default:hover {
@@ -29,7 +29,7 @@
 .default:disabled {
     cursor: default;
     transform: none;
-    background-color: #465D74;
+    background-color: rgba(39, 44, 150, 0.9);
 }
 
 .red {
