@@ -84,13 +84,15 @@ const PacksList = () => {
                         {
                             cardPacksTotalCount < pageCount
                                 ? <></>
-                                : <Pagination totalCount={cardPacksTotalCount}
-                                              pageSize={pageCount}
-                                              currentPage={page}
-                                              onChangedPage={onChangedPage}/>
+                                : <>
+                                  <Pagination totalCount={cardPacksTotalCount}
+                                                 pageSize={pageCount}
+                                                 currentPage={page}
+                                                 onChangedPage={onChangedPage}/>
+                                  <PageSizeSelector pageCount={pageCount}
+                                                    handler={pageSizeHandler}/>
+                              </>
                         }
-                        <PageSizeSelector pageCount={pageCount}
-                                          handler={pageSizeHandler}/>
                     </div>
                 </div>
             </PackFrame>
