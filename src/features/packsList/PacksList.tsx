@@ -22,6 +22,7 @@ const PacksList = () => {
     const dispatch = useDispatch();
     const error = useSelector<AppRootStateType, string>(state => state.app.error);
     const isLoggedIn = useSelector<AppRootStateType, boolean>(state => state.login.status);
+    const isLoading = useSelector<AppRootStateType, boolean>(state => state.app.isLoading)
     const debouncingFlag = useSelector<AppRootStateType, object>(state => state.cardsPack.debouncingFlag)
     //const max = useSelector<AppRootStateType, number>(state => state.cardsPack.max)
     const page = useSelector<AppRootStateType, number>(state => state.cardsPack.page)
@@ -39,7 +40,9 @@ const PacksList = () => {
     const closeModal = () => setIsModal(false);
 
     useEffect(() => {
-        dispatch(fetchPacksListsTC())
+        if (!isLoading){
+            dispatch(fetchPacksListsTC())
+        }
     }, [page, pageCount, myPacks, sortPacks, packName, debouncingFlag])
 
     useEffect(()=>{
@@ -50,9 +53,10 @@ const PacksList = () => {
 
 
     const pageSizeHandler = (value: number) => {
-        dispatch(setPageCountAC(value))
+        if (!isLoading) dispatch(setPageCountAC(value))
     }
     const onChangedPage = (newPage: number) => {
+        if (isLoading) return
         if (newPage !== page) dispatch(changeCurrentPageAC(newPage))
     }
     const addPack = () => {

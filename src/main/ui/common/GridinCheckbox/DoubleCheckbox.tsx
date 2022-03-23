@@ -6,25 +6,26 @@ import {AppRootStateType} from "../../../bll/store";
 
 
 export const DoubleCheckbox = () => {
-    const myPacks = useSelector<AppRootStateType, boolean>(state => state.cardsPack.myPacks);
-    const dispatch = useDispatch()
+  const myPacks = useSelector<AppRootStateType, boolean>(state => state.cardsPack.myPacks);
+  const isLoading = useSelector<AppRootStateType, boolean>(state => state.app.isLoading)
+  const dispatch = useDispatch()
 
-    const myOnClickHandler = () => {
-        dispatch(setMyPacksAC(true))
+  const myOnClickHandler = () => {
+    if (!isLoading) dispatch(setMyPacksAC(true))
 
-    }
-    const allOnClickHandler = () => {
-        dispatch(setMyPacksAC(false))
-    }
+  }
+  const allOnClickHandler = () => {
+    if (!isLoading) dispatch(setMyPacksAC(false))
+  }
 
-    return (
-        <div className={s.label}>
-            <div onClick={myOnClickHandler} className={myPacks ? s.selected : s.tab}>
-                <h5>My</h5>
-            </div>
-            <div onClick={allOnClickHandler} className={!myPacks ? s.selected : s.tab}>
-                <h5>All</h5>
-            </div>
-        </div>
-    )
+  return (
+    <div className={s.label}>
+      <div onClick={myOnClickHandler} className={myPacks ? s.selected : s.tab}>
+        <h5>My</h5>
+      </div>
+      <div onClick={allOnClickHandler} className={!myPacks ? s.selected : s.tab}>
+        <h5>All</h5>
+      </div>
+    </div>
+  )
 }
