@@ -93,7 +93,9 @@ const Cards = () => {
                 : <>
                   <Pagination totalCount={cardsTotalCount} pageSize={pageCount} currentPage={page}
                               onChangedPage={onChangedPage}/>
-                  <PageSizeSelector pageCount={pageCount} handler={pageSizeHandler}/>
+                  <PageSizeSelector
+                      totalCount={cardsTotalCount}
+                      pageCount={pageCount} handler={pageSizeHandler}/>
                 </>
             }
           </div>
