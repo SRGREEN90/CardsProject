@@ -69,7 +69,7 @@ export const Profile = () => {
       {loading && <Preloader/>}
       <Frame>
         <span><strong>It-incubator</strong></span>
-        <h3>Your profile</h3>
+        <p className={styles.profileTitle}>Your profile</p>
         <div>
           <div className={styles.avatar}>
             <img src={profileAvatar ? profileAvatar : noAvatar}
@@ -92,9 +92,6 @@ export const Profile = () => {
         <div className={styles.error}>
           {error && <span>error: {error}</span>}
           {localErr && <span>Note: {localErr}</span>}
-        </div>
-        <div>
-          <SuperButton onClick={logOutHandler}>Log Out</SuperButton>
         </div>
       </Frame>
     </>
