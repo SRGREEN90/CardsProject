@@ -16,12 +16,14 @@ import {PacksSearch} from "../../main/ui/common/GridinSearch/PacksSearch";
 import Modal from "../../main/ui/common/Modal/Modal";
 import SuperInputText from "../../main/ui/common/SuperInputText/SuperInputText";
 import ModalButtonsWrap from "../../main/ui/common/Modal/ModalButtonsWrap";
+import {setErrorAC} from "../../main/bll/appReducer";
 
 const PacksList = () => {
     const dispatch = useDispatch();
     const error = useSelector<AppRootStateType, string>(state => state.app.error);
     const isLoggedIn = useSelector<AppRootStateType, boolean>(state => state.login.status);
-    //const min = useSelector<AppRootStateType, number>(state => state.cardsPack.min)
+    const isLoading = useSelector<AppRootStateType, boolean>(state => state.app.isLoading)
+    const debouncingFlag = useSelector<AppRootStateType, object>(state => state.cardsPack.debouncingFlag)
     //const max = useSelector<AppRootStateType, number>(state => state.cardsPack.max)
     const page = useSelector<AppRootStateType, number>(state => state.cardsPack.page)
     const pageCount = useSelector<AppRootStateType, number>(state => state.cardsPack.pageCount)
@@ -38,14 +40,23 @@ const PacksList = () => {
     const closeModal = () => setIsModal(false);
 
     useEffect(() => {
-        dispatch(fetchPacksListsTC())
-    }, [page, pageCount, myPacks, sortPacks, packName])
+        if (!isLoading){
+            dispatch(fetchPacksListsTC())
+        }
+    }, [page, pageCount, myPacks, sortPacks, packName, debouncingFlag])
+
+    useEffect(()=>{
+        return () => {
+            if (error.length > 0) dispatch(setErrorAC(''))
+        }
+    })
 
 
     const pageSizeHandler = (value: number) => {
-        dispatch(setPageCountAC(value))
+        if (!isLoading) dispatch(setPageCountAC(value))
     }
     const onChangedPage = (newPage: number) => {
+        if (isLoading) return
         if (newPage !== page) dispatch(changeCurrentPageAC(newPage))
     }
     const addPack = () => {
@@ -77,13 +88,17 @@ const PacksList = () => {
                         {
                             cardPacksTotalCount < pageCount
                                 ? <></>
-                                : <Pagination totalCount={cardPacksTotalCount}
-                                              pageSize={pageCount}
-                                              currentPage={page}
-                                              onChangedPage={onChangedPage}/>
+                                : <>
+                                  <Pagination totalCount={cardPacksTotalCount}
+                                                 pageSize={pageCount}
+                                                 currentPage={page}
+                                                 onChangedPage={onChangedPage}/>
+                                  <PageSizeSelector
+                                      totalCount={cardPacksTotalCount}
+                                      pageCount={pageCount}
+                                                    handler={pageSizeHandler}/>
+                              </>
                         }
-                        <PageSizeSelector pageCount={pageCount}
-                                          handler={pageSizeHandler}/>
                     </div>
                 </div>
             </PackFrame>
