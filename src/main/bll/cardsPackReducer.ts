@@ -141,8 +141,6 @@ export const deletePackTC = (packId: string): AppThunkType => {
             .catch(e => {
                 const error = e.response ? e.response.data.error : (e.message + ', more details in the console');
                 dispatch(setErrorAC(error))
-            })
-            .finally(() => {
                 dispatch(setLoadingAC(false));
             })
     }
@@ -151,6 +149,7 @@ export const deletePackTC = (packId: string): AppThunkType => {
 export const addPackTC = (packName: string): AppThunkType => {
     return (dispatch) => {
         dispatch(setLoadingAC(true))
+        dispatch(sortPacksAC("0updated"))
 
         const payload = {
             name: packName,
@@ -165,6 +164,7 @@ export const addPackTC = (packName: string): AppThunkType => {
             .catch(e => {
                 const error = e.response ? e.response.data.error : (e.message + ', more details in the console');
                 dispatch(setErrorAC(error))
+                dispatch(setLoadingAC(false))
             })
     }
 }

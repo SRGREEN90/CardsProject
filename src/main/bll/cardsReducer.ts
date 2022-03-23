@@ -36,7 +36,7 @@ export const cardsReducer = (state: InitialStateType = initialState, action: Car
         case "CARDS/CHANGE_CURRENT_PAGE":
             return {...state, page: action.page}
         case 'CARDS/SORT_CARDS':
-            return {...state, sortCards: action.sortCards}
+            return {...state, sortCards: action.sortCards, page: 1}
         case 'CARDS/SET_FILTER_CARDS':
             return {...state, cardQuestion: action.cardQuestion}
         case 'CARDS/SET_PAGE_COUNT_CARDS':
@@ -184,6 +184,8 @@ export const CardsGradeTC = (cardId: string, grade: number) =>
 export const addCardTC = (packUserId: string, question: string, answer: string): AppThunkType => {
     return (dispatch) => {
         dispatch(setLoadingAC(true))
+        dispatch(sortCardsAC('0updated'))
+
         const payload = {
             cardsPack_id: packUserId,
             question: question,
@@ -202,8 +204,6 @@ export const addCardTC = (packUserId: string, question: string, answer: string):
             .catch(e => {
                 const error = e.response ? e.response.data.error : (e.message + ', more details in the console');
                 dispatch(setErrorAC(error))
-            })
-            .finally(() => {
                 dispatch(setLoadingAC(false));
             })
     }
@@ -214,14 +214,12 @@ export const deleteCardTC = (packUserId: string, cardId: string): AppThunkType =
         dispatch(setLoadingAC(true))
 
         cardsApi.deleteCard(cardId)
-            .then((res) => {
+            .then(() => {
                 dispatch(fetchCardsTC(packUserId))
             })
             .catch(e => {
                 const error = e.response ? e.response.data.error : (e.message + ', more details in the console');
                 dispatch(setErrorAC(error))
-            })
-            .finally(() => {
                 dispatch(setLoadingAC(false));
             })
     }
@@ -246,8 +244,6 @@ export const updateCardTC = (packUserId: string, cardId: string, question: strin
             .catch(e => {
                 const error = e.response ? e.response.data.error : (e.message + ', more details in the console');
                 dispatch(setErrorAC(error))
-            })
-            .finally(() => {
                 dispatch(setLoadingAC(false));
             })
     }

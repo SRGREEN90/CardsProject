@@ -23,6 +23,7 @@ const Cards = () => {
   const myId = useSelector<AppRootStateType, string>(state => state.profilePage._id);
   const userId = useSelector<AppRootStateType, string>(state => state.cards.packUserId);
   const dispatch = useDispatch();
+  const isLoading = useSelector<AppRootStateType, boolean>(state => state.app.isLoading)
   const packName = useSelector<AppRootStateType, string>(state => state.cardsPack.packName);
   const cards = useSelector<AppRootStateType, Array<CardType>>(state => state.cards.cards);
   const isLoggedIn = useSelector<AppRootStateType, boolean>(state => state.login.status);
@@ -44,7 +45,7 @@ const Cards = () => {
 
   useEffect(() => {
     if (packId) {
-      dispatch(fetchCardsTC(packId))
+      if (!isLoading) dispatch(fetchCardsTC(packId))
     }
   }, [page, pageCount, cardQuestion, cardAnswer, sortCards])
 
