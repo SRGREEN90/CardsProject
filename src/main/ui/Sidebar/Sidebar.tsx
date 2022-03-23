@@ -5,7 +5,7 @@ import stl from "../common/SuperRange/RangeDemo.module.css";
 import SuperDoubleRange from "../common/SuperRange/common/c8-SuperDoubleRange/SuperDoubleRange";
 import {useDispatch, useSelector} from "react-redux";
 import {AppRootStateType} from "../../bll/store";
-import {fetchPacksListsTC, setMaxAC, setMinAC} from "../../bll/cardsPackReducer";
+import { setDebouncingFlagAC, setMaxAC, setMinAC} from "../../bll/cardsPackReducer";
 
 const Sidebar = () => {
     const dispatch = useDispatch()
@@ -22,7 +22,8 @@ const Sidebar = () => {
         if (value[1] !== max) dispatch(setMaxAC(value[1]))
         clearTimeout(id)
         const x = +setTimeout(() => {
-            dispatch(fetchPacksListsTC())
+            //dispatch(fetchPacksListsTC())
+            dispatch(setDebouncingFlagAC())
         }, 1500)
         setId(x)
     }

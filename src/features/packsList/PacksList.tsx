@@ -16,12 +16,13 @@ import {PacksSearch} from "../../main/ui/common/GridinSearch/PacksSearch";
 import Modal from "../../main/ui/common/Modal/Modal";
 import SuperInputText from "../../main/ui/common/SuperInputText/SuperInputText";
 import ModalButtonsWrap from "../../main/ui/common/Modal/ModalButtonsWrap";
+import {setErrorAC} from "../../main/bll/appReducer";
 
 const PacksList = () => {
     const dispatch = useDispatch();
     const error = useSelector<AppRootStateType, string>(state => state.app.error);
     const isLoggedIn = useSelector<AppRootStateType, boolean>(state => state.login.status);
-    //const min = useSelector<AppRootStateType, number>(state => state.cardsPack.min)
+    const debouncingFlag = useSelector<AppRootStateType, object>(state => state.cardsPack.debouncingFlag)
     //const max = useSelector<AppRootStateType, number>(state => state.cardsPack.max)
     const page = useSelector<AppRootStateType, number>(state => state.cardsPack.page)
     const pageCount = useSelector<AppRootStateType, number>(state => state.cardsPack.pageCount)
@@ -39,7 +40,13 @@ const PacksList = () => {
 
     useEffect(() => {
         dispatch(fetchPacksListsTC())
-    }, [page, pageCount, myPacks, sortPacks, packName])
+    }, [page, pageCount, myPacks, sortPacks, packName, debouncingFlag])
+
+    useEffect(()=>{
+        return () => {
+            if (error.length > 0) dispatch(setErrorAC(''))
+        }
+    })
 
 
     const pageSizeHandler = (value: number) => {

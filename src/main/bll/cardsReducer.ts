@@ -1,7 +1,6 @@
 // КАРТОЧКИ
 import {
     cardsApi,
-    CardsGradeResponseType,
     CardType,
     GetCardsGrade,
     GetCardsParamsType,
@@ -10,8 +9,6 @@ import {
 import {AppRootStateType, AppThunkType} from "./store";
 import {Dispatch} from "redux";
 import {setErrorAC, setLoadingAC} from "./appReducer";
-import {cardsPackApi} from "../../API/cardsPackApi";
-import {fetchPacksListsTC} from "./cardsPackReducer";
 
 const initialState = {
     cards: [],

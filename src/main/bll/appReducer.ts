@@ -1,7 +1,7 @@
 import {Dispatch} from "redux";
 import {AppThunkType} from "./store";
 import {cardsAPI} from "../../API/api";
-import {loginTC, setIsLoggedInAC} from "./loginReducer";
+import { setIsLoggedInAC} from "./loginReducer";
 import {setProfileData} from "./profileReducer";
 
 const initialState = {
