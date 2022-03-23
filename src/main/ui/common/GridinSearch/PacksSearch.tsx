@@ -9,7 +9,7 @@ export const PacksSearch = () => {
     const dispatch = useDispatch()
     const {packId} = useParams()
 
-    let [event, setEvent] = useState<string>('')
+    const [event, setEvent] = useState<string>('')
 
     let handleChange = (e: ChangeEvent<HTMLInputElement>) => {
         setEvent(e.currentTarget.value)

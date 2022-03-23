@@ -1,8 +1,9 @@
 import React from "react";
 import s from './DoubleCheckbox.module.css'
-import {setMyPacksAC} from "../../../bll/cardsPackReducer";
+import {setFilteredPacksAC, setMyPacksAC} from "../../../bll/cardsPackReducer";
 import {useDispatch, useSelector} from "react-redux";
 import {AppRootStateType} from "../../../bll/store";
+import {PacksSearch} from "../GridinSearch/PacksSearch";
 
 
 export const DoubleCheckbox = () => {
@@ -11,7 +12,6 @@ export const DoubleCheckbox = () => {
 
     const myOnClickHandler = () => {
         dispatch(setMyPacksAC(true))
-
     }
     const allOnClickHandler = () => {
         dispatch(setMyPacksAC(false))
