@@ -17,7 +17,7 @@ const initialState = {
     max: 0,
     packName: '',
     user_id: '',
-    debouncingFlag: {}
+    debouncingFlag: {},
 }
 
 export const cardsPackReducer = (state: InitialStateType = initialState, action: CardsPackActionsType): InitialStateType => {
@@ -27,7 +27,13 @@ export const cardsPackReducer = (state: InitialStateType = initialState, action:
         case 'PACKS/SORT':
             return {...state, sortPacks: action.sortPacks, page: 1}
         case 'PACKS/SET_MY_PACKS':
-            return {...state, myPacks: action.myPacks, min: 0}
+            return {
+                ...state,
+                myPacks: action.myPacks,
+                min: 0,
+                max: 0,
+                packName: ''
+            }
         case "PACKS/CHANGE_CURRENT_PAGE":
             return {...state, page: action.page}
         case "PACKS/SET_MIN":
@@ -101,7 +107,7 @@ export const setFilteredPacksAC = (packName: string) =>
 type setFilteredPacksACType = ReturnType<typeof setFilteredPacksAC>
 
 export const setDebouncingFlagAC = () =>
-  ({type: 'PACKS/SET_DEBOUNCING_FLAG'} as const)
+    ({type: 'PACKS/SET_DEBOUNCING_FLAG'} as const)
 type SetDebouncingFlagACType = ReturnType<typeof setDebouncingFlagAC>
 
 // Thunk creators

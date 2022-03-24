@@ -1,19 +1,22 @@
-import React, {ChangeEvent, useState, KeyboardEvent} from "react";
+import React, {ChangeEvent, useState, KeyboardEvent, useEffect} from "react";
 import s from './PackSearch.module.css'
-import {useDispatch} from "react-redux";
-import {useParams} from "react-router-dom";
+import {useDispatch, useSelector} from "react-redux";
 import {changeCurrentPageAC, setFilteredPacksAC} from "../../../bll/cardsPackReducer";
+import {AppRootStateType} from "../../../bll/store";
 
 
 export const PacksSearch = () => {
     const dispatch = useDispatch()
-    const {packId} = useParams()
-
+    const myPacks = useSelector<AppRootStateType, boolean>(state => state.cardsPack.myPacks);
     const [event, setEvent] = useState<string>('')
 
     let handleChange = (e: ChangeEvent<HTMLInputElement>) => {
         setEvent(e.currentTarget.value)
     };
+
+    useEffect(() => {
+        setEvent('')
+    }, [myPacks])
 
     let BtnHandler = () => {
         dispatch(setFilteredPacksAC(event))
@@ -21,7 +24,7 @@ export const PacksSearch = () => {
     }
 
     const onKeyPressBtnHandler = (e: KeyboardEvent<HTMLInputElement>) => {
-        if(e.key === 'Enter') {
+        if (e.key === 'Enter') {
             BtnHandler()
         }
     }
@@ -36,7 +39,7 @@ export const PacksSearch = () => {
                 value={event}
                 onChange={handleChange}
             />
-            <button onClick={BtnHandler} className={s.btnSearch}></button>
+            <button onClick={BtnHandler} className={s.btnSearch}> </button>
         </div>
     );
 }
