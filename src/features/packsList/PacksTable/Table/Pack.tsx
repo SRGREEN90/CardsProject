@@ -67,7 +67,7 @@ const Pack: React.FC<PackPropsType> = ({pack}) => {
             </div>
             {modalType === 'Delete' &&
             <Modal title={'Delete Pack'} show={isShownModal} closeModal={closeModal}>
-                <p>Do you really want to remove Pack Name - Name Pack?
+                <p>Do you really want to remove Pack Name - {pack.name}?
                     All cards will be excluded from this course.</p>
                 <ModalButtonsWrap closeModal={closeModal}>
                     <SuperButton onClick={deletePack} red={true}>Delete</SuperButton>
