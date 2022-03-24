@@ -90,7 +90,7 @@ const Card: React.FC<CardPropsType> = ({card, isCheckId, classMyCards}) => {
             </Modal>
             }
             {modalType === 'Edit' &&
-            <Modal title={'Edit Pack'} show={isShownModal} closeModal={closeModal}>
+            <Modal title={'Edit Card'} show={isShownModal} closeModal={closeModal}>
                 <div className={styles.textArea}>
                     <label>New Question</label>
                     <SuperTextArea value={newQuestion} onChangeText={setNewQuestion}/>
