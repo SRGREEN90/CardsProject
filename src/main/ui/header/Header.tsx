@@ -16,7 +16,6 @@ const Header = () => {
   return (
     <header className={styles.header}>
       <nav>
-        {/*<NavLink to={PATH.TEST}>TEST </NavLink>*/}
         <NavLink to={PATH.PACKS} className={(navData) => navData.isActive ? styles.isActive : ""}>
           <div className={styles.packsLink}><img src={packsListIcon}
                                                  alt={'packsListIcon'}/><span>Packs list</span></div>
@@ -25,27 +24,12 @@ const Header = () => {
           <div className={styles.profileLink}><img src={profileIcon} alt={'profileIcon'}/><span>Profile</span>
           </div>
         </NavLink>
-        {/*<NavLink to={PATH.LOGIN}>LOGIN </NavLink>*/}
-        {/*<NavLink to={PATH.REGISTRATION}>REGISTRATION </NavLink>*/}
-        {/*<NavLink to={PATH.REGISTRATION}>REGISTRATION </NavLink>*/}
-
-        {/*<NavLink to={PATH.FORGOT_YOUR_PASSWORD}>FORGOT_YOUR_PASSWORD </NavLink>*/}
-
-        {/*<NavLink to={PATH.PASSWORD_RECOVERY}>PASSWORD_RECOVERY </NavLink>*/}
-
-        {/*<NavLink to={PATH.CHECK_EMAIL}>CHECK_EMAIL</NavLink>*/}
+          <div className={styles.btnLogoutContainer}>
+              <button className={styles.btnLogout} onClick={logOutHandler}>Log Out</button>
+          </div>
       </nav>
-      <div className={styles.btnLogoutContainer}>
-        <button className={styles.btnLogout} onClick={logOutHandler}>Log Out</button>
-      </div>
     </header>
   )
 };
 
 export default Header;
-// <NavLink to={PATH.PACKS} className={classActivePacks} onClick={() => setIsActive('packs')}>
-//   <img src={packsListIcon} alt={'packsListIcon'}/>Packs list
-// </NavLink>
-// {/*<NavLink to={PATH.PROFILE} className={classActiveProfile} onClick={() => setIsActive('profile')}>*/}
-// {/*  <img src={profileIcon} alt={'profileIcon'}/>Profile*/}
-// {/*</NavLink>*/}

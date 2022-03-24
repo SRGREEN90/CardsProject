@@ -74,3 +74,13 @@ nav a:hover {
     opacity: 1;
     border-bottom: 2px #21268F solid;
 }
+
+@media (max-width: 553px) {
+    .header {
+        position: inherit;
+    }
+
+    .btnLogoutContainer {
+        position: inherit;
+    }
+}
