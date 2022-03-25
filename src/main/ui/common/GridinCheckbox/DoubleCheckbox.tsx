@@ -13,12 +13,16 @@ export const DoubleCheckbox = () => {
 
 
   const myOnClickHandler = () => {
-    if (!isLoading) dispatch(setMyPacksAC(true))
+    if (!isLoading) {
+      if (!myPacks) dispatch(setMyPacksAC(true))
+    }
   }
 
 
   const allOnClickHandler = () => {
-    if (!isLoading) dispatch(setMyPacksAC(false))
+    if (!isLoading) {
+      if (myPacks) dispatch(setMyPacksAC(false))
+    }
   }
 
   return (
