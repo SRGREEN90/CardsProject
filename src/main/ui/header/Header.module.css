@@ -65,6 +65,7 @@ nav a:hover {
     font-size: 17px;
     border-bottom: 2px solid transparent;
     cursor: pointer;
+    white-space: nowrap;
 }
 
 .btnLogout:hover,
