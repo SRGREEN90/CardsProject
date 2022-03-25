@@ -7,16 +7,19 @@ import {AppRootStateType} from "../../../bll/store";
 
 export const PacksSearch = () => {
     const dispatch = useDispatch()
-    const myPacks = useSelector<AppRootStateType, boolean>(state => state.cardsPack.myPacks);
+    const packName = useSelector<AppRootStateType, string>(state => state.cardsPack.packName)
+    //const myPacks = useSelector<AppRootStateType, boolean>(state => state.cardsPack.myPacks);
     const [event, setEvent] = useState<string>('')
 
     let handleChange = (e: ChangeEvent<HTMLInputElement>) => {
         setEvent(e.currentTarget.value)
     };
-
     useEffect(() => {
-        setEvent('')
-    }, [myPacks])
+        if (packName !== event) setEvent(packName)
+    }, [packName])
+    // useEffect(() => {
+    //     setEvent('')
+    // }, [myPacks])
 
     let BtnHandler = () => {
         dispatch(setFilteredPacksAC(event))
