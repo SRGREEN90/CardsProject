@@ -152,7 +152,7 @@ export const deletePackTC = (packId: string): AppThunkType => {
     }
 }
 
-export const addPackTC = (packName: string): AppThunkType => {
+export const addPackTC = (packName: string, privateValue: boolean): AppThunkType => {
     return (dispatch) => {
         dispatch(setLoadingAC(true))
         dispatch(sortPacksAC("0updated"))
@@ -160,7 +160,7 @@ export const addPackTC = (packName: string): AppThunkType => {
         const payload = {
             name: packName,
             deckCover: '',
-            private: false
+            private: privateValue
         }
 
         cardsPackApi.addPack(payload)

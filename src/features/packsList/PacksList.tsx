@@ -17,6 +17,7 @@ import Modal from "../../main/ui/common/Modal/Modal";
 import SuperInputText from "../../main/ui/common/SuperInputText/SuperInputText";
 import ModalButtonsWrap from "../../main/ui/common/Modal/ModalButtonsWrap";
 import {setErrorAC} from "../../main/bll/appReducer";
+import SuperCheckbox from "../../main/ui/common/SuperCheckbox/SuperCheckbox";
 
 const PacksList = () => {
     const dispatch = useDispatch();
@@ -34,6 +35,7 @@ const PacksList = () => {
     //const [id, setId] = useState(0)
 
     const [newPackName, setNewPackName] = useState<string>('');
+    const [privateValue, setPrivateValue] = useState<boolean>(false);
     const [isModal, setIsModal] = useState<boolean>(false);
 
     const showModal = () => setIsModal(true);
@@ -60,8 +62,9 @@ const PacksList = () => {
         if (newPage !== page) dispatch(changeCurrentPageAC(newPage))
     }
     const addPack = () => {
-        dispatch(addPackTC(newPackName))
+        dispatch(addPackTC(newPackName, privateValue))
         setNewPackName('')
+        setPrivateValue(false)
         closeModal()
     }
 
@@ -105,6 +108,10 @@ const PacksList = () => {
             <Modal title={'Add new pack'} show={isModal} closeModal={closeModal}>
                 <label>Name pack</label>
                 <SuperInputText value={newPackName} onChangeText={setNewPackName} placeholder={'Enter pack name'}/>
+                <div className={styles.containerCheckBox}>
+                    <SuperCheckbox checked={privateValue} onChangeChecked={setPrivateValue}/>
+                    <span>Private Pack</span>
+                </div>
                 <ModalButtonsWrap closeModal={closeModal}>
                     <SuperButton onClick={addPack}>Save</SuperButton>
                 </ModalButtonsWrap>
