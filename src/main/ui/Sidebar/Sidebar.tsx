@@ -30,17 +30,21 @@ const Sidebar = () => {
 
     return (
         <div className={styles.sidebar}>
-            <p>Show packs cards</p>
-            <DoubleCheckbox/>
-            <p>Number of cards</p>
-            <div className={stl.container}>
-                <span>{min}</span>
-                <SuperDoubleRange
-                    value={[min, max]}
-                    max={maxCardsCount}
-                    onChangeRange={onChangeDoubleRanger}
-                />
-                <span>{max}</span>
+            <div>
+                <p>Show packs cards</p>
+                <DoubleCheckbox/>
+            </div>
+            <div className={styles.containerNumberOfCards}>
+                <p>Number of cards</p>
+                <div className={stl.container}>
+                    <span>{min}</span>
+                    <SuperDoubleRange
+                        value={[min, max]}
+                        max={maxCardsCount}
+                        onChangeRange={onChangeDoubleRanger}
+                    />
+                    <span>{max}</span>
+                </div>
             </div>
         </div>
     );
