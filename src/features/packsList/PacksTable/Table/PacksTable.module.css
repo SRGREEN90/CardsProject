@@ -134,6 +134,9 @@
 }
 
 @media (max-width: 460px) {
+    .table{
+        margin: 10px 0;
+    }
     .item {
         grid-template-columns: 1fr 60px;
         grid-gap: 16px;

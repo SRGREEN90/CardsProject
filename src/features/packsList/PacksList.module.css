@@ -46,6 +46,14 @@
 
 @media (max-width: 630px) {
     .main {
-        padding: 20px;
+        padding: 15px;
+    }
+
+    .main h2 {
+        margin: 0;
+        font-size: 20px;
+    }
+    .search{
+        margin: 0;
     }
 }
