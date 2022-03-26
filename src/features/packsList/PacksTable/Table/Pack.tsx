@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import styles from "./PacksTable.module.css";
-import {NavLink, useParams} from "react-router-dom";
-import {PackType} from "../../../../API/cardsPackApi";
+import {NavLink} from "react-router-dom";
+import {PackType} from "../../../../main/dal/cardsPackApi";
 import {useDispatch, useSelector} from "react-redux";
 import {AppRootStateType} from "../../../../main/bll/store";
 import {deletePackTC, editPackTC} from "../../../../main/bll/cardsPackReducer";
@@ -63,7 +63,8 @@ const Pack: React.FC<PackPropsType> = ({pack}) => {
                         <button className={styles.button} onClick={() => showModal('Edit')}>Edit</button>
                     </>
                 }
-                <NavLink to={`/learn/${pack._id}`} className={`${!pack.cardsCount ? styles.disabled : ''} ${styles.button}`}>Learn</NavLink>
+                <NavLink to={`/learn/${pack._id}`}
+                         className={`${!pack.cardsCount ? styles.disabled : ''} ${styles.button}`}>Learn</NavLink>
             </div>
             {modalType === 'Delete' &&
             <Modal title={'Delete Pack'} show={isShownModal} closeModal={closeModal}>

@@ -22,7 +22,6 @@ export const Registration = () => {
     const loading = useSelector<AppRootStateType, boolean>(state => state.app.isLoading);
     const dispatch = useDispatch();
 
-    // ????? НУЖНО РАЗДЕЛЕНИЕ ОШИБОК ?????
     useEffect(() => {
         return () => {
             dispatch(setRegister(false));

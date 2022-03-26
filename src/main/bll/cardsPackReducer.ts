@@ -1,5 +1,5 @@
 // КОЛОДЫ
-import {cardsPackApi, PacksResponseType, PackType} from "../../API/cardsPackApi";
+import {cardsPackApi, PacksResponseType, PackType} from "../dal/cardsPackApi";
 import {setErrorAC, setLoadingAC} from "./appReducer";
 import {Dispatch} from "redux";
 import {AppRootStateType, AppThunkType} from "./store";

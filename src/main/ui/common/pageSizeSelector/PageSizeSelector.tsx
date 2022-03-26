@@ -1,5 +1,5 @@
 import React, {ChangeEvent, useState} from 'react';
-import SuperSelect from "../common/SuperSelect/SuperSelect";
+import SuperSelect from "../SuperSelect/SuperSelect";
 import styles from './PageSizeSelector.module.css'
 
 type PropsType = {

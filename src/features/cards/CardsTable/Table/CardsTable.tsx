@@ -1,7 +1,7 @@
 import React from 'react';
 import styles from './CardsTable.module.css'
 import Card from "./Card";
-import {CardType} from "../../../../API/cardsApi";
+import {CardType} from "../../../../main/dal/cardsApi";
 import {useDispatch, useSelector} from "react-redux";
 import {AppRootStateType} from "../../../../main/bll/store";
 import {changeCurrentPageCardsAC, sortCardsAC} from "../../../../main/bll/cardsReducer";

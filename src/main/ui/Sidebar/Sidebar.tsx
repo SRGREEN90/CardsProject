@@ -5,7 +5,7 @@ import stl from "../common/SuperRange/RangeDemo.module.css";
 import SuperDoubleRange from "../common/SuperRange/common/c8-SuperDoubleRange/SuperDoubleRange";
 import {useDispatch, useSelector} from "react-redux";
 import {AppRootStateType} from "../../bll/store";
-import { setDebouncingFlagAC, setMaxAC, setMinAC} from "../../bll/cardsPackReducer";
+import {setDebouncingFlagAC, setMaxAC, setMinAC} from "../../bll/cardsPackReducer";
 
 const Sidebar = () => {
     const dispatch = useDispatch()

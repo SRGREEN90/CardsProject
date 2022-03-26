@@ -5,7 +5,7 @@ export const instance = axios.create({
     withCredentials: true,
 })
 
-export const cardsAPI = {
+export const authAndProfileApi = {
     me() {
         return instance.post<UserResponseType>('/auth/me')
     },
