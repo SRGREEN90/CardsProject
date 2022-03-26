@@ -68,7 +68,7 @@ export const Login = () => {
                 <p className={styles.forgotText}>
                     <NavLink to={PATH.FORGOT_YOUR_PASSWORD} className={styles.linkLogin}>Forgot Password</NavLink>
                 </p>
-                <SuperButton onClick={loginHandler}>Login</SuperButton>
+                <SuperButton onClick={loginHandler} style={{padding: '10px 60px'}}>Login</SuperButton>
                 <p>Don’t have an account?</p>
                 <NavLink to={PATH.REGISTRATION} className={styles.linkLogin}>
                     <p className={styles.signUpText}>Sign Up</p>

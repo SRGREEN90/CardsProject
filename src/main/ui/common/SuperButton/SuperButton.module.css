@@ -63,3 +63,13 @@
     background: #D7D8EF;
     color: #21268F;
 }
+
+@media (max-width: 500px) {
+    .default {
+        padding: 10px 20px;
+    }
+    .red{
+        padding: 10px 20px;
+    }
+}
+
