@@ -11,7 +11,7 @@
     height: 100%;
 }
 
-@media (max-width: 1000px) {
+@media (max-width: 1150px) {
     .sidebar {
         padding: 0 10px 10px 10px;
         width: 100%;
