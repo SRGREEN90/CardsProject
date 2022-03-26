@@ -62,7 +62,7 @@ const CardsTable = ({cards}: PropsType) => {
                 </div>
                 {
                     isCheckId && <>
-                        <div>Actions</div>
+                        <div >Actions</div>
                     </>
                 }
             </div>
