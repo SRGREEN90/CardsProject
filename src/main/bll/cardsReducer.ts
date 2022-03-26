@@ -53,7 +53,7 @@ export const cardsReducer = (state: InitialStateType = initialState, action: Car
 };
 
 // type
-type InitialStateType = {
+export type InitialStateType = {
     cards: Array<CardType>
     cardsTotalCount: number
     maxGrade: number
