@@ -51,7 +51,7 @@ export const PasswordRecovery1 = () => {
                     />
                 </div>
                 <p>Create new password and we will send you further instructions to email</p>
-                <SuperButton onClick={newPasswordHandler}>Create new password</SuperButton>
+                <SuperButton onClick={newPasswordHandler} style={{padding: '10px 60px'}}>Create new password</SuperButton>
             </Frame>
         </>
     )
