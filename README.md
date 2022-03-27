@@ -1,22 +1,22 @@
 #### We’ve created a React Application "Quiz Card":
-• there is action to get the pack/card;
-• there is action to create the pack/card (+ you can put status of pack to Private using private param);
-• there is action to delete the pack/card;
-• there is action to update the pack/card details;
-• there is action to learn each pack with cards;
+- there is action to get the pack/card;
+- there is action to create the pack/card (+ you can put status of pack to Private using private param);
+- there is action to delete the pack/card;
+- there is action to update the pack/card details;
+- there is action to learn each pack with cards;
 +
-• there is a search bar for finding pack or card by name or by question.
-• there is a checkbox bar for changing params of pack or params of card.
-• there is a pagination for changing pages of application.
+- there is a search bar for finding pack or card by name or by question.
+- there is a checkbox bar for changing params of pack or params of card.
+- there is a pagination for changing pages of application.
 
 Technology:
- • react
- • typescript
- • react-redux 
- • redux 
- • redux-thunk 
- • react-router-dom 
- • axios
+ - react
+ - typescript
+ - react-redux 
+ - redux 
+ - redux-thunk 
+ - react-router-dom 
+ - axios
 
 Description:
 We’ve started with building the most independent parts like — Redux Actions, Reducers (we've combined the reducers using the combineReducer function).
