@@ -1,4 +1,4 @@
-import React, {ChangeEvent, useRef, useState} from 'react';
+import React, {ChangeEvent, useState} from 'react';
 import {Navigate} from 'react-router-dom';
 import styles from "./Profile.module.css";
 import {useDispatch, useSelector} from "react-redux";
@@ -11,9 +11,8 @@ import {PATH} from "../../main/ui/routes/Routes";
 import Preloader from "../../main/ui/common/Preloader/Preloader";
 import Header from "../../main/ui/header/Header";
 import SuperButton from "../../main/ui/common/SuperButton/SuperButton";
-import ModalButtonsWrap from "../../main/ui/common/Modal/ModalButtonsWrap";
 import Modal from "../../main/ui/common/Modal/Modal";
-import SuperInputText from "../../main/ui/common/SuperInputText/SuperInputText";
+import {AvatarFileReader} from "./AvatarFileReader";
 
 export const Profile = () => {
   const dispatch = useDispatch();
@@ -24,45 +23,10 @@ export const Profile = () => {
   const isLoggedIn = useSelector<AppRootStateType, boolean>(state => state.login.status);
   const loading = useSelector<AppRootStateType, boolean>(state => state.app.isLoading);
 
-  const inRef = useRef<HTMLInputElement>(null)
-  const [file, setFile] = useState<File>()
-  const [fileURL, setFileURL] = useState<string>()
-  const [file64, setFile64] = useState<string | ArrayBuffer | null>();
-
   const [name, setName] = useState(profileName)
-  const [newLink, setNewLink] = useState<string>('')
   const [localErr, setLocalErr] = useState<string>('')
-  const [isModal, setIsModal] = useState<boolean>(false)
 
-  const showModal = () => setIsModal(true);
-  const closeModal = () => setIsModal(false);
 
-  const upload = (e: ChangeEvent<HTMLInputElement>) => {
-    const reader = new FileReader();
-    reader.onloadend = () => {
-      setFile64(reader.result);
-    }
-    const newFile = e.target.files && e.target.files[0];
-
-    if (newFile) {
-      setFile(newFile);
-      setFileURL(window.URL.createObjectURL(newFile));
-
-      reader.readAsDataURL(newFile);
-    }
-    setNewLink('')
-  }
-  const saveAvatarHandler = () => {
-    typeof(file64) === 'string' && dispatch(updateProfile({avatar: file64}))
-    newLink && dispatch(updateProfile({avatar: newLink}))
-    closeModal()
-  }
-const onChangeLink = (e:ChangeEvent<HTMLInputElement>) => {
-  setNewLink(e.currentTarget.value)
-  setFile(undefined)
-  setFile64(null)
-  setFileURL(undefined)
-}
   const onBlurNameHandler = () => {
     onSubmitName();
   }
@@ -88,7 +52,10 @@ const onChangeLink = (e:ChangeEvent<HTMLInputElement>) => {
       setName(profileName);
     }
   }
-
+//Modal
+  const [isModal, setIsModal] = useState<boolean>(false)
+  const showModal = () => setIsModal(true);
+  const closeModal = () => setIsModal(false);
 
   if (!isLoggedIn) {
     return <Navigate to={PATH.LOGIN}/>
@@ -126,36 +93,8 @@ const onChangeLink = (e:ChangeEvent<HTMLInputElement>) => {
         <SuperButton onClick={showModal} light={true}>Change avatar</SuperButton>
       </Frame>
       <Modal title={'Profile Avatar'} show={isModal} closeModal={closeModal}>
-        <label>Insert new link or add jpg file</label>
-        <SuperInputText value={newLink} onChange={onChangeLink}  placeholder={'Insert new link'}/>
-        <input
-          ref={inRef}
-          type={'file'}
-          style={{display: 'none'}}
-          onChange={upload}
-        />
-        <SuperButton onClick={() => inRef && inRef.current && inRef.current.click()}>Add file</SuperButton>
-        <div className={styles.avatar}>
-          <img src={fileURL ? fileURL : noAvatar}
-               alt="avatar"/>
-        </div>
-        <div>name: {file && file.name}</div>
-        <div>size: {file && returnFileSize(file.size)}</div>
-        <div>type: {file && file.type}</div>
-        <ModalButtonsWrap closeModal={closeModal}>
-          <SuperButton onClick={saveAvatarHandler}>Save</SuperButton>
-        </ModalButtonsWrap>
+        <AvatarFileReader closeModal={closeModal}/>
       </Modal>
     </>
   );
-};
-
-const returnFileSize = (n: number) => {
-  if (n < 1024) {
-    return n + 'bytes';
-  } else if (n > 1024 && n < 1048576) {
-    return (n / 1024).toFixed(2) + 'KB';
-  } else if (n > 1048576) {
-    return (n / 1048576).toFixed(2) + 'MB';
-  }
 };
