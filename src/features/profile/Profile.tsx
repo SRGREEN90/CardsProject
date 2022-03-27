@@ -19,6 +19,7 @@ export const Profile = () => {
   const profileName = useSelector<AppRootStateType, string>(state => state.profilePage.name);
   const profileAvatar = useSelector<AppRootStateType, string>(state => state.profilePage.avatar);
   const profileEmail = useSelector<AppRootStateType, string>(state => state.profilePage.email);
+  const packsNumber = useSelector<AppRootStateType, number>(state => state.profilePage.publicCardPacksCount);
   const error = useSelector<AppRootStateType, string | undefined>(state => state.profilePage.error);
   const isLoggedIn = useSelector<AppRootStateType, boolean>(state => state.login.status);
   const loading = useSelector<AppRootStateType, boolean>(state => state.app.isLoading);
@@ -85,6 +86,7 @@ export const Profile = () => {
             }
           </div>
           <div className={styles.info}>Email: {profileEmail}</div>
+          <div className={styles.info}>Your packs: {packsNumber} </div>
         </div>
         <div className={styles.error}>
           {error && <span>error: {error}</span>}
