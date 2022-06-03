@@ -14,8 +14,8 @@ import Preloader from "../../../main/ui/common/Preloader/Preloader";
 import {setErrorAC} from "../../../main/bll/appReducer";
 
 export const Login = () => {
-    const [email, setEmail] = useState<string>('');
-    const [password, setPassword] = useState<string>('');
+    const [email, setEmail] = useState<string>('testtesttest@gmail.com');
+    const [password, setPassword] = useState<string>('123456789');
     const [rememberMe, setRememberMe] = useState<boolean>(false);
 
     const loginStatus = useSelector<AppRootStateType, boolean>(state => state.login.status);
